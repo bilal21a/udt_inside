@@ -22,12 +22,12 @@
                     <div class="w-100 w-lg-75 ">
                         <div>
                             <div class="mb-5">
-                                <h1 class="display-3 text-white">Unlock Your Future </h1>
-                                <h1 class="display-3 text-white">with Our Library Management System</h1>
+                                <h1 class="display-3 text-white">UDT helps you 
+                                    send freight fast
+                                    </h1>
                             </div>
                             <p class="h6 text-white lh-1-5 mb-5">
-                                "Education is the passport to the future, for tomorrow belongs to those who prepare for it
-                                today." <br> - Malcolm X
+                                UNITED DRIVERS TRUST <br>
                             </p>
                         </div>
                     </div>
@@ -48,11 +48,6 @@
                         </div>
                         <div class="mb-5">
                             <p class="h6">Please use your credentials to login.</p>
-                            <p class="h6">
-                                If you are not a member, please
-                                <a href="{{ route('register') }}">register</a>
-                                .
-                            </p>
                         </div>
                         <div>
                             <form method="POST" action="{{ route('login') }}">
