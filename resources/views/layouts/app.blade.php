@@ -5,9 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>UDT - ADMIN</title>
-    <meta name="description"
-        content="A vertical menu that newer shows larger pinned version and switches between mobile view and semi-hidden view." />
-    <!-- Favicon Tags Start -->
+ <!-- Favicon Tags Start -->
     <link rel="apple-touch-icon-precomposed" sizes="57x57"
         href="{{ asset('acron/img/favicon/apple-touch-icon-57x57.png') }}" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114"
