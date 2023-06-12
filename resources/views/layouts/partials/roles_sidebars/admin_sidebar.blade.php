@@ -1,5 +1,5 @@
 <li>
-    <a class="{{ request()->is('reports*') ? 'active' : '' }}" href="{{ route('reports.index') }}">
+    <a class="{{ request()->is('reports*') ? 'active' : '' }}" href="#">
         <i data-acorn-icon="dashboard-1" class="d-inline-block"></i>
         <span class="label">Dashboard</span>
     </a>

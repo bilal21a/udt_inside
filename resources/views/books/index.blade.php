@@ -72,27 +72,4 @@
         var delete_data_url = '{{ route('book.destroy', ':id') }}'
     </script>
     @include('common.js.delete_data')
-
-    <script>
-        function view_issue_status(id) {
-            console.log('id: ', id);
-            var show_status_url = '{{ route('book.view_book', ':id') }}/true'
-
-            $('#simpleModal').modal('show');
-            $('#modalTitle_simple').html('View Status');
-            $('.simpleModal_body').html('');
-            url = show_status_url.replace(':id', id);
-
-            $.ajax({
-                type: 'GET',
-                url: url,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    $('.simpleModal_body').html(data);
-                },
-            });
-        }
-    </script>
 @endsection
