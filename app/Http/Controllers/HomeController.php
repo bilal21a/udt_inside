@@ -23,18 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->hasRole('admin')) {
-            return redirect()->route('reports.index');
-        }
-        if (auth()->user()->hasRole('librarian')) {
-            return redirect()->route('book.index');
-        }
-        if (auth()->user()->hasRole('student')) {
-            return redirect()->route('book.user');
-        }
-        if (auth()->user()->hasRole('faculty')) {
-            return redirect()->route('book.user');
-        }
         return view('home');
     }
 }
