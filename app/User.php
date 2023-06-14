@@ -17,7 +17,26 @@ class User extends Authenticatable
      *
      * @var array
      */
+<<<<<<< HEAD
     protected $fillable = ['first_name', 'last_name', 'middle_name', 'gender', 'phone', 'email', 'address', 'password', 'description', 'profile_image', 'parent_id', 'role', 'cnic'];
+=======
+    protected $fillable = ['first_name', 'last_name', 'middle_name', 'gender', 'phone', 'email', 'address', 'password', 'description', 'profile_image', 'parent_id', 'role', 'cnic',];
+    public function vehicles()
+    {
+        return $this->belongsToMany(Vehicle::class, 'vehicle_driver', 'user_id', 'vehicle_id');
+    }
+>>>>>>> 76beadc (made some models)
+
+    public function driverInfo()
+    {
+        return $this->hasOne(DriverInfo::class);
+    }
+    
+    public function fuelPumps()
+    {
+        return $this->hasOne(FuelPumps::class);
+    }
+
 
     /**
      * The attributes that should be hidden for arrays.
