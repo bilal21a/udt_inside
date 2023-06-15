@@ -20,7 +20,8 @@ class CreateDriverInfosTable extends Migration
             $table->date('license_exp_date')->nullable();
             $table->string('license_img_front')->nullable();
             $table->string('license_img_back')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

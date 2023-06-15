@@ -16,6 +16,8 @@ class CreateFuelStationsTable extends Migration
         Schema::create('fuel_stations', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->longText('address')->nullable();
             $table->string('capacity')->nullable();
             $table->string('rate_per_liter')->nullable();
