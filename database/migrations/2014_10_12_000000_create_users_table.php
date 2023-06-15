@@ -25,12 +25,14 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('description')->nullable();
             $table->string('profile_image')->nullable();
-            $table->integer('parent_id')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('role')->nullable();
             $table->string('cnic')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

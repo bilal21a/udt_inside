@@ -49,4 +49,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(FuelPumps::class);
     }
+    public function drivers()
+    {
+        return $this->hasMany(User::class,'parent_id');
+    }
+    public function customers(){
+        return $this->belongsTo(User::class,'parent_id');
+    }
 }
