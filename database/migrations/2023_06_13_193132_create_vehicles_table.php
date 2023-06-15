@@ -21,7 +21,6 @@ class CreateVehiclesTable extends Migration
             $table->string('engine_type');
             $table->string('year');
             $table->string('avg_kmpg');
-            $table->string('avg_kmpg');
             $table->string('no_plate');
             $table->string('reg_no');
             $table->string('pessenger_capacity');
