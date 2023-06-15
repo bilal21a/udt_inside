@@ -37,3 +37,9 @@ Route::get('/logout', function () {
     return redirect()->route('login');
 })->name('logout');
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+//resource controller
+Route::resource('add/customer', ResourceNameController::class);
