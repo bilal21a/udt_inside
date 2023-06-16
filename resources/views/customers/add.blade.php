@@ -63,11 +63,14 @@
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary">Sumbit</button>
+                <button type="submit" class="btn btn-primary" id="success_message" >Sumbit</button>
             </form>
         </div>
     </div>
 @endsection
 
 @section('js_after')
+<script>
+
+</script>
 @endsection

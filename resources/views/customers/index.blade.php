@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('common.alert.alert')
+
     <div class="container">
         <!-- Title and Top Buttons Start -->
         <div class="page-title-container">
@@ -34,5 +36,4 @@
         var get_data_url = "{{ route('get_customers') }}"
     </script>
     @include('common.js.get_data')
-
 @endsection
