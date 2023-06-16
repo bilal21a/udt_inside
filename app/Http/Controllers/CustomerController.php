@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class CustomerController extends Controller
 {
@@ -13,9 +15,24 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return view('customers.index');
     }
 
+    public function get_customers()
+    {
+        $users = User::select(['id', 'first_name', 'email', 'created_at']);
+        return DataTables::of($users)
+            ->addColumn('action', function ($user) {
+                return $this->get_buttons($user->id);
+            })
+            ->addColumn('role', function ($user) {
+                return "customer";
+            })
+            ->addColumn('registered_at', function ($user) {
+                return $user->created_at->format('d M,Y');
+            })
+            ->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -23,7 +40,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        // dd("here");
+        return view('customers.add');
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,8 +24,12 @@ Route::middleware(['auth'])->group(function () {
     // Users Management
     Route::resource('users', 'UserController');
     Route::get('get_users', [UserController::class, 'get_data'])->name('get_users');
-});
 
+    // Customers Management
+    Route::resource('customers', 'CustomerController');
+    Route::get('get_customers', [CustomerController::class, 'get_customers'])->name('get_customers');
+
+});
 
 
 
@@ -42,4 +47,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 //resource controller
-Route::resource('add/customer', ResourceNameController::class);
+// Route::resource('add/customer', ResourceNameController::class);

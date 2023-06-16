@@ -51,9 +51,10 @@ class User extends Authenticatable
     }
     public function drivers()
     {
-        return $this->hasMany(User::class,'parent_id');
+        return $this->hasMany(User::class, 'parent_id');
     }
-    public function customers(){
-        return $this->belongsTo(User::class,'parent_id');
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'parent_id');
     }
 }

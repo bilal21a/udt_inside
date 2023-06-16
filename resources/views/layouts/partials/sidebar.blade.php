@@ -15,11 +15,11 @@
         </div>
         <!-- Logo End -->
         @php
-            $user_name = auth()->user()->name;
+            $user_name = auth()->user()->first_name.' '.auth()->user()->last_name;
             $background = 'ECF5FF';
             $text = '1ea8e7';
             $avatar = 'https://ui-avatars.com/api/?background=' . $background . '&color=' . $text . '&name=' . $user_name;
-            
+
         @endphp
         <!-- User Menu Start -->
         <div class="user-container d-flex">

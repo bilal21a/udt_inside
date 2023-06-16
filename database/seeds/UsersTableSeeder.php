@@ -18,11 +18,9 @@ class UsersTableSeeder extends Seeder
     {
         // Create admin user
         DB::table('users')->insert([
-            'personal_id' => Str::random(10),
-            'name' => 'Admin User',
+            'first_name' => 'Admin User',
             'email' => 'admin@gmail.com',
-            'mobile' => '1234567890',
-            'status' => 1,
+            'phone' => '1234567890',
             'email_verified_at' => now(),
             'password' => Hash::make('12345678'),
             'remember_token' => Str::random(10),
@@ -35,11 +33,9 @@ class UsersTableSeeder extends Seeder
 
         // Create regular user
         DB::table('users')->insert([
-            'personal_id' => Str::random(10),
-            'name' => 'Regular User',
+            'first_name' => 'Regular User',
             'email' => 'bilal@gmail.com',
-            'mobile' => '0987654321',
-            'status' => 0,
+            'phone' => '0987654321',
             'email_verified_at' => null,
             'password' => Hash::make('12345678'),
             'remember_token' => Str::random(10),
