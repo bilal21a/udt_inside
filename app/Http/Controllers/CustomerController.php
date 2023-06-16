@@ -52,7 +52,20 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $user = new User();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->cnic = $request->cnic;
+        $user->profile_image = $request->profile_image;
+        $user->address = $request->address;
+        $user->gender = $request->gender;
+        $user->save();
+        // dd($user);
+
     }
 
     /**

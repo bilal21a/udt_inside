@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('customers', 'CustomerController');
     Route::get('get_customers', [CustomerController::class, 'get_customers'])->name('get_customers');
 
+
 });
 
 
