@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Dotenv\Result\Success;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -52,6 +53,15 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'description' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
+            'audio' => 'required|mimes:mpga,wav,mp3',
+            'color' => 'regex:/^#([a-fA-F0-9]{6})$/',
+            'colorcode' => 'regex:/^#([a-fA-F0-9]{6})$/',
+        ]);
         // dd($request->all());
         $user = new User();
         $user->first_name = $request->first_name;
@@ -64,8 +74,8 @@ class CustomerController extends Controller
         $user->address = $request->address;
         $user->gender = $request->gender;
         $user->save();
-        // dd($user);
 
+        return redirect()->route('customers.index')->with('alert', ['type' => 'success', 'message' => 'Customer saved successfully']);
     }
 
     /**
