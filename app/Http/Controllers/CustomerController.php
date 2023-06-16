@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\CustomerTrait;
 use App\User;
-use Dotenv\Result\Success;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class CustomerController extends Controller
 {
+    use CustomerTrait;
     /**
      * Display a listing of the resource.
      *
@@ -21,17 +23,19 @@ class CustomerController extends Controller
 
     public function get_customers()
     {
-        $users = User::select(['id', 'first_name', 'email', 'created_at']);
-        return DataTables::of($users)
-            ->addColumn('action', function ($user) {
-                return $this->get_buttons($user->id);
+        $data = User::where('role', 'customer')->get();
+        return DataTables::of($data)
+            ->addColumn('profile_image', function ($row) {
+                return '<img class="picheight" src="' . $row->profile_url . '">';
             })
-            ->addColumn('role', function ($user) {
-                return "customer";
+            ->addColumn('full_name', function ($row) {
+                return $row->first_name . ' ' . $row->last_name;
             })
-            ->addColumn('registered_at', function ($user) {
-                return $user->created_at->format('d M,Y');
+            ->addColumn('action', function ($row) {
+                $edit_btn_url = route('customers.edit', $row->id);
+                return $this->get_buttons($edit_btn_url, $row->id);
             })
+            ->rawColumns(['profile_image', 'full_name', 'action', 'registered_at'])
             ->make(true);
     }
     /**
@@ -41,7 +45,6 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        // dd("here");
         return view('customers.add');
     }
 
@@ -53,27 +56,22 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'description' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
-            'audio' => 'required|mimes:mpga,wav,mp3',
-            'color' => 'regex:/^#([a-fA-F0-9]{6})$/',
-            'colorcode' => 'regex:/^#([a-fA-F0-9]{6})$/',
+            'phone' => 'required',
+            'email' => 'required|unique:users,email',
+            'password' => 'required',
+            'cnic' => 'required',
+            'profile_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
+            'address' => 'required',
+            'gender' => 'required',
         ]);
-        // dd($request->all());
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+        }
         $user = new User();
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->phone = $request->phone;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->cnic = $request->cnic;
-        $user->profile_image = $request->profile_image;
-        $user->address = $request->address;
-        $user->gender = $request->gender;
-        $user->save();
+        $user = $this->save_data($user, $request);
 
         return redirect()->route('customers.index')->with('alert', ['type' => 'success', 'message' => 'Customer saved successfully']);
     }
@@ -97,7 +95,8 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('customers.edit', compact('user'));
     }
 
     /**
@@ -109,7 +108,23 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'phone' => 'required',
+            'email' => 'required|unique:users,email,'.$id.',id',
+            'password' => 'required',
+            'cnic' => 'required',
+            'profile_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
+            'address' => 'required',
+            'gender' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+        }
+        $user = User::find($id);
+        $user = $this->save_data($user, $request, 'edit');
+        return redirect()->route('customers.index')->with('alert', ['type' => 'success', 'message' => 'Customer "' . $user->full_name . '" Updated successfully']);
     }
 
     /**
@@ -120,6 +135,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $this->delete_image($user->profile_image);
+        $user->delete();
+        return "deleted successfully";
     }
 }

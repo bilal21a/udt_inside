@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable, HasRoles;
 
+    protected $appends = ['full_name','profile_url'];
     protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
@@ -56,5 +57,15 @@ class User extends Authenticatable
     public function customer()
     {
         return $this->belongsTo(User::class, 'parent_id');
+    }
+
+    // appends & getters
+    public function getFullNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+    public function getProfileUrlAttribute()
+    {
+        return asset('storage/customer/' . $this->profile_image);
     }
 }

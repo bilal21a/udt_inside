@@ -11,10 +11,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function get_buttons($id)
+    public function get_buttons($edit_btn_url, $id)
     {
         return '
-        <button class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1" onclick="editFormShow(' . $id . ')" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
+        <a class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1" href="' . $edit_btn_url . '">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20" fill="none"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                 class="acorn-icons acorn-icons-edit-square undefined">
@@ -26,7 +26,7 @@ class Controller extends BaseController
                 </path>
             </svg>
             <span class="d-none d-xxl-inline-block">Edit</span>
-        </button>
+        </a>
         <button class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1" onclick="deleteData(' . $id . ')" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20" fill="none"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
