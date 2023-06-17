@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,10 @@ Route::middleware(['auth'])->group(function () {
     // Customers Management
     Route::resource('customers', 'CustomerController');
     Route::get('get_customers', [CustomerController::class, 'get_customers'])->name('get_customers');
+
+
+    Route::resource('drivers', 'DriverController');
+    Route::get('get_drivers', [DriverController::class, 'get_drivers'])->name('get_drivers');
 
 
 });
