@@ -71,7 +71,7 @@ class CustomerController extends Controller
             return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = new User();
-        $user = $this->save_data($user, $request);
+        $user = $this->save_customer($user, $request);
 
         return redirect()->route('customers.index')->with('alert', ['type' => 'success', 'message' => 'Customer saved successfully']);
     }
@@ -113,7 +113,6 @@ class CustomerController extends Controller
             'last_name' => 'required|max:255',
             'phone' => 'required',
             'email' => 'required|unique:users,email,'.$id.',id',
-            'password' => 'required',
             'cnic' => 'required',
             'profile_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
             'address' => 'required',
@@ -123,7 +122,7 @@ class CustomerController extends Controller
             return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = User::find($id);
-        $user = $this->save_data($user, $request, 'edit');
+        $user = $this->save_customer($user, $request, 'edit');
         return redirect()->route('customers.index')->with('alert', ['type' => 'success', 'message' => 'Customer "' . $user->full_name . '" Updated successfully']);
     }
 

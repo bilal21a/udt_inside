@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('register', [RegisterController::class, 'register']);
+Route::post('add_customer', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
 Route::post('forgetPassword', [ForgetPasswordController::class, 'forgetPassword']);
 Route::post('changePassword', [ForgetPasswordController::class, 'changePassword']);

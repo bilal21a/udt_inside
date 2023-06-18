@@ -6,14 +6,16 @@ use Illuminate\Support\Facades\Storage;
 
 trait CustomerTrait
 {
-    public function save_data($user, $request, $type = null)
+    public function save_customer($user, $request, $type = null)
     {
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->role = "customer";
         $user->phone = $request->phone;
         $user->email = $request->email;
-        $user->password = $request->password;
+        if ($request->password!=null) {//only update in if provided
+            $user->password = bcrypt($request->password);
+        }
         $user->cnic = $request->cnic;
         if ($request->hasFile('profile_image')) {
             if ($type != null) {
