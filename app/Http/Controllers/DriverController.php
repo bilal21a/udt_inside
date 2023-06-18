@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\DirverInfo;
 use App\Traits\CustomerTrait;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use SebastianBergmann\CodeCoverage\Driver\Driver;
 
 class DriverController extends Controller
 {
@@ -24,20 +26,21 @@ class DriverController extends Controller
 
     public function get_customers()
     {
-        // $data = User::where('role', 'customer')->get();
-        // return DataTables::of($data)
-        //     ->addColumn('profile_image', function ($row) {
-        //         return '<img class="picheight" src="' . $row->profile_url . '">';
-        //     })
-        //     ->addColumn('full_name', function ($row) {
-        //         return $row->first_name . ' ' . $row->last_name;
-        //     })
-        //     ->addColumn('action', function ($row) {
-        //         $edit_btn_url = route('customers.edit', $row->id);
-        //         return $this->get_buttons($edit_btn_url, $row->id);
-        //     })
-        //     ->rawColumns(['profile_image', 'full_name', 'action', 'registered_at'])
-        //     ->make(true);
+        $data = User::where('role', 'customer')->get();
+        return DataTables::of($data)
+            ->addColumn('profile_image', function ($row) {
+                return '<img class="picheight" src="' . $row->profile_url . '">';
+            })
+            ->addColumn('full_name', function ($row) {
+                return $row->first_name . ' ' . $row->last_name;
+            })
+            ->addColumn('action', function ($row) {
+                // $edit_btn_url = route('customers.edit', $row->id);
+                $edit_btn_url_driver = route('drivers.edit', $row->id);
+                return $this->get_buttons($edit_btn_url_driver, $row->id);
+            })
+            ->rawColumns(['profile_image', 'full_name', 'action', 'registered_at'])
+            ->make(true);
     }
 
 
@@ -59,35 +62,42 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'first_name' => 'required|max:255',
-        //     'middle_name' => 'required|max:255',
-        //     'last_name' => 'required|max:255',
-        //     'phone' => 'required',
-        //     'email' => 'required|unique:users,email',
-        //     'password' => 'required',
-        //     'cnic' => 'required',
-        //     'profile_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
-        //     'address' => 'required',
-        //     'gender' => 'required',
-        // ]);
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
-        // }
-        $user = new User();
-        $user = $this->save_data($user, $request);
         
-        $driver= new DirverInfo();
+        $user = new User();
+        $user = $this->save_data($user, $request, $type = null);
+        $license_issue_date = Carbon::createFromFormat('d-M-Y',  $request->license_issue_date)->format('Y-m-d');
+        $license_exp_date = Carbon::createFromFormat('d-M-Y',  $request->license_exp_date)->format('Y-m-d');
+        $driver = new DirverInfo();
         $driver->license_no = $request->license_no;
-        $driver->license_issue_date = $request->license_issue_date;
-        $driver->license_exp_date = $request->license_exp_date;
-        $driver->license_img_front = $request->license_img_front;
-        $driver->license_img_back = $request->license_img_back;
-        // dd($driver,$user);
+        $driver->license_issue_date = $license_issue_date;
+        $driver->license_exp_date = $license_exp_date;
+        // $driver->license_img_front = $request->license_img_front;
+
+        if ($request->hasFile('license_img_front')) {
+            if ($type != null) {
+                $this->delete_image($driver->license_img_front);
+            }
+            $file = $request->file('license_img_front');
+            $filename = 'driver_' . rand() . '.' . $file->getClientOriginalExtension();
+            $driver->license_img_front = $filename;
+            $file->storeAs('public/driver/license_front/', $filename);
+        }
+        if ($request->hasFile('license_img_back')) {
+            if ($type != null) {
+                $this->delete_image($driver->license_img_front);
+            }
+            $file = $request->file('license_img_back');
+            $filename = 'driver_' . rand() . '.' . $file->getClientOriginalExtension();
+            $driver->license_img_back = $filename;
+            $file->storeAs('public/driver/license_back/', $filename);
+        }
+
+        // $driver->license_img_back = $request->license_img_back;
+        $driver->user_id = $user->id;
+        // dd($request->license_img_front);
         $driver->save();
-
-
-        return redirect()->route('customers.index')->with('alert', ['type' => 'success', 'message' => 'Customer saved successfully']);
+        // dd($driver);
+        return redirect()->route('drivers.index')->with('alert', ['type' => 'success', 'message' => 'Customer saved successfully']);
     }
 
     /**
@@ -110,6 +120,8 @@ class DriverController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        dd($user->DriverInfo);
+        // $driver= DriverInfo::where($user_id,);
         return view('drivers.edit', compact('user'));
     }
 
@@ -122,7 +134,10 @@ class DriverController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+     
+        $user = User::find($id);
+        $user = $this->save_data($user, $request, 'edit');
+        return redirect()->route('drivers.index')->with('alert', ['type' => 'success', 'message' => 'Customer "' . $user->full_name . '" Updated successfully']);
     }
 
     /**

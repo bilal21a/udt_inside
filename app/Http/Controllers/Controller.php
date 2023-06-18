@@ -11,8 +11,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function get_buttons($edit_btn_url, $id)
+    public function get_buttons( $edit_btn_url, $id)
     {
+        // $edit_url=$edit_btn_url ==route('customers.edit') ? route('customers.edit') : route('drivers.edit') ;
+        // dd($edit_btn_url);
         return '
         <a class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1" href="' . $edit_btn_url . '">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20" fill="none"

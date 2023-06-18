@@ -42,7 +42,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Vehicle::class, 'vehicle_driver', 'user_id', 'vehicle_id');
     }
 
-    public function driverInfo()
+    public function DriverInfo()
     {
         return $this->hasOne(DriverInfo::class);
     }

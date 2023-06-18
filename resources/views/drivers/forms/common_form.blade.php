@@ -74,10 +74,11 @@
     @endif
 </div>
 <div class="mb-3">
+    {{-- @dd($driver); --}}
     <label class="form-label">Driver Picture(Front) <span class="text-danger">*</span></label>
     <input type="file" name="license_img_front" class="form-control"
-        value="{{ isset($user) ? $user->profile_image : old('profile_image') }}">
-    @if (isset($user) && $user->profile_image != null)
+        value="{{ isset($driver) ? $driver->license_img_front : old('license_img_front') }}">
+    @if (isset($driver) && $driver->license_img_front != null)
         <div class="sh-15 me-1 mb-1 d-inline-block">
             <img src="{{ asset($user->profile_url) }}" class="img-fluid-height rounded-md" alt="thumb">
 
