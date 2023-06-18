@@ -5,8 +5,8 @@
     </a>
 </li>
 <li>
-    <a class="{{ request()->is('users*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+    <a class="{{ request()->is('customers*') ? 'active' : '' }}" href="{{ route('customers.index') }}">
         <i data-acorn-icon="user" class="d-inline-block"></i>
-        <span class="label">Users Management</span>
+        <span class="label">Customers</span>
     </a>
 </li>
