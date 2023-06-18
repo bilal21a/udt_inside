@@ -119,8 +119,8 @@ class DriverController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        dd($user->DriverInfo);
+        $user = User::with('driver_info')->find($id);
+        dd($user->driver_info);
         // $driver= DriverInfo::where($user_id,);
         return view('drivers.edit', compact('user'));
     }
