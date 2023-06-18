@@ -1,7 +1,6 @@
 @php
     $gender = isset($user) ? $user->gender : old('gender');
-@endphp
-
+    @endphp
 <div class="mb-3">
     <label class="form-label">Driver First Name <span class="text-danger">*</span></label>
     <input type="text" name="first_name" class="form-control"
@@ -63,36 +62,38 @@
     </div>
 </div>
 <div class="mb-3">
+    {{-- @dd($driver) --}}
     <label class="form-label">Profile Image <span class="text-danger">*</span></label>
     <input type="file" name="profile_image" class="form-control"
         value="{{ isset($user) ? $user->profile_image : old('profile_image') }}">
     @if (isset($user) && $user->profile_image != null)
         <div class="sh-15 me-1 mb-1 d-inline-block">
-            <img src="{{ asset($user->profile_url) }}" class="img-fluid-height rounded-md" alt="thumb">
-
+            <img src="{{ asset($user->profile_url) }}" class="img-fluid-height rounded-md" alt="thumb">    
         </div>
-    @endif
-</div>
-<div class="mb-3">
-    {{-- @dd($driver); --}}
-    <label class="form-label">Driver Picture(Front) <span class="text-danger">*</span></label>
-    <input type="file" name="license_img_front" class="form-control"
-        value="{{ isset($driver) ? $driver->license_img_front : old('license_img_front') }}">
-    @if (isset($driver) && $driver->license_img_front != null)
+        @endif
+    </div>
+    <div class="mb-3">
+        {{-- @dd( $driver->license_img_back); --}}
+        <label class="form-label">Driver Picture(Front) <span class="text-danger">*</span></label>
+        <input type="file" name="license_img_front" class="form-control"
+        value="{{ isset($user) ? $user->driver_info->license_img_front : old('license_img_front') }}">
+        @if (isset($user) && $user->driver_info->license_img_front != null)
         <div class="sh-15 me-1 mb-1 d-inline-block">
-            <img src="{{ asset($user->profile_url) }}" class="img-fluid-height rounded-md" alt="thumb">
+            {{-- storage/app/public/driver/license_front/driver_1074085405.png --}}
+            {{-- <img src="{{ public/storage/driver/license_back/driver_1151661224.png }}" class="img-fluid-height rounded-md" alt="thumb"> --}}
+            <img src="{{ asset("storage/driver/license_front/".$user->driver_info->license_img_front) }}" class="img-fluid-height rounded-md" alt="thumb">
 
         </div>
     @endif
 </div>
 <div class="mb-3">
+    {{-- @dd($user->driver_info->license_img_back) --}}
     <label class="form-label">Driver Picture (Back) <span class="text-danger">*</span></label>
     <input type="file" name="license_img_back" class="form-control"
-        value="{{ isset($user) ? $user->profile_image : old('profile_image') }}">
+        value="{{ isset($user) ? $user->driver_info->license_img_front : old('profile_image') }}">
     @if (isset($user) && $user->profile_image != null)
         <div class="sh-15 me-1 mb-1 d-inline-block">
-            <img src="{{ asset($user->profile_url) }}" class="img-fluid-height rounded-md" alt="thumb">
-
+            <img src="{{ asset("storage/driver/license_back/".$user->driver_info->license_img_back) }}" class="img-fluid-height rounded-md" alt="thumb">
         </div>
     @endif
 </div>

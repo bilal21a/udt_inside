@@ -37,4 +37,18 @@ trait DriverTrait
             Storage::delete('public/customer/' . $path);
         }
     }
+    public function delete_image2($path)
+    {
+
+        if (Storage::exists('public/driver/license_back/' . $path)) {
+            Storage::delete('public/driver/license_back/' . $path);
+        }
+    }
+    public function delete_image3($path)
+    {
+
+        if (Storage::exists('public/driver/license_front/' . $path)) {
+            Storage::delete('public/driver/license_front/' . $path);
+        }
+    }
 }
