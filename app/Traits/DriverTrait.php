@@ -2,15 +2,17 @@
 
 namespace App\Traits;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 trait DriverTrait
 {
-    public function save_data($user, $request, $type = null)
+    public function save_driver($user, $request, $type = null)
     {
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->role = "customer";
+        $user->middle_name = $request->middle_name;
+        $user->role = "driver";
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->password = $request->password;
@@ -37,18 +39,36 @@ trait DriverTrait
             Storage::delete('public/customer/' . $path);
         }
     }
-    public function delete_image2($path)
+    public function delete_license($dir,$path)
     {
 
-        if (Storage::exists('public/driver/license_back/' . $path)) {
-            Storage::delete('public/driver/license_back/' . $path);
+        if (Storage::exists('public/driver/license_'.$dir.'/' . $path)) {
+            Storage::delete('public/driver/license_'.$dir.'/' . $path);
         }
     }
-    public function delete_image3($path)
+    public function save_license($dir,$driver,$request,$db_img_name,$type=null)
     {
-
-        if (Storage::exists('public/driver/license_front/' . $path)) {
-            Storage::delete('public/driver/license_front/' . $path);
+        if ($request->hasFile('license_img_'.$dir.'')) {
+            if ($type != null) {
+                $this->delete_license($dir,$driver->$db_img_name);
+            }
+            $file = $request->file('license_img_'.$dir.'');
+            $filename = 'driver_' . rand() . '.' . $file->getClientOriginalExtension();
+            $driver->$db_img_name = $filename;
+            $file->storeAs('public/driver/license_'.$dir.'/', $filename);
         }
+    }
+
+
+    public function driver_info_save($driver, $request, $user_id, $type = null)
+    {
+        $driver->license_no = $request->license_no;
+        $driver->license_issue_date = Carbon::parse($request->license_issue_date);
+        $driver->license_exp_date = Carbon::parse($request->license_exp_date);
+        $this->save_license('front',$driver,$request,'license_img_front',$type);
+        $this->save_license('back',$driver,$request,'license_img_back',$type);
+        $driver->user_id = $user_id;
+        $driver->save();
+        return $driver;
     }
 }
