@@ -34,7 +34,7 @@
 
 <div class="mb-3">
     <label class="form-label">License No. <span class="text-danger">*</span></label>
-    <input type="text" name="license_no" class="form-control" value="{{ isset($user) ? $user->cnic : old('cnic') }}">
+    <input type="text" name="license_no" class="form-control" value="{{ isset($user) ? $user->driver_info->license_no : old('license_no') }}">
 </div>
 <div class="mb-3">
         <label class="form-label">License Issue Date</label>
