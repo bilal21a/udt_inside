@@ -11,11 +11,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function get_buttons( $edit_btn_url, $id,$edit_btn_url_driver)
+    public function get_buttons( $edit_btn_url, $id)
     {
 
         return '
-        <a class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1" href="' . ($edit_btn_url ==route('customers.edit') ? $edit_btn_url : $edit_btn_url_driver) . '">
+        <a class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1" href="' . $edit_btn_url. '">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20" fill="none"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                 class="acorn-icons acorn-icons-edit-square undefined">

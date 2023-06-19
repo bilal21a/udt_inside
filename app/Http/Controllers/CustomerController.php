@@ -21,7 +21,7 @@ class CustomerController extends Controller
         return view('customers.index');
     }
 
-    public function get_customers()
+    public function get_data()
     {
         $data = User::where('role', 'customer')->get();
         return DataTables::of($data)
@@ -35,7 +35,7 @@ class CustomerController extends Controller
                 $edit_btn_url = route('customers.edit', $row->id);
                 return $this->get_buttons($edit_btn_url, $row->id);
             })
-            ->rawColumns(['profile_image', 'full_name', 'action', 'registered_at'])
+            ->rawColumns(['profile_image', 'full_name', 'action'])
             ->make(true);
     }
     /**

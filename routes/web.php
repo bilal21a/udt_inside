@@ -28,11 +28,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Customers Management
     Route::resource('customers', 'CustomerController');
-    Route::get('get_customers', [CustomerController::class, 'get_customers'])->name('get_customers');
+    Route::get('get_customers', [CustomerController::class, 'get_data'])->name('get_customers');
 
 
     Route::resource('drivers', 'DriverController');
-    Route::get('get_drivers', [DriverController::class, 'get_drivers'])->name('get_drivers');
+    Route::get('get_drivers', [DriverController::class, 'get_data'])->name('get_drivers');
 
 
 });

@@ -50,8 +50,7 @@
 </div>
 <div class="mb-3">
     <label class="form-label">Profile Image <span class="text-danger">*</span></label>
-    <input type="file" name="profile_image" class="form-control"
-        value="{{ isset($user) ? $user->profile_image : old('profile_image') }}">
+    <input type="file" name="profile_image" class="form-control">
     @if (isset($user) && $user->profile_image != null)
         <div class="sh-15 me-1 mb-1 d-inline-block">
             <img src="{{ asset($user->profile_url) }}" class="img-fluid-height rounded-md" alt="thumb">
