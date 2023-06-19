@@ -3,7 +3,7 @@
      <div class="data-table-responsive-wrapper">
          <table id="{{ $tableName }}" class="data-table nowrap hover">
              <thead>
-                 <tr>
+                 <tr style="width: 40px">
                      @foreach ($tableData as $data)
                          <th class="text-muted text-small text-uppercase">{{ $data }}</th>
                      @endforeach

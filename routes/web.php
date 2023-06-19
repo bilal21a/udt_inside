@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('drivers', 'DriverController');
     Route::get('get_drivers', [DriverController::class, 'get_data'])->name('get_drivers');
+
+
+    Route::resource('vehicles', 'VehicleController');
+    Route::get('get_vehicles', [VehicleController::class, 'get_data'])->name('get_vehicles');
 
 
 });

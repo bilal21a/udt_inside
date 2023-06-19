@@ -15,19 +15,20 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->string('make');
+            $table->string('make')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('color');
-            $table->string('model');
-            $table->string('engine_type');
-            $table->string('year');
-            $table->string('avg_kmpg');
-            $table->string('no_plate');
-            $table->string('reg_no');
-            $table->string('pessenger_capacity');
-            $table->boolean('status');
-            $table->string('image');
+            $table->string('color')->nullable();
+            $table->string('model')->nullable();
+            $table->string('engine_type')->nullable();
+            $table->string('year')->nullable();
+            $table->string('avg_kmpg')->nullable();
+            $table->string('license_plate')->nullable();
+            $table->string('license_no')->nullable();
+            $table->date('license_expiry_date')->nullable();
+            $table->string('pessenger_capacity')->nullable();
+            $table->boolean('status')->nullable();
+            $table->string('vehicle_image')->nullable();
             $table->timestamps();
         });
     }
