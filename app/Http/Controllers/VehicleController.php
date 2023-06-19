@@ -6,6 +6,7 @@ use App\DirverInfo;
 use App\Vehicle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class VehicleController extends Controller
@@ -24,20 +25,19 @@ class VehicleController extends Controller
     {
         $data = Vehicle::latest()->get();
         return DataTables::of($data)
-        ->addColumn('vehicle_image', function ($row) {
-            // dd($row);
-                return '<img class="picheight" src="' . $row->vehicle_image . '">';
+            ->addColumn('vehicle_image', function ($row) {
+                // dd($row);
+                return '<img class="picheight" src="' . $row->vehicle_image_url . '">';
             })
 
             ->addColumn('action', function ($row) {
                 $edit_btn_url = route('vehicles.edit', $row->id);
                 return $this->get_buttons($edit_btn_url, $row->id);
             })
-            ->addColumn('vehicle_status', function ($row)
-            {
-                return '<p>"'.$row->status ==true? "Active":"Inactive" .'"</p>';
+            ->addColumn('vehicle_status', function ($row) {
+                return '<p>"' . $row->status == true ? "Active" : "Inactive" . '"</p>';
             })
-            ->rawColumns(['vehicle_image','action','vehicle_status'])
+            ->rawColumns(['vehicle_image', 'action', 'vehicle_status'])
             ->make(true);
     }
     /**
@@ -80,7 +80,6 @@ class VehicleController extends Controller
         $vehicle->user_id = $user_id;
         $vehicle->save();
         return redirect()->route('vehicles.index')->with('alert', ['type' => 'success', 'message' => 'Driver saved successfully']);
-
     }
 
     /**
@@ -102,7 +101,9 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $vehicle = Vehicle::find($id);
+        $status = $vehicle->status;
+        return view('vehicle.edit', compact('vehicle', 'status'));
     }
 
     /**
@@ -114,7 +115,28 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vehicle = Vehicle::find($id);
+        $vehicle->make = $request->make;
+        $vehicle->color = $request->color;
+        $vehicle->model = $request->model;
+        $vehicle->engine_type = $request->engine_type;
+        $vehicle->year = $request->year;
+        $vehicle->avg_kmpg = $request->avg_kmpg;
+        $vehicle->license_plate = $request->license_plate;
+        $vehicle->license_expiry_date = Carbon::parse($request->license_expiry_date);
+        $vehicle->license_no = $request->license_no;
+        $vehicle->status = $request->status;
+        if ($request->hasFile('vehicle_image')) {
+            if (Storage::exists('public/vehicle/' . $vehicle->vehicle_image)) {
+                Storage::delete('public/vehicle/' . $vehicle->vehicle_image);
+            }
+            $file = $request->file('vehicle_image');
+            $filename = 'vehicle_' . rand() . '.' . $file->getClientOriginalExtension();
+            $vehicle->vehicle_image = $filename;
+            $file->storeAs('public/vehicle/', $filename);
+        }
+        $vehicle->save();
+        return redirect()->route('vehicles.index')->with('alert', ['type' => 'success', 'message' => 'V ehicle "' . $request->first_name . '" Updated successfully']);
     }
 
     /**
@@ -125,6 +147,13 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $vehicle =Vehicle::find($id);
+        if (Storage::exists('public/vehicle/' . $vehicle->vehicle_image)) {
+            Storage::delete('public/vehicle/' . $vehicle->vehicle_image);
+        }
+        
+        $vehicle->delete();
+        return "deleted successfully";
+
     }
 }
