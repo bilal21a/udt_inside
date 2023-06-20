@@ -88,8 +88,8 @@ class CustomerController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $drivers = DirverInfo::where('user_id',$user->id)->get();
-        $vehicles = Vehicle::where('user_id',$user->id)->get();
+        $drivers = $user->drivers;
+        $vehicles = $user->vehicles;
         return view('customers.view', compact('user','drivers','vehicles','id'));
     }
 
