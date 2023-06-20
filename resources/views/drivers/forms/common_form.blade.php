@@ -89,3 +89,5 @@
         </div>
     @endif
 </div>
+<input type="hidden" name="customer" value="{{ $customer_id }}">
+

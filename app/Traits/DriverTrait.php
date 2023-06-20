@@ -26,6 +26,9 @@ trait DriverTrait
             $user->profile_image = $filename;
             $file->storeAs('public/customer/', $filename);
         }
+        if ($type == null) {
+            $user->parent_id = $request->customer;
+        }
         $user->address = $request->address;
         $user->gender = $request->gender;
         $user->save();

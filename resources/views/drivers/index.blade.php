@@ -19,7 +19,7 @@
         </div>
 
 
-        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('drivers.create') }}">
+        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('drivers.create',['customer'=>$customer_id]) }}">
             <i data-acorn-icon="plus"></i>
             <span>Add Driver</span>
         </a>
@@ -39,7 +39,7 @@
     {{-- **Show Data** --}}
     <script>
         var tabelDataArray = ['profile_image', 'full_name', 'email', 'phone', 'cnic', 'address', 'gender', 'action'];
-        var get_data_url = "{{ route('get_drivers') }}"
+        var get_data_url = "{{ route('get_drivers',['customer'=>$customer_id]) }}"
     </script>
     @include('common.js.get_data')
 

@@ -90,7 +90,7 @@ class CustomerController extends Controller
         $user = User::find($id);
         $drivers = DirverInfo::where('user_id',$user->id)->get();
         $vehicles = Vehicle::where('user_id',$user->id)->get();
-        return view('customers.view', compact('user','drivers','vehicles'));
+        return view('customers.view', compact('user','drivers','vehicles','id'));
     }
 
     /**

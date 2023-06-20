@@ -37,22 +37,22 @@
                             <div class="h5 mb-0" style="margin-bottom: 10px">{{ $user->full_name }}</div>
                             <div class="mb-5">
                                 <a href="#" class="d-block body-link mb-1">
-                                  <i data-acorn-icon="phone" class="me-2" data-acorn-size="17"></i>
-                                  <span class="align-middle">{{ $user->phone }}</span>
+                                    <i data-acorn-icon="phone" class="me-2" data-acorn-size="17"></i>
+                                    <span class="align-middle">{{ $user->phone }}</span>
                                 </a>
                                 <a href="#" class="d-block body-link">
-                                  <i data-acorn-icon="email" class="me-2" data-acorn-size="17"></i>
-                                  <span class="align-middle">{{ $user->email }}</span>
+                                    <i data-acorn-icon="email" class="me-2" data-acorn-size="17"></i>
+                                    <span class="align-middle">{{ $user->email }}</span>
                                 </a>
                                 <a href="#" class="d-block body-link">
-                                  <i data-acorn-icon="pin" class="me-2" data-acorn-size="17"></i>
-                                  <span class="align-middle">{{ $user->address }}</span>
+                                    <i data-acorn-icon="pin" class="me-2" data-acorn-size="17"></i>
+                                    <span class="align-middle">{{ $user->address }}</span>
                                 </a>
                                 <a href="#" class="d-block body-link">
-                                  <i data-acorn-icon="gender" class="me-2" data-acorn-size="17"></i>
-                                  <span class="align-middle">{{ $user->gender }}</span>
+                                    <i data-acorn-icon="gender" class="me-2" data-acorn-size="17"></i>
+                                    <span class="align-middle">{{ $user->gender }}</span>
                                 </a>
-                              </div>
+                            </div>
 
 
                         </div>
@@ -67,7 +67,7 @@
                 <h2 class="small-title">Stats</h2>
                 <div class="mb-5">
                     <div class="row g-2">
-                        <div class="col-12 col-sm-6 col-lg-3">
+                        <a class="col-12 col-sm-6 col-lg-3" href="{{ route('drivers.index',['customer'=>$id]) }}">
                             <div class="card hover-border-primary">
                                 <div class="card-body">
                                     <div class="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
@@ -78,8 +78,8 @@
                                     <div class="cta-1 text-primary">{{ count($drivers) }}</div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-lg-3">
+                        </a>
+                        <a class="col-12 col-sm-6 col-lg-3">
                             <div class="card hover-border-primary">
                                 <div class="card-body">
                                     <div class="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
@@ -90,7 +90,7 @@
                                     <div class="cta-1 text-primary">{{ count($vehicles) }}</div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         <div class="col-12 col-sm-6 col-lg-3">
 
                         </div>
@@ -101,5 +101,3 @@
         </div>
     </div>
 @endsection
-
-
