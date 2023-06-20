@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DirverInfo;
+use App\Traits\VehicleTrait;
 use App\Vehicle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,6 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class VehicleController extends Controller
 {
+    use VehicleTrait;
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +27,6 @@ class VehicleController extends Controller
         $data = Vehicle::latest()->get();
         return DataTables::of($data)
             ->addColumn('vehicle_image', function ($row) {
-                // dd($row);
                 return '<img class="picheight" src="' . $row->vehicle_image_url . '">';
             })
 
@@ -58,27 +58,9 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-
         $user_id = 2;
         $vehicle = new Vehicle;
-        $vehicle->make = $request->make;
-        $vehicle->color = $request->color;
-        $vehicle->model = $request->model;
-        $vehicle->engine_type = $request->engine_type;
-        $vehicle->year = $request->year;
-        $vehicle->avg_kmpg = $request->avg_kmpg;
-        $vehicle->license_plate = $request->license_plate;
-        $vehicle->license_expiry_date = Carbon::parse($request->license_expiry_date);
-        $vehicle->license_no = $request->license_no;
-        $vehicle->status = $request->status;
-
-        $file = $request->file('vehicle_image');
-        $filename = 'vehicle_' . rand() . '.' . $file->getClientOriginalExtension();
-        $vehicle->vehicle_image = $filename;
-        $file->storeAs('public/vehicle/', $filename);
-
-        $vehicle->user_id = $user_id;
-        $vehicle->save();
+        $vehicle = $this->save_vehicle($vehicle, $request, $user_id);
         return redirect()->route('vehicles.index')->with('alert', ['type' => 'success', 'message' => 'Driver saved successfully']);
     }
 
@@ -116,27 +98,8 @@ class VehicleController extends Controller
     public function update(Request $request, $id)
     {
         $vehicle = Vehicle::find($id);
-        $vehicle->make = $request->make;
-        $vehicle->color = $request->color;
-        $vehicle->model = $request->model;
-        $vehicle->engine_type = $request->engine_type;
-        $vehicle->year = $request->year;
-        $vehicle->avg_kmpg = $request->avg_kmpg;
-        $vehicle->license_plate = $request->license_plate;
-        $vehicle->license_expiry_date = Carbon::parse($request->license_expiry_date);
-        $vehicle->license_no = $request->license_no;
-        $vehicle->status = $request->status;
-        if ($request->hasFile('vehicle_image')) {
-            if (Storage::exists('public/vehicle/' . $vehicle->vehicle_image)) {
-                Storage::delete('public/vehicle/' . $vehicle->vehicle_image);
-            }
-            $file = $request->file('vehicle_image');
-            $filename = 'vehicle_' . rand() . '.' . $file->getClientOriginalExtension();
-            $vehicle->vehicle_image = $filename;
-            $file->storeAs('public/vehicle/', $filename);
-        }
-        $vehicle->save();
-        return redirect()->route('vehicles.index')->with('alert', ['type' => 'success', 'message' => 'V ehicle "' . $request->first_name . '" Updated successfully']);
+        $vehicle = $this->save_vehicle($vehicle, $request, null, 'edit');
+        return redirect()->route('vehicles.index')->with('alert', ['type' => 'success', 'message' => 'V ehicle "' . $vehicle->make . '" Updated successfully']);
     }
 
     /**
@@ -147,13 +110,9 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-       $vehicle =Vehicle::find($id);
-        if (Storage::exists('public/vehicle/' . $vehicle->vehicle_image)) {
-            Storage::delete('public/vehicle/' . $vehicle->vehicle_image);
-        }
-        
+        $vehicle = Vehicle::find($id);
+        $this->delete_image($vehicle->vehicle_image);
         $vehicle->delete();
         return "deleted successfully";
-
     }
 }
