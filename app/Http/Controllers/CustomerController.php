@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\DirverInfo;
 use App\Traits\CustomerTrait;
 use App\User;
+use App\Vehicle;
+use CreateDriverInfosTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -84,7 +87,10 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $drivers = DirverInfo::where('user_id',$user->id)->get();
+        $vehicles = Vehicle::where('user_id',$user->id)->get();
+        return view('customers.view', compact('user','drivers','vehicles'));
     }
 
     /**
@@ -112,7 +118,7 @@ class CustomerController extends Controller
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'phone' => 'required',
-            'email' => 'required|unique:users,email,'.$id.',id',
+            'email' => 'required|unique:users,email,' . $id . ',id',
             'cnic' => 'required',
             'profile_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
             'address' => 'required',
