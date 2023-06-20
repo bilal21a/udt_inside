@@ -37,9 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function vehicles()
+    public function drivers_vehicles()
     {
         return $this->belongsToMany(Vehicle::class, 'vehicle_driver', 'user_id', 'vehicle_id');
+    }
+    public function customers_vehicles()
+    {
+        return $this->hasMany(Vehicle::class);
     }
 
     public function driver_info()

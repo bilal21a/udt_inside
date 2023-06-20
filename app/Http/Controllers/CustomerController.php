@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\DirverInfo;
 use App\Traits\CustomerTrait;
 use App\User;
-use App\Vehicle;
-use CreateDriverInfosTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -90,7 +87,7 @@ class CustomerController extends Controller
     {
         $user = User::find($id);
         $drivers = $user->drivers;
-        $vehicles = $user->vehicles;
+        $vehicles = $user->customers_vehicles;
         return view('customers.view', compact('user','drivers','vehicles','id'));
     }
 
