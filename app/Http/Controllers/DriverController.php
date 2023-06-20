@@ -88,6 +88,7 @@ class DriverController extends Controller
             'license_img_back' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
             'address' => 'required',
             'gender' => 'required',
+            'customer' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->route('drivers.create', ['customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
@@ -151,6 +152,7 @@ class DriverController extends Controller
             'license_img_back' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
             'address' => 'required',
             'gender' => 'required',
+            'customer' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->route('drivers.edit', [$id,'customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);

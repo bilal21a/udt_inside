@@ -3,10 +3,6 @@
 @endphp
 
 <div class="mb-3">
-    <label class="form-label">Allocated Driver Name <span class="text-danger">*</span></label>
-    <input type="text" name="first_name" class="form-control" {{-- value="{{ isset($user) ? $user->first_name : old('first_name') }}" --}}>
-</div>
-<div class="mb-3">
     <label class="form-label">Vehicle Make <span class="text-danger">*</span></label>
     <input type="text" name="make" class="form-control"
         value="{{ isset($vehicle) ? $vehicle->make : old('make') }}">
@@ -77,3 +73,4 @@
         </div>
     @endif
 </div>
+<input type="hidden" name="customer" value="{{ $customer_id }}">

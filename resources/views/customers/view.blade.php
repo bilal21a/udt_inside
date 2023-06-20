@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a class="col-12 col-sm-6 col-lg-3">
+                        <a class="col-12 col-sm-6 col-lg-3" href="{{ route('vehicles.index',['customer'=>$id]) }}">
                             <div class="card hover-border-primary">
                                 <div class="card-body">
                                     <div class="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">

@@ -44,9 +44,9 @@ class Controller extends BaseController
         </button>';
     }
 
-    public function viewButton($id, $title = 'View')
+    public function viewButton($view_btn_url, $title = 'View')
     {
-        return '<button class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1" onclick="viewFormShow(' . $id . ')" type="button">
+        return '<a href="'.$view_btn_url.'" class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1"  type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                 class="acorn-icons acorn-icons-bin undefined">
@@ -58,7 +58,7 @@ class Controller extends BaseController
                 </path>
             </svg>
             <span class="d-none d-xxl-inline-block">' . $title . '</span>
-        </button>';
+        </a>';
     }
 
     public function delete_button($id)

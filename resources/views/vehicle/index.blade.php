@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('vehicles.create') }}">
+        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('vehicles.create',['customer'=>$customer_id]) }}">
             <i data-acorn-icon="plus"></i>
             <span>Add Vehicles</span>
         </a>
@@ -38,7 +38,7 @@
     {{-- **Show Data** --}}
     <script>
         var tabelDataArray = ['vehicle_image','make', 'color', 'model', 'engine_type', 'year','avg_kmpg','license_plate','vehicle_status','action'];
-        var get_data_url = "{{ route('get_vehicles') }}"
+        var get_data_url = "{{ route('get_vehicles',['customer'=>$customer_id]) }}"
     </script>
     @include('common.js.get_data')
 

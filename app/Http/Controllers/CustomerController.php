@@ -36,7 +36,8 @@ class CustomerController extends Controller
             })
             ->addColumn('action', function ($row) {
                 $edit_btn_url = route('customers.edit', $row->id);
-                return $this->get_buttons($edit_btn_url, $row->id);
+                $view_btn_url = route('customers.show', $row->id);
+                return $this->viewButton($view_btn_url).$this->get_buttons($edit_btn_url, $row->id);
             })
             ->rawColumns(['profile_image', 'full_name', 'action'])
             ->make(true);

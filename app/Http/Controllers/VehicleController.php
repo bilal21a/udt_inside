@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Traits\VehicleTrait;
 use App\Vehicle;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class VehicleController extends Controller
@@ -17,21 +16,27 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('vehicle.index');
+        $customer_id = $request->customer;
+        if ($customer_id) {
+            return view('vehicle.index', compact('customer_id'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function get_data(Request $request)
     {
-        $data = Vehicle::latest()->get();
+        $customer_id = $request->customer;
+        $data = Vehicle::where('user_id', $customer_id)->latest()->get();
         return DataTables::of($data)
             ->addColumn('vehicle_image', function ($row) {
                 return '<img class="picheight" src="' . $row->vehicle_image_url . '">';
             })
 
-            ->addColumn('action', function ($row) {
-                $edit_btn_url = route('vehicles.edit', $row->id);
+            ->addColumn('action', function ($row) use ($customer_id) {
+                $edit_btn_url = route('vehicles.edit', [$row->id, 'customer' => $customer_id]);
                 return $this->get_buttons($edit_btn_url, $row->id);
             })
             ->addColumn('vehicle_status', function ($row) {
@@ -45,10 +50,14 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-
-        return view('vehicle.add');
+        $customer_id = $request->customer;
+        if ($customer_id) {
+            return view('vehicle.add',compact('customer_id'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -59,10 +68,27 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = 2;
+        $customer_id = $request->customer;
+        $validator = Validator::make($request->all(), [
+            'make' => 'required',
+            'color' => 'required',
+            'model' => 'required',
+            'engine_type' => 'required',
+            'year' => 'required',
+            'avg_kmpg' => 'required',
+            'license_plate' => 'required',
+            'license_no' => 'required',
+            'license_exp_date' => 'required',
+            'status' => 'required',
+            'vehicle_image' => 'required',
+            'customer' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('vehicles.create', ['customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+        }
         $vehicle = new Vehicle;
-        $vehicle = $this->save_vehicle($vehicle, $request, $user_id);
-        return redirect()->route('vehicles.index')->with('alert', ['type' => 'success', 'message' => 'Driver saved successfully']);
+        $vehicle = $this->save_vehicle($vehicle, $request, $customer_id);
+        return redirect()->route('vehicles.index', ['customer' => $customer_id])->with('alert', ['type' => 'success', 'message' => 'Driver saved successfully']);
     }
 
     /**
@@ -82,11 +108,16 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        $vehicle = Vehicle::find($id);
-        $status = $vehicle->status;
-        return view('vehicle.edit', compact('vehicle', 'status'));
+        $customer_id = $request->customer;
+        if ($customer_id) {
+            $vehicle = Vehicle::find($id);
+            $status = $vehicle->status;
+            return view('vehicle.edit', compact('vehicle', 'status','customer_id'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -98,9 +129,26 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $customer_id = $request->customer;
+        $validator = Validator::make($request->all(), [
+            'make' => 'required',
+            'color' => 'required',
+            'model' => 'required',
+            'engine_type' => 'required',
+            'year' => 'required',
+            'avg_kmpg' => 'required',
+            'license_plate' => 'required',
+            'license_no' => 'required',
+            'license_exp_date' => 'required',
+            'status' => 'required',
+            'customer' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('vehicles.edit', [$id,'customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+        }
         $vehicle = Vehicle::find($id);
         $vehicle = $this->save_vehicle($vehicle, $request, null, 'edit');
-        return redirect()->route('vehicles.index')->with('alert', ['type' => 'success', 'message' => 'V ehicle "' . $vehicle->make . '" Updated successfully']);
+        return redirect()->route('vehicles.index', ['customer' => $customer_id])->with('alert', ['type' => 'success', 'message' => 'V ehicle "' . $vehicle->make . '" Updated successfully']);
     }
 
     /**
