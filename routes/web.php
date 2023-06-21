@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignedDriverController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\UserController;
@@ -30,7 +31,9 @@ Route::middleware(['auth'])->group(function () {
     // Customers Management
     Route::resource('customers', 'CustomerController');
     Route::get('get_customers', [CustomerController::class, 'get_data'])->name('get_customers');
-
+    
+    Route::resource('assigned_drivers', 'AssignedDriverController');
+    Route::get('get_assigned_drivers/{user_id}', [AssignedDriverController::class, 'get_assigned_drivers'])->name('assigned_drivers.get_assigned_drivers');
 
     Route::resource('drivers', 'DriverController');
     Route::get('get_drivers', [DriverController::class, 'get_data'])->name('get_drivers');

@@ -67,7 +67,7 @@
                 <h2 class="small-title">Stats</h2>
                 <div class="mb-5">
                     <div class="row g-2">
-                        <a class="col-6" href="{{ route('drivers.index',['customer'=>$id]) }}">
+                        <a class="col-6" href="{{ route('drivers.index', ['customer' => $id]) }}">
                             <div class="card hover-border-primary">
                                 <div class="card-body">
                                     <div class="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a class="col-6" href="{{ route('vehicles.index',['customer'=>$id]) }}">
+                        <a class="col-6" href="{{ route('vehicles.index', ['customer' => $id]) }}">
                             <div class="card hover-border-primary">
                                 <div class="card-body">
                                     <div class="heading mb-0 d-flex justify-content-between lh-1-25 mb-3">
@@ -91,8 +91,24 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="col-12 col-sm-6 col-lg-3">
-
+                        <div class="col-12">
+                            <div class="card h-100">
+                                <div class="card-body row g-0">
+                                    <div class="col-12">
+                                        <div class="cta-3">Assign Driver to Vehicle</div>
+                                        <button class="btn btn-icon btn-icon-start btn-primary mb-4 mt-2" type="button"
+                                            data-bs-toggle="modal" onclick="addFormShow()" data-bs-target="#myModal">
+                                            <i data-acorn-icon="plus"></i>
+                                            <span>Assign Driver</span>
+                                        </button>
+                                        @php
+                                            $tableName = 'datatable';
+                                            $tableData = ['Driver', 'Vehicle', 'Actions'];
+                                        @endphp
+                                        @include('common.table.table')
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -100,4 +116,40 @@
             </div>
         </div>
     </div>
+    @include('common.modal.add_edit_modal')
+@endsection
+
+@section('js_after')
+    {{-- **Show Data** --}}
+    <script>
+        var tabelDataArray = ['driver', 'vehicle', 'action'];
+        var get_data_url = "{{ route('assigned_drivers.get_assigned_drivers', $id) }}"
+    </script>
+    @include('common.js.get_data')
+
+
+    {{-- **Save Data** --}}
+    <script>
+        var add_form_url = "{{ route('assigned_drivers.create', ['customer_id'=>$id]) }}"
+        var save_data_url = "{{ route('assigned_drivers.store') }}"
+        var add_title = "Assign Driver"
+    </script>
+    @include('common.js.add_data')
+
+
+    {{-- **Update Data** --}}
+    <script>
+        var id = "{{ $id }}";
+        var edit_form_url = '{{ route('assigned_drivers.edit', ':id') }}'
+        var update_data_url = '{{ route('assigned_drivers.update', ':id') }}'
+        var edit_title = "Edit User"
+    </script>
+    @include('common.js.edit_data')
+
+
+    {{-- **Delete Data** --}}
+    <script>
+        var delete_data_url = '{{ route('assigned_drivers.destroy', ':id') }}'
+    </script>
+    @include('common.js.delete_data')
 @endsection

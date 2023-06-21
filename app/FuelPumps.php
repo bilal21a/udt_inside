@@ -9,4 +9,5 @@ class FuelPumps extends Model
     public function serviceProvider()
     {
         return $this->belongsTo(User::class);
-    }}
+    }
+}

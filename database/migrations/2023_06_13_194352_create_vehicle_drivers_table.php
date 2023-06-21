@@ -14,10 +14,12 @@ class CreateVehicleDriversTable extends Migration
     public function up()
     {
         Schema::create('vehicle_driver', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('vehicle_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
+            $table->unsignedBigInteger('customer_id');
         });
     }
 
