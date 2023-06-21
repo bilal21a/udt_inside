@@ -46,9 +46,21 @@
         value="{{ isset($vehicle) ? $vehicle->license_no : old('license_no') }}">
 </div>
 <div class="mb-3">
-    <label class="form-label">License Expiry Date</label>
-    <input type="date" class="form-control" name="license_exp_date"
-        value="{{ isset($vehicle) ? $vehicle->license_expiry_date : old('license_exp_date') }}">
+    <label class="form-label">How Long You Have Owned The Vehicle?  <span class="text-danger">*</span></label>
+    <input type="text" class="form-control" name="vehicle_owning_time"
+        value="{{ isset($vehicle) ? $vehicle->vehicle_owning_time : old('vehicle_owning_time') }}">
+</div>
+
+<div class="mb-3">
+    <label class="form-label">What is Your Current Estimated Car Value</label>
+    <input type="text" class="form-control" name="current_car_value"
+        value="{{ isset($vehicle) ? $vehicle->current_car_value : old('current_car_value') }}">
+</div>
+
+<div class="mb-3">
+    <label class="form-label">How Many Kilometer Will This Car Travels Over Next !2 Months</label>
+    <input type="number" class="form-control" name="car_travel_distance"
+        value="{{ isset($vehicle) ? $vehicle->car_travel_distance : old('car_travel_distance') }}">
 </div>
 <div class="mb-4">
     <label class="form-label d-block">Vehicle Status <span class="text-danger">*</span></label>

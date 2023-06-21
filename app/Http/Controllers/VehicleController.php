@@ -36,8 +36,9 @@ class VehicleController extends Controller
             })
 
             ->addColumn('action', function ($row) use ($customer_id) {
+                $view_btn_url = route('vehicles.show', $row->id);
                 $edit_btn_url = route('vehicles.edit', [$row->id, 'customer' => $customer_id]);
-                return $this->get_buttons($edit_btn_url, $row->id);
+                return $this->viewButton($view_btn_url).$this->get_buttons($edit_btn_url, $row->id);
             })
             ->addColumn('vehicle_status', function ($row) {
                 return '<p>"' . $row->status == true ? "Active" : "Inactive" . '"</p>';
@@ -78,7 +79,9 @@ class VehicleController extends Controller
             'avg_kmpg' => 'required',
             'license_plate' => 'required',
             'license_no' => 'required',
-            'license_exp_date' => 'required',
+            'vehicle_owning_time' => 'required',
+            'current_car_value' => 'required',
+            'car_travel_distance' => 'required|integer',
             'status' => 'required',
             'vehicle_image' => 'required',
             'customer' => 'required',
@@ -99,7 +102,9 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        return view('vehicle.view');
+        $vehicle = Vehicle::find($id)->first();
+        // dd($vehicle);
+        return view('vehicle.view',compact('vehicle'));
     }
 
     /**
@@ -139,7 +144,9 @@ class VehicleController extends Controller
             'avg_kmpg' => 'required',
             'license_plate' => 'required',
             'license_no' => 'required',
-            'license_exp_date' => 'required',
+            'vehicle_owning_time' => 'required',
+            'current_car_value' => 'required',
+            'car_travel_distance' => 'required|integer',
             'status' => 'required',
             'customer' => 'required',
         ]);
@@ -148,7 +155,7 @@ class VehicleController extends Controller
         }
         $vehicle = Vehicle::find($id);
         $vehicle = $this->save_vehicle($vehicle, $request, null, 'edit');
-        return redirect()->route('vehicles.index', ['customer' => $customer_id])->with('alert', ['type' => 'success', 'message' => 'V ehicle "' . $vehicle->make . '" Updated successfully']);
+        return redirect()->route('vehicles.index', ['customer' => $customer_id])->with('alert', ['type' => 'success', 'message' => 'Vehicle "' . $vehicle->make . '" Updated successfully']);
     }
 
     /**
