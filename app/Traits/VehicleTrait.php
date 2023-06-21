@@ -9,6 +9,7 @@ trait VehicleTrait
 {
     public function save_vehicle($vehicle, $request, $user_id = null, $type = null)
     {
+        
         $vehicle->make = $request->make;
         $vehicle->color = $request->color;
         $vehicle->model = $request->model;
@@ -16,7 +17,9 @@ trait VehicleTrait
         $vehicle->year = $request->year;
         $vehicle->avg_kmpg = $request->avg_kmpg;
         $vehicle->license_plate = $request->license_plate;
-        $vehicle->license_expiry_date = Carbon::parse($request->license_expiry_date);
+        $vehicle->vehicle_owning_time = $request->vehicle_owning_time;
+        $vehicle->current_car_value = $request->current_car_value;
+        $vehicle->car_travel_distance = $request->car_travel_distance;
         $vehicle->license_no = $request->license_no;
         $vehicle->status = $request->status;
         if ($request->hasFile('vehicle_image')) {
@@ -31,6 +34,7 @@ trait VehicleTrait
             $file->storeAs('public/vehicle/', $filename);
         }
         $vehicle->save();
+        // dd($user_id);
 
         return $vehicle;
     }

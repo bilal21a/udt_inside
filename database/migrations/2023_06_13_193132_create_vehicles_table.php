@@ -25,8 +25,9 @@ class CreateVehiclesTable extends Migration
             $table->string('avg_kmpg')->nullable();
             $table->string('license_plate')->nullable();
             $table->string('license_no')->nullable();
-            $table->date('license_expiry_date')->nullable();
-            $table->string('pessenger_capacity')->nullable();
+            $table->string('vehicle_owning_time')->nullable();
+            $table->string('current_car_value')->nullable();
+            $table->string('car_travel_distance')->nullable();
             $table->boolean('status')->nullable();
             $table->string('vehicle_image')->nullable();
             $table->timestamps();

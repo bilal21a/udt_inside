@@ -26,7 +26,7 @@
         {{-- -----Table----- --}}
         @php
             $tableName = 'datatable';
-            $tableData = ['Vehicle Image','Vehicle Make', 'Vehicle Color', 'Vehicle model', 'Vehicle Engine Type', 'Vehicle Year','Average(KM Per Gallon)','License Plate','Vehicle Status', 'Actions'];
+            $tableData = ['Vehicle Image','Vehicle Make', 'Vehicle Color', 'Vehicle model', 'Vehicle Engine Type', 'Vehicle Year','Average(KM Per Gallon)','License Plate',"License No",'Vehicle Status', 'Actions'];
         @endphp
         @include('common.table.table')
     </div>
@@ -37,7 +37,7 @@
 @section('js_after')
     {{-- **Show Data** --}}
     <script>
-        var tabelDataArray = ['vehicle_image','make', 'color', 'model', 'engine_type', 'year','avg_kmpg','license_plate','vehicle_status','action'];
+        var tabelDataArray = ['vehicle_image','make', 'color', 'model', 'engine_type', 'year','avg_kmpg','license_plate','license_no','vehicle_status','action'];
         var get_data_url = "{{ route('get_vehicles',['customer'=>$customer_id]) }}"
     </script>
     @include('common.js.get_data')
