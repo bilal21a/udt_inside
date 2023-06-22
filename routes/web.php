@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssignedDriverController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\FuelStationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
     // Customers Management
     Route::resource('customers', 'CustomerController');
     Route::get('get_customers', [CustomerController::class, 'get_data'])->name('get_customers');
-    
+
     Route::resource('assigned_drivers', 'AssignedDriverController');
     Route::get('get_assigned_drivers/{user_id}', [AssignedDriverController::class, 'get_assigned_drivers'])->name('assigned_drivers.get_assigned_drivers');
 
@@ -41,8 +42,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('vehicles', 'VehicleController');
     Route::get('get_vehicles', [VehicleController::class, 'get_data'])->name('get_vehicles');
-
-
+    //Fuel Station route
+    Route::resource('fuelstation', 'FuelStationController');
+    Route::get('get_service_provider', [FuelStationController::class, 'get_data'])->name('get_service_provider');
 });
 
 
