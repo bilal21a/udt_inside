@@ -21,9 +21,6 @@ class CreatePersonalAccessTokensTable extends Migration
             $table->text('abilities')->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->timestamps();
-
-            // Add an index with a length limit on tokenable_type
-            $table->index(['tokenable_type'], 'personal_access_tokens_tokenable_type_index', ['length' => 191]);
         });
     }
 
