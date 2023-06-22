@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Storage;
 
-trait CustomerTrait
+trait ServiceProviderTrait
 {
     public function save_customer($user, $request, $type = null)
     {

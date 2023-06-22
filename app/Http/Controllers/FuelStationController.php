@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\CustomerTrait;
+use App\Traits\ServiceProviderTrait;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class FuelStationController extends Controller
 {
-    use CustomerTrait;
+    use ServiceProviderTrait;
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +23,7 @@ class FuelStationController extends Controller
 
     public function get_data()
     {
-        $data = User::where('role', 'customer')->get();
+        $data = User::where('role', 'Service Provider')->get();
         return DataTables::of($data)
             ->addColumn('profile_image', function ($row) {
                 return '<img class="picheight" src="' . $row->profile_url . '">';
@@ -73,7 +73,7 @@ class FuelStationController extends Controller
         $user = new User();
         $user = $this->save_customer($user, $request);
 
-        return redirect()->route('fuelstation.index')->with('alert', ['type' => 'success', 'message' => 'Fuel Stations saved successfully']);
+        return redirect()->route('fuelstation.index')->with('alert', ['type' => 'success', 'message' => 'Fuel Station saved successfully']);
     }
 
     /**
