@@ -102,8 +102,7 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        $vehicle = Vehicle::find($id)->first();
-        // dd($vehicle);
+        $vehicle = Vehicle::find($id);
         return view('vehicle.view',compact('vehicle'));
     }
 

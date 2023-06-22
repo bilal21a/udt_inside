@@ -12,7 +12,6 @@
     </style>
 @endsection
 @section('content')
-    {{-- @dd($vehicle) --}}
     <div class="page-title-container">
         <div class="page-title-container">
             <div class="row">
