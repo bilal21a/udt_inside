@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class FuelStationController extends Controller
+class ServiceProviderController extends Controller
 {
     use ServiceProviderTrait;
     /**
@@ -18,7 +18,7 @@ class FuelStationController extends Controller
      */
     public function index()
     {
-        return view('fuelstation.index');
+        return view('serviceprovider.index');
     }
 
     public function get_data()
@@ -32,7 +32,7 @@ class FuelStationController extends Controller
                 return $row->first_name . ' ' . $row->last_name;
             })
             ->addColumn('action', function ($row) {
-                $edit_btn_url = route('fuelstation.edit', $row->id);
+                $edit_btn_url = route('serviceprovider.edit', $row->id);
                 return $this->get_buttons($edit_btn_url, $row->id);
             })
             ->rawColumns(['profile_image', 'full_name', 'action'])
@@ -45,7 +45,7 @@ class FuelStationController extends Controller
      */
     public function create()
     {
-        return view('fuelstation.add');
+        return view('serviceprovider.add');
     }
 
     /**
@@ -73,7 +73,7 @@ class FuelStationController extends Controller
         $user = new User();
         $user = $this->save_customer($user, $request);
 
-        return redirect()->route('fuelstation.index')->with('alert', ['type' => 'success', 'message' => 'Fuel Station saved successfully']);
+        return redirect()->route('serviceprovider.index')->with('alert', ['type' => 'success', 'message' => 'Service Provider saved successfully']);
     }
 
     /**
@@ -96,7 +96,7 @@ class FuelStationController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('fuelstation.edit', compact('user'));
+        return view('serviceprovider.edit', compact('user'));
     }
 
     /**
@@ -123,7 +123,7 @@ class FuelStationController extends Controller
         }
         $user = User::find($id);
         $user = $this->save_customer($user, $request, 'edit');
-        return redirect()->route('customers.index')->with('alert', ['type' => 'success', 'message' => 'Customer "' . $user->full_name . '" Updated successfully']);
+        return redirect()->route('serviceprovider.index')->with('alert', ['type' => 'success', 'message' => 'Customer "' . $user->full_name . '" Updated successfully']);
     }
 
     /**
