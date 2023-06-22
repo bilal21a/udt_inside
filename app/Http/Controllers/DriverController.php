@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DirverInfo;
 use App\Traits\DriverTrait;
+use App\Traits\userTrait;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,7 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DriverController extends Controller
 {
-    use DriverTrait;
+    use DriverTrait,userTrait;
 
     /**
      * Display a listing of the resource.
@@ -94,7 +95,7 @@ class DriverController extends Controller
             return redirect()->route('drivers.create', ['customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = new User();
-        $user = $this->save_driver($user, $request);
+        $user = $this->save_user($user, $request,'driver');
         $driver = new DirverInfo();
         $driver = $this->driver_info_save($driver, $request, $user->id);
         return redirect()->route('drivers.index', ['customer' => $customer_id])->with('alert', ['type' => 'success', 'message' => 'Driver saved successfully']);
@@ -158,7 +159,7 @@ class DriverController extends Controller
             return redirect()->route('drivers.edit', [$id,'customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = User::find($id);
-        $user = $this->save_driver($user, $request, 'edit');
+        $user = $this->save_user($user, $request,'driver', 'edit');
         $driver =  DirverInfo::where('user_id', $id)->first();
         $driver = $this->driver_info_save($driver, $request, $user->id, 'edit');
 

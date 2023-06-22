@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\ServiceProviderTrait;
+use App\Traits\userTrait;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ServiceProviderController extends Controller
 {
-    use ServiceProviderTrait;
+    use userTrait;
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +23,7 @@ class ServiceProviderController extends Controller
 
     public function get_data()
     {
-        $data = User::where('role', 'Service Provider')->get();
+        $data = User::where('role', 'service_provider')->get();
         return DataTables::of($data)
             ->addColumn('profile_image', function ($row) {
                 return '<img class="picheight" src="' . $row->profile_url . '">';
@@ -71,7 +71,7 @@ class ServiceProviderController extends Controller
             return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = new User();
-        $user = $this->save_customer($user, $request);
+        $user = $this->save_user($user, $request, 'service_provider');
 
         return redirect()->route('serviceprovider.index')->with('alert', ['type' => 'success', 'message' => 'Service Provider saved successfully']);
     }
@@ -122,7 +122,7 @@ class ServiceProviderController extends Controller
             return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = User::find($id);
-        $user = $this->save_customer($user, $request, 'edit');
+        $user = $this->save_user($user, $request, 'service_provider', 'edit');
         return redirect()->route('serviceprovider.index')->with('alert', ['type' => 'success', 'message' => 'Customer "' . $user->full_name . '" Updated successfully']);
     }
 

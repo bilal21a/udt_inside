@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\CustomerTrait;
+use App\Traits\userTrait;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CustomerController extends Controller
 {
-    use CustomerTrait;
+    use userTrait;
     /**
      * Display a listing of the resource.
      *
@@ -72,7 +72,7 @@ class CustomerController extends Controller
             return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = new User();
-        $user = $this->save_customer($user, $request);
+        $user = $this->save_user($user, $request,'customer');
 
         return redirect()->route('customers.index')->with('alert', ['type' => 'success', 'message' => 'Customer saved successfully']);
     }
@@ -126,7 +126,7 @@ class CustomerController extends Controller
             return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = User::find($id);
-        $user = $this->save_customer($user, $request, 'edit');
+        $user = $this->save_user($user, $request,'customer', 'edit');
         return redirect()->route('customers.index')->with('alert', ['type' => 'success', 'message' => 'Customer "' . $user->full_name . '" Updated successfully']);
     }
 

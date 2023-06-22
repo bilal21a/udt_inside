@@ -5,13 +5,14 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Traits\CustomerTrait;
+use App\Traits\userTrait;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends BaseController
 {
-    use CustomerTrait;
+    use userTrait;
 
     /**
      * Register api
@@ -39,7 +40,7 @@ class RegisterController extends BaseController
             }
 
             $user = new User();
-            $user = $this->save_customer($user, $request);
+            $user = $this->save_user($user, $request,'customer');
 
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['user'] =  $user;
