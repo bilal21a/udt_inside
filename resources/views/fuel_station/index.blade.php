@@ -13,14 +13,14 @@
         <div class="page-title-container">
             <div class="row">
                 <div class="col-12 col-sm-6">
-                    <h1 class="mb-0 pb-0 display-4" id="title">Service Provider Managment</h1>
+                    <h1 class="mb-0 pb-0 display-4" id="title"> Fuel Satations Managment</h1>
                 </div>
             </div>
         </div>
 
         <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('fuel_station.create') }}">
             <i data-acorn-icon="plus"></i>
-            <span>Add Service Provider</span>
+            <span>Add Fuel Satation</span>
         </a>
 
         {{-- -----Table----- --}}
