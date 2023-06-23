@@ -18,15 +18,15 @@
             </div>
         </div>
 
-        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('serviceprovider.create') }}">
+        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('fuel_station.create') }}">
             <i data-acorn-icon="plus"></i>
             <span>Add Service Provider</span>
         </a>
-        
+
         {{-- -----Table----- --}}
         @php
             $tableName = 'datatable';
-            $tableData = ['Image', 'Name', 'Email', 'Phone', 'CNIC', 'Address', 'Gender', 'Actions'];
+            $tableData = ['Fuel Station Image', 'Location Title', 'Address', 'Map', 'Fuel Type', 'Status', 'Address', 'Actions'];
         @endphp
         @include('common.table.table')
     </div>
@@ -37,15 +37,15 @@
 @section('js_after')
     {{-- **Show Data** --}}
     <script>
-        var tabelDataArray = ['profile_image', 'full_name', 'email', 'phone', 'cnic', 'address', 'gender', 'action'];
-        var get_data_url = "{{ route('get_service_provider') }}"
+        var tabelDataArray = ['image', 'name', 'address', 'map', 'fuel_type', 'status', 'address', 'action'];
+        var get_data_url = "{{ route('get_fuel_station') }}"
     </script>
     @include('common.js.get_data')
 
 
     {{-- **Delete Data** --}}
     <script>
-        var delete_data_url = '{{ route('customers.destroy', ':id') }}'
+        var delete_data_url = '{{ route('fuel_station.destroy', ':id') }}'
     </script>
     @include('common.js.delete_data')
 @endsection

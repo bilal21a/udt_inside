@@ -3,7 +3,7 @@
 use App\Http\Controllers\AssignedDriverController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DriverController;
-use App\Http\Controllers\FuelPumpsController;
+use App\Http\Controllers\FuelStationController;
 use App\Http\Controllers\ServiceProviderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
@@ -47,8 +47,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('serviceprovider', 'ServiceProviderController');
     Route::get('get_service_provider', [ServiceProviderController::class, 'get_data'])->name('get_service_provider');
 
-    Route::resource('fuelpumps', 'FuelPumpsController');
-    Route::get('fuelpumps', [FuelPumpsController::class, 'get_data'])->name('fuelpumps');
+    Route::resource('fuel_station', 'FuelStationController');
+    Route::get('get_fuel_station', [FuelStationController::class, 'get_data'])->name('get_fuel_station');
 });
 
 

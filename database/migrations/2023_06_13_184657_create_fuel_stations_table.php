@@ -19,6 +19,7 @@ class CreateFuelStationsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->longText('address')->nullable();
+            $table->longText('residential_address')->nullable();
             $table->string('capacity')->nullable();
             $table->string('rate_per_liter')->nullable();
             $table->string('franchiser_name')->nullable();
@@ -26,6 +27,7 @@ class CreateFuelStationsTable extends Migration
             $table->string('lng')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->boolean('status')->nullable();
             $table->boolean('is_petrol')->nullable();
             $table->boolean('is_diesel')->nullable();
             $table->boolean('is_hi_oct')->nullable();
