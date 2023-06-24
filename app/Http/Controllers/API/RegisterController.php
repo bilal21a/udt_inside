@@ -29,7 +29,6 @@ class RegisterController extends BaseController
                 'phone' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'address' => 'required',
-                'role' => 'required|in:customer,driver,service_provider',
                 'password' => 'required',
                 'confirm_password' => 'required|same:password',
                 'profile_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
