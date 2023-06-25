@@ -11,10 +11,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function get_buttons( $edit_btn_url, $id)
+    public function get_buttons($edit_btn_url, $id)
     {
         return '
-        <a class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1" href="' . $edit_btn_url. '">
+        <a class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1" href="' . $edit_btn_url . '">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20" fill="none"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                 class="acorn-icons acorn-icons-edit-square undefined">
@@ -45,7 +45,7 @@ class Controller extends BaseController
 
     public function viewButton($view_btn_url, $title = 'View')
     {
-        return '<a href="'.$view_btn_url.'" class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1"  type="button">
+        return '<a href="' . $view_btn_url . '" class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1"  type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                 class="acorn-icons acorn-icons-bin undefined">
@@ -136,5 +136,39 @@ class Controller extends BaseController
             </svg>
             <span class="d-none d-xxl-inline-block">Delete</span>
         </button>';
+    }
+
+    /**
+     * return success response.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendResponse($message, $data)
+    {
+        $response = [
+            'success' => true,
+            'data'    => $data,
+            'message' => $message,
+        ];
+
+
+        return response()->json($response, 200);
+    }
+
+
+    /**
+     * return error response.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendError($message, $data = null, $code = 500)
+    {
+        $response = [
+            'success' => false,
+            'data' => $data,
+            'message' => $message,
+        ];
+
+        return response()->json($response, $code);
     }
 }

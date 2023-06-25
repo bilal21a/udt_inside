@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\FuelPumps;
 use App\FuelStation;
-use App\User;
+use App\Traits\FuelStationTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class FuelStationController extends Controller
 {
+    use FuelStationTrait;
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +18,6 @@ class FuelStationController extends Controller
      */
     public function index()
     {
-        // dd('he;');
         return view('fuel_station.index');
     }
     public function get_data()
@@ -27,7 +25,6 @@ class FuelStationController extends Controller
         $data = FuelStation::get();
         return DataTables::of($data)
             ->addColumn('image', function ($row) {
-                // dd($row->approval_certificate_image_url);
                 return '<img class="picheight" src="' . $row->fuel_station_image_url . '">';
             })
             ->addColumn('map', function ($row) {
@@ -72,7 +69,7 @@ class FuelStationController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'capacity' => 'required|max:255',
@@ -92,33 +89,9 @@ class FuelStationController extends Controller
             return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
 
+        $user_id = 2;
         $fuelpump = new FuelStation();
-        $fuelpump->name = $request->name;
-        $fuelpump->user_id = '2';
-        $fuelpump->capacity = $request->capacity;
-        $fuelpump->phone = $request->phone;
-        $fuelpump->email = $request->email;
-        $fuelpump->franchiser_name = $request->franchiser_name;
-        $fuelpump->rate_per_liter = $request->rate_per_liter;
-        $fuelpump->address = $request->address;
-        $fuelpump->lat = $request->lat;
-        $fuelpump->lng = $request->lng;
-        $fuelpump->residential_address = $request->residential_address;
-        $fuelpump->status = '1';
-        $fuelpump->notes = $request->notes;
-        if ($request->hasFile('approval_certificate_image')) {
-            $file = $request->file('approval_certificate_image');
-            $filename = 'approval_certificate_image_' . rand() . '.' . $file->getClientOriginalExtension();
-            $fuelpump->approval_certificate_image = $filename;
-            $file->storeAs('public/fuel_station/certificate', $filename);
-        }
-        if ($request->hasFile('fuel_station_image')) {
-            $file = $request->file('fuel_station_image');
-            $filename = 'fuel_station_image_' . rand() . '.' . $file->getClientOriginalExtension();
-            $fuelpump->fuel_station_image = $filename;
-            $file->storeAs('public/fuel_station/image', $filename);
-        }
-        $fuelpump->save();
+        $fuelpump = $this->save_fuel_station($fuelpump, $request, $user_id);
         return redirect()->route('fuel_station.index')->with('alert', ['type' => 'success', 'message' => 'Customer "' . $fuelpump->name . '" Updated successfully']);
     }
 
@@ -174,37 +147,8 @@ class FuelStationController extends Controller
         }
 
         $fuelpump = FuelStation::find($id);
-        $fuelpump->name = $request->name;
-        $fuelpump->capacity = $request->capacity;
-        $fuelpump->phone = $request->phone;
-        $fuelpump->email = $request->email;
-        $fuelpump->franchiser_name = $request->franchiser_name;
-        $fuelpump->rate_per_liter = $request->rate_per_liter;
-        $fuelpump->address = $request->address;
-        $fuelpump->lat = $request->lat;
-        $fuelpump->lng = $request->lng;
-        $fuelpump->residential_address = $request->residential_address;
-        $fuelpump->notes = $request->notes;
-        if ($request->hasFile('approval_certificate_image')) {
-            if (Storage::exists('public/fuel_station/image' . $fuelpump->approval_certificate_image)) {
-                Storage::delete('public/fuel_station/image' . $$fuelpump->approval_certificate_image);
-            }
-            $file = $request->file('approval_certificate_image');
-            $filename = 'approval_certificate_image_' . rand() . '.' . $file->getClientOriginalExtension();
-            $fuelpump->approval_certificate_image = $filename;
-            $file->storeAs('public/fuel_station/certificate', $filename);
-        }
-        if ($request->hasFile('fuel_station_image')) {
-            if (Storage::exists('public/fuel_station/certificate' . $fuelpump->fuel_station_image)) {
-                Storage::delete('public/fuel_station/certificate' . $$fuelpump->fuel_station_image);
-            }
-            $file = $request->file('fuel_station_image');
-            $filename = 'fuel_station_image_' . rand() . '.' . $file->getClientOriginalExtension();
-            $fuelpump->fuel_station_image = $filename;
-            $file->storeAs('public/fuel_station/image', $filename);
-        }
-        $fuelpump->save();
-        return redirect()->route('fuel_station.index')->with('alert', ['type' => 'success', 'message' => 'Driver "' . $fuelpump->name . '" Updated successfully']);
+        $fuelpump = $this->save_fuel_station($fuelpump, $request, $fuelpump->user_id, 'edit');
+        return redirect()->route('fuel_station.index')->with('alert', ['type' => 'success', 'message' => 'Fuel Station "' . $fuelpump->name . '" Updated successfully']);
     }
 
     /**
@@ -216,12 +160,8 @@ class FuelStationController extends Controller
     public function destroy($id)
     {
         $fuelpump = FuelStation::find($id);
-        if (Storage::exists('public/fuel_station/certificate/' . $fuelpump->approval_certificate_image)) {
-            Storage::delete('public/fuel_station/certificate/' . $fuelpump->approval_certificate_image);
-        }
-        if (Storage::exists('public/fuel_station/image/' . $fuelpump->fuel_station_image)) {
-            Storage::delete('public/fuel_station/image/' . $fuelpump->fuel_station_image);
-        }
+        $this->delete_image($fuelpump->approval_certificate_image, 'certificate');
+        $this->delete_image($fuelpump->fuel_station_image, 'image');
         $fuelpump->delete();
     }
 }

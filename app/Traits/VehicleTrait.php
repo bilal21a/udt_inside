@@ -9,7 +9,6 @@ trait VehicleTrait
 {
     public function save_vehicle($vehicle, $request, $user_id = null, $type = null)
     {
-        
         $vehicle->make = $request->make;
         $vehicle->color = $request->color;
         $vehicle->model = $request->model;

@@ -15,11 +15,11 @@ class RegisterController extends BaseController
     use userTrait;
 
     /**
-     * Register api
+     * Register Customer api
      *
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function add_customer(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -40,6 +40,42 @@ class RegisterController extends BaseController
 
             $user = new User();
             $user = $this->save_user($user, $request,'customer');
+
+            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+            $success['user'] =  $user;
+
+            return $this->sendResponse('User register successfully.',$success);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage(),null);
+        }
+    }
+    /**
+     * Register service Provider api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function add_service_provider(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'gender' => 'required',
+                'phone' => 'required',
+                'email' => 'required|email|unique:users,email',
+                'address' => 'required',
+                'password' => 'required',
+                'confirm_password' => 'required|same:password',
+                'cnic' => 'required',
+                'profile_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors()->first());
+            }
+
+            $user = new User();
+            $user = $this->save_user($user, $request,'service_provider');
 
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['user'] =  $user;
