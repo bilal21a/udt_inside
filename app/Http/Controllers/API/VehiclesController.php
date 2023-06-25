@@ -36,6 +36,45 @@ class VehiclesController extends Controller
         $user_id = auth('sanctum')->id();
         $vehicle = new Vehicle();
         $vehicle = $this->save_vehicle($vehicle, $request, $user_id);
-        return $this->sendResponse('Vehicle Added successfully.',$vehicle);
+        return $this->sendResponse('Vehicle Added successfully.', $vehicle);
+    }
+
+    // datatable 
+    public function get_vehicles_data(Request $request)
+    {
+        $perPage = $request->input('perPage', 10); // Number of records per page
+        $search = $request->input('search');
+        $user_id = auth('sanctum')->id();
+        $query = Vehicle::where('user_id', $user_id);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('make', 'LIKE', '%' . $search . '%')
+                  ->orWhere('color', 'LIKE', '%' . $search . '%')
+                  ->orWhere('model', 'LIKE', '%' . $search . '%')
+                  ->orWhere('engine_type', 'LIKE', '%' . $search . '%')
+                  ->orWhere('year', 'LIKE', '%' . $search . '%')
+                  ->orWhere('avg_kmpg', 'LIKE', '%' . $search . '%')
+                  ->orWhere('license_plate', 'LIKE', '%' . $search . '%')
+                  ->orWhere('license_no', 'LIKE', '%' . $search . '%')
+                  ->orWhere('vehicle_owning_time', 'LIKE', '%' . $search . '%')
+                  ->orWhere('current_car_value', 'LIKE', '%' . $search . '%')
+                  ->orWhere('car_travel_distance', 'LIKE', '%' . $search . '%');
+                // Add more columns as needed
+            });
+        }
+    
+
+        $data = $query->paginate($perPage);
+
+        return response()->json([
+            'data' => $data->items(),
+            'pagination' => [
+                'currentPage' => $data->currentPage(),
+                'perPage' => $data->perPage(),
+                'totalPages' => $data->lastPage(),
+                'totalItems' => $data->total()
+            ]
+        ]);
     }
 }

@@ -46,6 +46,7 @@ trait userTrait
         }
         $user->address = $request->address;
         $user->gender = $request->gender;
+        $user->description = $request->description;
         $user->save();
 
         return $user;

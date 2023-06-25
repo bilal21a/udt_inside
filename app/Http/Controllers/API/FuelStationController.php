@@ -36,6 +36,42 @@ class FuelStationController extends Controller
         $user_id = auth('sanctum')->id();
         $fuelpump = new FuelStation();
         $fuelpump = $this->save_fuel_station($fuelpump, $request, $user_id);
-        return $this->sendResponse('Fuel Station Added successfully.',$fuelpump);
+        return $this->sendResponse('Fuel Station Added successfully.', $fuelpump);
+    }
+
+    // datatable 
+    public function get_fuel_stations_data(Request $request)
+    {
+        $perPage = $request->input('perPage', 10); // Number of records per page
+        $search = $request->input('search');
+        $user_id = auth('sanctum')->id();
+        $query = FuelStation::where('user_id', $user_id);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('address', 'LIKE', '%' . $search . '%')
+                    ->orWhere('lat', 'LIKE', '%' . $search . '%')
+                    ->orWhere('lng', 'LIKE', '%' . $search . '%')
+                    ->orWhere('capacity', 'LIKE', '%' . $search . '%')
+                    ->orWhere('rate_per_liter', 'LIKE', '%' . $search . '%')
+                    ->orWhere('franchiser_name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('phone', 'LIKE', '%' . $search . '%')
+                    ->orWhere('residential_address', 'LIKE', '%' . $search . '%')
+                    ->orWhere('notes', 'LIKE', '%' . $search . '%');
+                // Add more columns as needed
+            });
+        }    
+        $data = $query->paginate($perPage);
+        return response()->json([
+            'data' => $data->items(),
+            'pagination' => [
+                'currentPage' => $data->currentPage(),
+                'perPage' => $data->perPage(),
+                'totalPages' => $data->lastPage(),
+                'totalItems' => $data->total()
+            ]
+        ]);
     }
 }

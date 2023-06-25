@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class DriverController extends Controller
 {
-    use DriverTrait,userTrait;
+    use DriverTrait, userTrait;
     public function add_driver(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -49,5 +49,41 @@ class DriverController extends Controller
         $user = auth('sanctum')->user();
         $drivers = $user->drivers;
         return $this->sendResponse('returned Drivers', $drivers);
+    }
+
+    // datatable 
+    public function get_drivers_data(Request $request)
+    {
+        $perPage = $request->input('perPage', 10); // Number of records per page
+        $search = $request->input('search');
+        $user_id = auth('sanctum')->id();
+        $query = User::with('driver_info')->where('parent_id', $user_id);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('first_name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('middle_name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('last_name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('phone', 'LIKE', '%' . $search . '%')
+                    ->orWhere('email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('address', 'LIKE', '%' . $search . '%')
+                    ->orWhere('gender', 'LIKE', '%' . $search . '%')
+                    ->orWhereHas('driver_info', function ($q) use ($search) {
+                        $q->where('license_no', 'LIKE', '%' . $search . '%')
+                            ->orWhere('license_issue_date', 'LIKE', '%' . $search . '%')
+                            ->orWhere('license_exp_date', 'LIKE', '%' . $search . '%');
+                    });
+            });
+        }
+        $data = $query->paginate($perPage);
+        return response()->json([
+            'data' => $data->items(),
+            'pagination' => [
+                'currentPage' => $data->currentPage(),
+                'perPage' => $data->perPage(),
+                'totalPages' => $data->lastPage(),
+                'totalItems' => $data->total()
+            ]
+        ]);
     }
 }

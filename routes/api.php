@@ -31,13 +31,16 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     
     // Fuel Station routes
     Route::post('add_fuel_station', [FuelStationController::class, 'add_fuel_station']);
+    Route::get('get_fuel_stations_data', [FuelStationController::class, 'get_fuel_stations_data']);
 
     // Vehicle routes
     Route::post('add_vehicle', [VehiclesController::class, 'add_vehicle']);
+    Route::get('get_vehicles_data', [VehiclesController::class, 'get_vehicles_data']);
 
     // driver routes
     Route::post('add_driver', [DriverController::class, 'add_driver']);
     Route::get('get_drivers', [DriverController::class, 'get_drivers']);
+    Route::get('get_drivers_data', [DriverController::class, 'get_drivers_data']);
 });
 
 
