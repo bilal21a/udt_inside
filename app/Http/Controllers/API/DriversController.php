@@ -58,6 +58,12 @@ class DriversController extends Controller
         $drivers = $user->drivers;
         return $this->sendResponse('returned Drivers', $drivers);
     }
+    public function driver_count()
+    {
+        $active = User::where('parent_id', auth('sanctum')->id())->where('status', 1)->count();
+        $inactive = User::where('parent_id', auth('sanctum')->id())->where('status', 0)->count();
+        return $this->sendResponse('Drivers Count', ['active' => $active, 'inactive' => $inactive]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -118,7 +124,7 @@ class DriversController extends Controller
         try {
             $driver = User::with('driver_info')->find($id);
             if ($driver->parent_id == auth('sanctum')->id()) {
-                return $this->sendResponse('Driver Deleted successfully.', $driver);
+                return $this->sendResponse('Driver Info', $driver);
             } else {
                 throw new \Exception("");
             }
@@ -179,6 +185,7 @@ class DriversController extends Controller
             return $this->sendError('Unknown Error Occured');
         }
     }
+
     public function change_password(Request $request, $id)
     {
         try {
@@ -195,7 +202,29 @@ class DriversController extends Controller
             } else {
                 throw new \Exception("");
             }
-            return $this->sendResponse('Password Changed successfully.',null);
+            return $this->sendResponse('Password Changed successfully.', null);
+        } catch (\Throwable $th) {
+            return $this->sendError('Unknown Error Occured');
+        }
+    }
+    
+    public function status_change(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|in:0,1',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->first());
+        }
+        try {
+            $driver = User::find($id);
+            if ($driver->parent_id == auth('sanctum')->id()) {
+                $driver->status = $request->status;
+                $driver->save();
+                return $this->sendResponse('Status Changed Successfully.', null);
+            } else {
+                throw new \Exception("");
+            }
         } catch (\Throwable $th) {
             return $this->sendError('Unknown Error Occured');
         }

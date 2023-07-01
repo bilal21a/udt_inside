@@ -27,7 +27,7 @@ class CreateFuelStationsTable extends Migration
             $table->string('lng')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->default(1)->nullable();
             $table->boolean('is_petrol')->nullable();
             $table->boolean('is_diesel')->nullable();
             $table->boolean('is_hi_oct')->nullable();

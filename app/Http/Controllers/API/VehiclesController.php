@@ -53,6 +53,12 @@ class VehiclesController extends Controller
             ]
         ]);
     }
+    public function vehicle_count()
+    {
+        $active = Vehicle::where('user_id', auth('sanctum')->id())->where('status', 1)->count();
+        $inactive = Vehicle::where('user_id', auth('sanctum')->id())->where('status', '!=', 1)->count();
+        return $this->sendResponse('Vehicle Count', ['active' => $active, 'inactive' => $inactive]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -159,7 +165,7 @@ class VehiclesController extends Controller
             $vehicle = Vehicle::find($id);
             if ($vehicle->user_id == auth('sanctum')->id()) {
                 $vehicle = $this->save_vehicle($vehicle, $request, null, 'edit');
-            }else{
+            } else {
                 throw new \Exception("");
             }
             return $this->sendResponse('Vehicle Updated successfully.', $vehicle);

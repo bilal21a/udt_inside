@@ -50,6 +50,18 @@ class FuelStationsController extends Controller
             ]
         ]);
     }
+    public function fuel_station_places($type = null)
+    {
+        $fuel_station = FuelStation::when($type != null, function ($query)  {
+                return $query->where('user_id',auth('sanctum')->id());
+            })->select('id','user_id', 'name', 'address', 'lat', 'lng', 'fuel_station_image')->where('status', 1)->get();
+        return $this->sendResponse('Fuel Stations', $fuel_station);
+    }
+    public function fuel_capacity()
+    {
+        $fuel_station = FuelStation::where('user_id',auth('sanctum')->id())->select('id','user_id', 'capacity','status')->where('status', 1)->sum('capacity');
+        return $this->sendResponse('Fuel Stations Capacity', $fuel_station);
+    }
 
     /**
      * Show the form for creating a new resource.

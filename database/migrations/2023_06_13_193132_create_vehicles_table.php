@@ -28,7 +28,7 @@ class CreateVehiclesTable extends Migration
             $table->string('vehicle_owning_time')->nullable();
             $table->string('current_car_value')->nullable();
             $table->string('car_travel_distance')->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->default(1)->nullable();
             $table->string('vehicle_image')->nullable();
             $table->timestamps();
         });

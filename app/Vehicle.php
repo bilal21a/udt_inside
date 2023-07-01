@@ -16,10 +16,8 @@ class Vehicle extends Model
     {
         return $this->belongsToMany(User::class, 'vehicle_driver', 'vehicle_id', 'user_id');
     }
-    // append
     public function getVehicleImageUrlAttribute()
     {
-        // dd(asset('storage/vehicle/' . $this->vehicle_image));
-            return asset('storage/vehicle/' . $this->vehicle_image);
+        return asset('storage/vehicle/' . $this->vehicle_image);
     }
 }

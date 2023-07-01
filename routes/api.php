@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\API\DriversController;
 use App\Http\Controllers\API\ForgetPasswordController;
+use App\Http\Controllers\API\FuelStationsController;
 use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\VehiclesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,8 +34,17 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     // Vehicles routes
     Route::resource('vehicle', 'API\VehiclesController');
-
+    
+    
     // drivers routes
     Route::resource('driver', 'API\DriversController');
+    Route::get('get_drivers', [DriversController::class, 'get_drivers']);
     Route::post('driver_change_password/{id}', [DriversController::class, 'change_password']);
+    Route::post('driver_status_change/{id}', [DriversController::class, 'status_change']);
+    
+    // Dashboard routes
+    Route::get('vehicle_count', [VehiclesController::class, 'vehicle_count']);
+    Route::get('driver_count', [DriversController::class, 'driver_count']);
+    Route::get('fuel_station_places/{type?}', [FuelStationsController::class, 'fuel_station_places']);
+    Route::get('fuel_capacity', [FuelStationsController::class, 'fuel_capacity']);
 });
