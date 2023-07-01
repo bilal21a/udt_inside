@@ -11,7 +11,66 @@ use Illuminate\Support\Facades\Validator;
 class VehiclesController extends Controller
 {
     use VehicleTrait;
-    public function add_vehicle(Request $request)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $perPage = $request->input('perPage', 10); // Number of records per page
+        $search = $request->input('search');
+        $user_id = auth('sanctum')->id();
+        $query = Vehicle::where('user_id', $user_id);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('make', 'LIKE', '%' . $search . '%')
+                    ->orWhere('color', 'LIKE', '%' . $search . '%')
+                    ->orWhere('model', 'LIKE', '%' . $search . '%')
+                    ->orWhere('engine_type', 'LIKE', '%' . $search . '%')
+                    ->orWhere('year', 'LIKE', '%' . $search . '%')
+                    ->orWhere('avg_kmpg', 'LIKE', '%' . $search . '%')
+                    ->orWhere('license_plate', 'LIKE', '%' . $search . '%')
+                    ->orWhere('license_no', 'LIKE', '%' . $search . '%')
+                    ->orWhere('vehicle_owning_time', 'LIKE', '%' . $search . '%')
+                    ->orWhere('current_car_value', 'LIKE', '%' . $search . '%')
+                    ->orWhere('car_travel_distance', 'LIKE', '%' . $search . '%');
+                // Add more columns as needed
+            });
+        }
+
+
+        $data = $query->paginate($perPage);
+
+        return response()->json([
+            'data' => $data->items(),
+            'pagination' => [
+                'currentPage' => $data->currentPage(),
+                'perPage' => $data->perPage(),
+                'totalPages' => $data->lastPage(),
+                'totalItems' => $data->total()
+            ]
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'make' => 'required',
@@ -39,42 +98,95 @@ class VehiclesController extends Controller
         return $this->sendResponse('Vehicle Added successfully.', $vehicle);
     }
 
-    // datatable 
-    public function get_vehicles_data(Request $request)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-        $perPage = $request->input('perPage', 10); // Number of records per page
-        $search = $request->input('search');
-        $user_id = auth('sanctum')->id();
-        $query = Vehicle::where('user_id', $user_id);
-
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('make', 'LIKE', '%' . $search . '%')
-                  ->orWhere('color', 'LIKE', '%' . $search . '%')
-                  ->orWhere('model', 'LIKE', '%' . $search . '%')
-                  ->orWhere('engine_type', 'LIKE', '%' . $search . '%')
-                  ->orWhere('year', 'LIKE', '%' . $search . '%')
-                  ->orWhere('avg_kmpg', 'LIKE', '%' . $search . '%')
-                  ->orWhere('license_plate', 'LIKE', '%' . $search . '%')
-                  ->orWhere('license_no', 'LIKE', '%' . $search . '%')
-                  ->orWhere('vehicle_owning_time', 'LIKE', '%' . $search . '%')
-                  ->orWhere('current_car_value', 'LIKE', '%' . $search . '%')
-                  ->orWhere('car_travel_distance', 'LIKE', '%' . $search . '%');
-                // Add more columns as needed
-            });
+        try {
+            $vehicle = Vehicle::find($id);
+            if ($vehicle->user_id == auth('sanctum')->id()) {
+                return $this->sendResponse('Vehicle Info', $vehicle);
+            } else {
+                throw new \Exception("");
+            }
+        } catch (\Throwable $th) {
+            return $this->sendError('Unknown Error Occured');
         }
-    
+    }
 
-        $data = $query->paginate($perPage);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
-        return response()->json([
-            'data' => $data->items(),
-            'pagination' => [
-                'currentPage' => $data->currentPage(),
-                'perPage' => $data->perPage(),
-                'totalPages' => $data->lastPage(),
-                'totalItems' => $data->total()
-            ]
-        ]);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'make' => 'required',
+                'color' => 'required',
+                'model' => 'required',
+                'engine_type' => 'required',
+                'year' => 'required',
+                'avg_kmpg' => 'required',
+                'license_plate' => 'required',
+                'license_no' => 'required',
+                'vehicle_owning_time' => 'required',
+                'current_car_value' => 'required',
+                'car_travel_distance' => 'required|integer',
+                'status' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors()->first());
+            }
+            $vehicle = Vehicle::find($id);
+            if ($vehicle->user_id == auth('sanctum')->id()) {
+                $vehicle = $this->save_vehicle($vehicle, $request, null, 'edit');
+            }else{
+                throw new \Exception("");
+            }
+            return $this->sendResponse('Vehicle Updated successfully.', $vehicle);
+        } catch (\Throwable $th) {
+            return $this->sendError('Unknown Error Occured');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try {
+            $vehicle = Vehicle::find($id);
+            if ($vehicle->user_id == auth('sanctum')->id()) {
+                $this->delete_image($vehicle->vehicle_image);
+                $vehicle->delete();
+                return $this->sendResponse('Vehicle Deleted successfully.', null);
+            } else {
+                throw new \Exception("");
+            }
+        } catch (\Throwable $th) {
+            return $this->sendError('Unknown Error Occured');
+        }
     }
 }

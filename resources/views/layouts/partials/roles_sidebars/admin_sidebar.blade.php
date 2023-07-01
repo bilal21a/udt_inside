@@ -10,3 +10,9 @@
         <span class="label">Customers</span>
     </a>
 </li>
+<li>
+    <a class="{{ request()->is('serviceprovider*') ? 'active' : '' }}" href="{{ route('serviceprovider.index') }}">
+        <i data-acorn-icon="user" class="d-inline-block"></i>
+        <span class="label">Service Providers</span>
+    </a>
+</li>
