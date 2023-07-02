@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        // Check if the user has the required role to log in
+        if ($user->role !== 'admin') {
+            // User does not have the required role
+            // Log the user out and redirect them back to the login page
+            $this->guard()->logout();
+            $request->session()->invalidate();
+            throw ValidationException::withMessages([
+                $this->username() => ["You are not authorized to log in."],
+            ]);
+        }
+
+        // User has the required role, continue with the default authenticated logic
+        return redirect()->intended($this->redirectPath());
     }
 }
