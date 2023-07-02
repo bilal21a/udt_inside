@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('status')->default(1)->nullable();
             $table->rememberToken();
+            $table->string('otp')->nullable();
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');

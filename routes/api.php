@@ -28,7 +28,10 @@ Route::post('add_service_provider', [RegisterController::class, 'add_service_pro
 
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-
+    // otp
+    Route::get('generate_otp', [RegisterController::class, 'generate_otp']);
+    Route::post('verify_otp', [RegisterController::class, 'verify_otp']);
+    
     // Fuel Station routes
     Route::resource('fuel_station', 'API\FuelStationsController');
 

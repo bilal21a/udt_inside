@@ -4,10 +4,12 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
+use App\Mail\OtpMail;
 use App\Traits\CustomerTrait;
 use App\Traits\userTrait;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends BaseController
@@ -108,5 +110,39 @@ class RegisterController extends BaseController
         } else {
             return $this->sendError('Unauthorised', null);
         }
+    }
+
+    /**
+     * Otp work
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function generate_otp(Request $request)
+    {
+        $user=User::find(auth('sanctum')->id());
+        $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        $user->otp = $otp;
+        $user->save();
+        Mail::to($user->email)->send(new OtpMail($user));
+        return $this->sendResponse("Otp Sent Successfully", null);
+    }
+    public function verify_otp(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'otp' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->first());
+        }
+        $user = User::find(auth('sanctum')->id());
+
+        if ($user && $user->otp === $request->otp) {
+            if (!$user->hasVerifiedEmail()) {
+                $user->markEmailAsVerified();
+            }
+            return $this->sendResponse("Email verified successfully.", null);
+        }
+        return $this->sendError('Invalid OTP.', null);
     }
 }
