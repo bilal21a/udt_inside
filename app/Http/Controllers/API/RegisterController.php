@@ -108,7 +108,7 @@ class RegisterController extends BaseController
     
             return $this->sendResponse("Login Successfully", ['token' => $user->createToken('MyApp')->plainTextToken, 'user' => $user]);
         } else {
-            return $this->sendError('Unauthorised', null);
+            return $this->sendError('Invalid Credientials', null);
         }
     }
 

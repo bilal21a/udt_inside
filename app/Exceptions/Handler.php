@@ -4,7 +4,10 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 class Handler extends ExceptionHandler
 {
     /**
@@ -50,6 +53,22 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof AuthenticationException) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json(['error' => 'Unauthenticated.'], Response::HTTP_UNAUTHORIZED);
+            }
+        }
+
+        if ($exception instanceof ValidationException) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json(['error' => $exception->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+        }
+
+        if ($exception instanceof HttpResponseException) {
+            return $exception->getResponse();
+        }
+
         return parent::render($request, $exception);
     }
 }
