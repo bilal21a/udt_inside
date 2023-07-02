@@ -26,6 +26,10 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    // home routes
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/get_count', 'HomeController@get_count')->name('get_count');
+
     // Users Management
     Route::resource('users', 'UserController');
     Route::get('get_users', [UserController::class, 'get_data'])->name('get_users');
@@ -61,7 +65,6 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect()->route('login');
 })->name('logout');
-Route::get('/home', 'HomeController@index')->name('home');
 
 
 

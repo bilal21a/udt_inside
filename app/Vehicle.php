@@ -12,7 +12,7 @@ class Vehicle extends Model
         'status' => 'boolean',
     ];
 
-    public function user()
+    public function driver()
     {
         return $this->belongsToMany(User::class, 'vehicle_driver', 'vehicle_id', 'user_id');
     }

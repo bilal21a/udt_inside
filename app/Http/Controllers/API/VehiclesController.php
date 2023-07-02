@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Traits\VehicleTrait;
 use App\Vehicle;
+use App\VehicleDriver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -82,6 +83,7 @@ class VehiclesController extends Controller
             'make' => 'required',
             'color' => 'required',
             'model' => 'required',
+            'driver_id' => 'required',
             'engine_type' => 'required',
             'year' => 'required',
             'avg_kmpg' => 'required',
@@ -101,6 +103,8 @@ class VehiclesController extends Controller
         $user_id = auth('sanctum')->id();
         $vehicle = new Vehicle();
         $vehicle = $this->save_vehicle($vehicle, $request, $user_id);
+        $driver_id=$request->driver_id;
+        $this->assignDriver($driver_id,$vehicle->id);
         return $this->sendResponse('Vehicle Added successfully.', $vehicle);
     }
 
@@ -113,7 +117,7 @@ class VehiclesController extends Controller
     public function show($id)
     {
         try {
-            $vehicle = Vehicle::find($id);
+            $vehicle = Vehicle::with('driver')->find($id);
             if ($vehicle->user_id == auth('sanctum')->id()) {
                 return $this->sendResponse('Vehicle Info', $vehicle);
             } else {
@@ -158,6 +162,7 @@ class VehiclesController extends Controller
                 'current_car_value' => 'required',
                 'car_travel_distance' => 'required|integer',
                 'status' => 'required',
+                'driver_id' => 'required',
             ]);
             if ($validator->fails()) {
                 return $this->sendError('Validation Error.', $validator->errors()->first());
@@ -165,6 +170,8 @@ class VehiclesController extends Controller
             $vehicle = Vehicle::find($id);
             if ($vehicle->user_id == auth('sanctum')->id()) {
                 $vehicle = $this->save_vehicle($vehicle, $request, null, 'edit');
+                $driver_id=$request->driver_id;
+                $this->assignDriver($driver_id,$vehicle->id);
             } else {
                 throw new \Exception("");
             }
@@ -194,5 +201,13 @@ class VehiclesController extends Controller
         } catch (\Throwable $th) {
             return $this->sendError('Unknown Error Occured');
         }
+    }
+    public function assignDriver($driver_id,$vehicle_id)
+    {
+        $vehicle_driver=new VehicleDriver();
+        $vehicle_driver->user_id=$driver_id;
+        $vehicle_driver->vehicle_id=$vehicle_id;
+        $vehicle_driver->customer_id=auth('sanctum')->id();
+        $vehicle_driver->save();
     }
 }
