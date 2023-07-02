@@ -24,7 +24,9 @@ trait userTrait
         $user->first_name = $request->first_name;
         $user->middle_name = $request->middle_name;
         $user->last_name = $request->last_name;
-        $user->role = $role;
+        if ($type == null) {
+            $user->role = $role;
+        }
         $user->phone = $request->phone;
         $user->email = $request->email;
         if ($request->password != null) { //only update in if provided

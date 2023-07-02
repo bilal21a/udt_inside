@@ -92,6 +92,7 @@ class FuelStationsController extends Controller
             'email' => 'required|email|unique:fuel_stations,email',
             'phone' => 'required',
             'residential_address' => 'required',
+            'fuel_type' => 'required',
             'notes' => 'required',
             'approval_certificate_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
             'fuel_station_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
@@ -147,7 +148,31 @@ class FuelStationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'address' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
+            'capacity' => 'required',
+            'rate_per_liter' => 'required',
+            'franchiser_name' => 'required',
+            'email' => 'required|email|unique:fuel_stations,email,' . $id,
+            'phone' => 'required',
+            'residential_address' => 'required',
+            'fuel_type' => 'required',
+            'notes' => 'required',
+            'approval_certificate_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
+            'fuel_station_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->first());
+        }
+
+        $user_id = auth('sanctum')->id();
+        $fuelpump = FuelStation::find($id);
+        $fuelpump = $this->save_fuel_station($fuelpump, $request, $user_id, 'edit');
+        return $this->sendResponse('Fuel Station Updated successfully.', $fuelpump);
     }
 
     /**

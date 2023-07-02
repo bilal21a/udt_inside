@@ -145,4 +145,61 @@ class RegisterController extends BaseController
         }
         return $this->sendError('Invalid OTP.', null);
     }
+
+    /**
+     * Update Profiles
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function customer_profile_update(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'gender' => 'required',
+                'phone' => 'required',
+                'address' => 'required',
+                'profile_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors()->first());
+            }
+
+            $user =  User::find(auth('sanctum')->id());
+            $user = $this->save_user($user, $request,'customer','edit');
+            $success['user'] =  $user;
+
+            return $this->sendResponse('Profile Updated successfully.',$success);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage(),null);
+        }
+    }
+    public function service_provider_profile_update(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'gender' => 'required',
+                'phone' => 'required',
+                'address' => 'required',
+                'cnic' => 'required',
+                'profile_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors()->first());
+            }
+
+            $user =  User::find(auth('sanctum')->id());
+            $user = $this->save_user($user, $request,'service_provider','edit');
+            $success['user'] =  $user;
+
+            return $this->sendResponse('Profile Updated successfully.',$success);
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage(),null);
+        }
+    }
 }
