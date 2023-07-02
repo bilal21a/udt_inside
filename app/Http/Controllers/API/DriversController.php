@@ -110,7 +110,7 @@ class DriversController extends Controller
         $user = $this->save_user($user, $request, 'driver');
         $driver = new DirverInfo();
         $driver = $this->driver_info_save($driver, $request, $user->id);
-        return $this->sendResponse('Driver Added successfully.', $user);
+        return $this->sendResponse('Driver Added successfully.', $user->load('driver_info'));
     }
 
     /**
