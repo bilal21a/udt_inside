@@ -8,6 +8,7 @@ trait FuelStationTrait
 {
     public function save_fuel_station($fuelpump, $request, $user_id, $type = null)
     {
+        $fuel_type = $request->fuel_type;
         $fuelpump->name = $request->name;
         $fuelpump->capacity = $request->capacity;
         $fuelpump->user_id = $user_id;
@@ -19,6 +20,10 @@ trait FuelStationTrait
         $fuelpump->lat = $request->lat;
         $fuelpump->lng = $request->lng;
         $fuelpump->residential_address = $request->residential_address;
+        $fuelpump->notes = $request->notes;
+        $fuelpump->is_petrol = in_array("petrol", $fuel_type) ? true : false;
+        $fuelpump->is_diesel = in_array("diesel", $fuel_type) ? true : false;
+        $fuelpump->is_hi_oct = in_array("hi_oct", $fuel_type) ? true : false;
         $fuelpump->notes = $request->notes;
         $this->save_station_image($request, $fuelpump, 'approval_certificate_image', 'certificate', $type);
         $this->save_station_image($request, $fuelpump, 'fuel_station_image', 'image', $type);

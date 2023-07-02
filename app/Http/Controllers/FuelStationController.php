@@ -16,13 +16,19 @@ class FuelStationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('fuel_station.index');
+        $service_provider = $request->service_provider;
+        if ($service_provider) {
+            return view('fuel_station.index', compact('service_provider'));
+        } else {
+            return redirect()->back();
+        }
     }
-    public function get_data()
+    public function get_data(Request $request)
     {
-        $data = FuelStation::get();
+        $service_provider = $request->service_provider;
+        $data = FuelStation::where('user_id', $service_provider)->get();
         return DataTables::of($data)
             ->addColumn('image', function ($row) {
                 return '<img class="picheight" src="' . $row->fuel_station_image_url . '">';
@@ -32,21 +38,21 @@ class FuelStationController extends Controller
                 return '<p>Map</p>';
             })
             ->addColumn('fuel_type', function ($row) {
-                // dd($row->approval_certificate_image_url);
+                $check='<i class="bi-check-circle-fill text-success"></i></i>';
+                $cross='<i class="bi-x-circle-fill text-danger"></i></i>';
                 return '<div class="d-flex flex-driection-column"style="padding-left: 71px;flex-direction: column;
-                width: fit-content;"><span class="badge rounded-pill bg-separator mb-1">Petrol<i class="fa fa-check-circle"></i></i></span>
-               <span class="badge rounded-pill bg-separator mb-1"> Diesel</span>
-               <span class="badge rounded-pill bg-separator mb-1"> Hi-Octane</span>
+                width: fit-content;"><span class="badge rounded-pill bg-outline-primary tex mb-1">Petrol '.($row->is_petrol?$check:$cross).'</span>
+               <span class="badge rounded-pill bg-outline-primary mb-1"> Diesel '.($row->is_petrol?$check:$cross).'</span>
+               <span class="badge rounded-pill bg-outline-primary mb-1"> Hi-Octane '.($row->is_petrol?$check:$cross).'</span>
                </div>';
             })
             ->addColumn('status', function ($row) {
                 $status = $row->status == 1 ? "Active" : "Inactive";
                 return $status;
             })
-            ->addColumn('action', function ($row) {
-                $edit_btn_url = route('fuel_station.edit', $row->id);
-                $view_btn_url = route('customers.show', $row->id);
-                return $this->viewButton($view_btn_url) . $this->get_buttons($edit_btn_url, $row->id);
+            ->addColumn('action', function ($row) use ($service_provider) {
+                $edit_btn_url = route('fuel_station.edit', [$row->id, 'service_provider' => $service_provider]);
+                return $this->get_buttons($edit_btn_url, $row->id);
             })
             ->rawColumns(['image', 'map', 'fuel_type', 'action'])
             ->make(true);
@@ -56,9 +62,14 @@ class FuelStationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('fuel_station.add');
+        $service_provider = $request->service_provider;
+        if ($service_provider) {
+            return view('fuel_station.add', compact('service_provider'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -69,7 +80,7 @@ class FuelStationController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'capacity' => 'required|max:255',
@@ -82,17 +93,19 @@ class FuelStationController extends Controller
             'lng' => 'required',
             'residential_address' => 'required',
             'notes' => 'required',
+            'fuel_type'  => 'required',
             'approval_certificate_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
             'fuel_station_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
+            'service_provider' => 'required',
         ]);
+        $user_id = $request->service_provider;
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+            return redirect()->route('fuel_station.create', ['service_provider' => $user_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
 
-        $user_id = 2;
         $fuelpump = new FuelStation();
         $fuelpump = $this->save_fuel_station($fuelpump, $request, $user_id);
-        return redirect()->route('fuel_station.index')->with('alert', ['type' => 'success', 'message' => 'Customer "' . $fuelpump->name . '" Updated successfully']);
+        return redirect()->route('fuel_station.index', ['service_provider' => $user_id])->with('alert', ['type' => 'success', 'message' => 'Customer "' . $fuelpump->name . '" Updated successfully']);
     }
 
     /**
@@ -112,10 +125,15 @@ class FuelStationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $fuelpump = FuelStation::find($id);
-        return view('fuel_station.edit', compact('id', 'fuelpump'));
+        $service_provider = $request->service_provider;
+        if ($service_provider) {
+            $fuelpump = FuelStation::find($id);
+            return view('fuel_station.edit', compact('id', 'fuelpump', 'service_provider'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -139,16 +157,19 @@ class FuelStationController extends Controller
             'lng' => 'required',
             'residential_address' => 'required',
             'notes' => 'required',
+            'fuel_type'  => 'required',
             'approval_certificate_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
             'fuel_station_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
+            'service_provider' => 'required',
         ]);
+        $user_id = $request->service_provider;
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+            return redirect()->route('fuel_station.edit', [$id, 'service_provider' => $user_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
 
         $fuelpump = FuelStation::find($id);
         $fuelpump = $this->save_fuel_station($fuelpump, $request, $fuelpump->user_id, 'edit');
-        return redirect()->route('fuel_station.index')->with('alert', ['type' => 'success', 'message' => 'Fuel Station "' . $fuelpump->name . '" Updated successfully']);
+        return redirect()->route('fuel_station.index', ['service_provider' => $user_id])->with('alert', ['type' => 'success', 'message' => 'Fuel Station "' . $fuelpump->name . '" Updated successfully']);
     }
 
     /**

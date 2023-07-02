@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('fuel_station.create') }}">
+        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('fuel_station.create', ['service_provider'=>$service_provider]) }}">
             <i data-acorn-icon="plus"></i>
             <span>Add Fuel Satation</span>
         </a>
@@ -38,7 +38,7 @@
     {{-- **Show Data** --}}
     <script>
         var tabelDataArray = ['image', 'name', 'address', 'map', 'fuel_type', 'status', 'address', 'action'];
-        var get_data_url = "{{ route('get_fuel_station') }}"
+        var get_data_url = "{{ route('get_fuel_station', ['service_provider'=>$service_provider]) }}"
     </script>
     @include('common.js.get_data')
 

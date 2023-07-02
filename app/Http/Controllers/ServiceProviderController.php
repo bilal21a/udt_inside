@@ -33,7 +33,8 @@ class ServiceProviderController extends Controller
             })
             ->addColumn('action', function ($row) {
                 $edit_btn_url = route('serviceprovider.edit', $row->id);
-                return $this->get_buttons($edit_btn_url, $row->id);
+                $fuel_station_url = route('fuel_station.index', ['service_provider'=>$row->id]);
+                return $this->pumpButton($fuel_station_url, 'Fuel Stations') . $this->get_buttons($edit_btn_url, $row->id);
             })
             ->rawColumns(['profile_image', 'full_name', 'action'])
             ->make(true);
