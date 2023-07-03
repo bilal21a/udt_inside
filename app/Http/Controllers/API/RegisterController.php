@@ -41,14 +41,14 @@ class RegisterController extends BaseController
             }
 
             $user = new User();
-            $user = $this->save_user($user, $request,'customer');
+            $user = $this->save_user($user, $request, 'customer');
 
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['user'] =  $user;
 
-            return $this->sendResponse('User register successfully.',$success);
+            return $this->sendResponse('User register successfully.', $success);
         } catch (\Throwable $th) {
-            return $this->sendError($th->getMessage(),null);
+            return $this->sendError($th->getMessage(), null);
         }
     }
     /**
@@ -77,14 +77,14 @@ class RegisterController extends BaseController
             }
 
             $user = new User();
-            $user = $this->save_user($user, $request,'service_provider');
+            $user = $this->save_user($user, $request, 'service_provider');
 
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['user'] =  $user;
 
-            return $this->sendResponse('User register successfully.',$success);
+            return $this->sendResponse('User register successfully.', $success);
         } catch (\Throwable $th) {
-            return $this->sendError($th->getMessage(),null);
+            return $this->sendError($th->getMessage(), null);
         }
     }
 
@@ -105,7 +105,7 @@ class RegisterController extends BaseController
         }
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = auth()->user();
-    
+
             return $this->sendResponse("Login Successfully", ['token' => $user->createToken('MyApp')->plainTextToken, 'user' => $user]);
         } else {
             return $this->sendError('Invalid Credientials', null);
@@ -119,7 +119,7 @@ class RegisterController extends BaseController
      */
     public function generate_otp(Request $request)
     {
-        $user=User::find(auth('sanctum')->id());
+        $user = User::find(auth('sanctum')->id());
         $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
         $user->otp = $otp;
         $user->save();
@@ -168,12 +168,25 @@ class RegisterController extends BaseController
             }
 
             $user =  User::find(auth('sanctum')->id());
-            $user = $this->save_user($user, $request,'customer','edit');
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->phone = $request->phone;
+            if ($request->hasFile('profile_image')) {
+                $this->delete_image($user->profile_image);
+                $file = $request->file('profile_image');
+                $filename = 'user_' . rand() . '.' . $file->getClientOriginalExtension();
+                $user->profile_image = $filename;
+                $file->storeAs('public/user/', $filename);
+            }
+            $user->address = $request->address;
+            $user->gender = $request->gender;
+            $user->save();
+
             $success['user'] =  $user;
 
-            return $this->sendResponse('Profile Updated successfully.',$success);
+            return $this->sendResponse('Profile Updated successfully.', $success);
         } catch (\Throwable $th) {
-            return $this->sendError($th->getMessage(),null);
+            return $this->sendError($th->getMessage(), null);
         }
     }
     public function service_provider_profile_update(Request $request)
@@ -194,12 +207,25 @@ class RegisterController extends BaseController
             }
 
             $user =  User::find(auth('sanctum')->id());
-            $user = $this->save_user($user, $request,'service_provider','edit');
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->phone = $request->phone;
+            $user->cnic = $request->cnic;
+            if ($request->hasFile('profile_image')) {
+                $this->delete_image($user->profile_image);
+                $file = $request->file('profile_image');
+                $filename = 'user_' . rand() . '.' . $file->getClientOriginalExtension();
+                $user->profile_image = $filename;
+                $file->storeAs('public/user/', $filename);
+            }
+            $user->address = $request->address;
+            $user->gender = $request->gender;
+            $user->save();
             $success['user'] =  $user;
 
-            return $this->sendResponse('Profile Updated successfully.',$success);
+            return $this->sendResponse('Profile Updated successfully.', $success);
         } catch (\Throwable $th) {
-            return $this->sendError($th->getMessage(),null);
+            return $this->sendError($th->getMessage(), null);
         }
     }
 }
