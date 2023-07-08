@@ -171,6 +171,9 @@ class RegisterController extends BaseController
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->phone = $request->phone;
+            if ($request->password != null) { //only update in if provided
+                $user->password = bcrypt($request->password);
+            }
             if ($request->hasFile('profile_image')) {
                 $this->delete_image($user->profile_image);
                 $file = $request->file('profile_image');
@@ -211,6 +214,9 @@ class RegisterController extends BaseController
             $user->last_name = $request->last_name;
             $user->phone = $request->phone;
             $user->cnic = $request->cnic;
+            if ($request->password != null) { //only update in if provided
+                $user->password = bcrypt($request->password);
+            }
             if ($request->hasFile('profile_image')) {
                 $this->delete_image($user->profile_image);
                 $file = $request->file('profile_image');

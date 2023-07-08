@@ -86,7 +86,7 @@ class FuelStationsController extends Controller
             'address' => 'required',
             'lat' => 'required',
             'lng' => 'required',
-            'capacity' => 'required',
+            'capacity' => 'required|numeric',
             'rate_per_liter' => 'required',
             'franchiser_name' => 'required',
             'email' => 'required|email|unique:fuel_stations,email',
@@ -153,7 +153,7 @@ class FuelStationsController extends Controller
             'address' => 'required',
             'lat' => 'required',
             'lng' => 'required',
-            'capacity' => 'required',
+            'capacity' => 'required|numeric',
             'rate_per_liter' => 'required',
             'franchiser_name' => 'required',
             'email' => 'required|email|unique:fuel_stations,email,' . $id,
@@ -161,8 +161,8 @@ class FuelStationsController extends Controller
             'residential_address' => 'required',
             'fuel_type' => 'required',
             'notes' => 'required',
-            'approval_certificate_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
-            'fuel_station_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
+            'approval_certificate_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
+            'fuel_station_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
 
         if ($validator->fails()) {
