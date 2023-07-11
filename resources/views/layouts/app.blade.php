@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>UDT - ADMIN</title>
- <!-- Favicon Tags Start -->
+    <!-- Favicon Tags Start -->
     <link rel="apple-touch-icon-precomposed" sizes="57x57"
         href="{{ asset('acron/img/favicon/apple-touch-icon-57x57.png') }}" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114"
@@ -144,7 +144,8 @@
 
     <script src="{{ asset('acron/js/vendor/datatables.min.js') }}"></script>
     <script src="{{ asset('acron/js/vendor/moment-with-locales.min.js') }}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css"
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css"
         integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js"
@@ -155,6 +156,10 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{-- google map --}}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqHMMnNBIKO-QfXVkrUEpEzxZ49aUt_z0&libraries=places">
+    </script>
 
     <script>
         function myalert(icon = "success", title = "null", timer = "3000") {
@@ -182,6 +187,8 @@
 
             }
         })
+
+
     </script>
 
 

@@ -35,7 +35,7 @@ class FuelStationController extends Controller
             })
             ->addColumn('map', function ($row) {
                 // dd($row->approval_certificate_image_url);
-                return '<p>Map</p>';
+                return '<p data-bs-toggle="modal" data-bs-target="#mapModal" onclick="showMap(' . $row->id . ')">Map</p>';
             })
             ->addColumn('fuel_type', function ($row) {
                 $check='<i class="bi-check-circle-fill text-success"></i></i>';
@@ -56,6 +56,10 @@ class FuelStationController extends Controller
             })
             ->rawColumns(['image', 'map', 'fuel_type', 'action'])
             ->make(true);
+    }
+    public function fuel_station_map($id){
+        $fuelpump = FuelStation::find($id);
+        return view('fuel_station.modals.map');
     }
     /**
      * Show the form for creating a new resource.

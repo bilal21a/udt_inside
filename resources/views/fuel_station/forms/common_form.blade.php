@@ -34,18 +34,23 @@
 </div>
 <div class="mb-3">
     <label class="form-label">Address <span class="text-danger">*</span></label>
-    <textarea placeholder="" name="address" class="form-control" rows="3" data-gramm="false" wt-ignore-input="true">{{ isset($fuelpump) ? $fuelpump->address : old('address') }} </textarea>
+    <input type="text" name="address" class="form-control"
+        value="{{ isset($fuelpump) ? $fuelpump->address : old('address') }}">
 </div>
 <div class="mb-3">
     <label class="form-label">Latitude <span class="text-danger">*</span></label>
-    <input type="text" name="lat" class="form-control"
-        value="{{ isset($fuelpump) ? $fuelpump->lat : old('lat') }}">
+    <input type="text" name="lat" class="form-control" value="{{ isset($fuelpump) ? $fuelpump->lat : old('lat') }}">
 </div>
 <div class="mb-3">
     <label class="form-label">Longitude <span class="text-danger">*</span></label>
-    <input type="text" name="lng" class="form-control"
-        value="{{ isset($fuelpump) ? $fuelpump->lng : old('lng') }}">
+    <input type="text" name="lng" class="form-control" value="{{ isset($fuelpump) ? $fuelpump->lng : old('lng') }}">
 </div>
+<div class="mb-3">
+    <button class="btn btn-outline-primary" id="adjust-button" type="button">Adjust from Map</button>
+</div>
+<div id="map"></div>
+
+
 <div class="mb-3">
     <label class="form-label">Residential Address <span class="text-danger">*</span></label>
     <textarea placeholder="" name="residential_address" class="form-control" rows="3" data-gramm="false"

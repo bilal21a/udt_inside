@@ -18,7 +18,8 @@
             </div>
         </div>
 
-        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('fuel_station.create', ['service_provider'=>$service_provider]) }}">
+        <a class="btn btn-icon btn-icon-start btn-primary mb-4"
+            href="{{ route('fuel_station.create', ['service_provider' => $service_provider]) }}">
             <i data-acorn-icon="plus"></i>
             <span>Add Fuel Satation</span>
         </a>
@@ -38,7 +39,7 @@
     {{-- **Show Data** --}}
     <script>
         var tabelDataArray = ['image', 'name', 'address', 'map', 'fuel_type', 'status', 'address', 'action'];
-        var get_data_url = "{{ route('get_fuel_station', ['service_provider'=>$service_provider]) }}"
+        var get_data_url = "{{ route('get_fuel_station', ['service_provider' => $service_provider]) }}"
     </script>
     @include('common.js.get_data')
 
@@ -48,4 +49,47 @@
         var delete_data_url = '{{ route('fuel_station.destroy', ':id') }}'
     </script>
     @include('common.js.delete_data')
+
+    <script>
+        function showMap(id) {
+            console.log('id: ', id);
+            var showMapUrl = '{{ route('show_fuel_station_map', ':id') }}'
+            url = showMapUrl.replace(':id', id);
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    $('.mapModalBody').html(data);
+                    // initMap()
+                },
+            });
+        }
+
+        function initMap() {
+            var lat = 37.7749; // Replace with your desired latitude
+            var lng = -122.4194; // Replace with your desired longitude
+
+            var mapOptions = {
+                center: {
+                    lat: lat,
+                    lng: lng
+                },
+                zoom: 12
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            var marker = new google.maps.Marker({
+                position: {
+                    lat: lat,
+                    lng: lng
+                },
+                map: map
+            });
+        }
+    </script>
 @endsection

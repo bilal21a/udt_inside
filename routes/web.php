@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('fuel_station', 'FuelStationController');
     Route::get('get_fuel_station', [FuelStationController::class, 'get_data'])->name('get_fuel_station');
+    Route::get('show_fuel_station_map/{id}', [FuelStationController::class, 'fuel_station_map'])->name('show_fuel_station_map');
 });
 
 
