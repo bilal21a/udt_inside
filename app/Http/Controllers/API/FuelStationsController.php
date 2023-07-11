@@ -93,7 +93,6 @@ class FuelStationsController extends Controller
             'phone' => 'required',
             'residential_address' => 'required',
             'fuel_type' => 'required',
-            'notes' => 'required',
             'approval_certificate_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
             'fuel_station_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
@@ -160,7 +159,6 @@ class FuelStationsController extends Controller
             'phone' => 'required',
             'residential_address' => 'required',
             'fuel_type' => 'required',
-            'notes' => 'required',
             'approval_certificate_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
             'fuel_station_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
