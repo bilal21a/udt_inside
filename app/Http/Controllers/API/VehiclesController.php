@@ -105,7 +105,7 @@ class VehiclesController extends Controller
         $vehicle = $this->save_vehicle($vehicle, $request, $user_id);
         $driver_id=$request->driver_id;
         $this->assignDriver($driver_id,$vehicle->id);
-        return $this->sendResponse('Vehicle Added successfully.', $vehicle);
+        return $this->sendResponse('Vehicle Added successfully.', $vehicle->load('driver'));
     }
 
     /**
@@ -175,7 +175,7 @@ class VehiclesController extends Controller
             } else {
                 throw new \Exception("");
             }
-            return $this->sendResponse('Vehicle Updated successfully.', $vehicle);
+            return $this->sendResponse('Vehicle Updated successfully.', $vehicle->load('driver'));
         } catch (\Throwable $th) {
             return $this->sendError('Unknown Error Occured');
         }
