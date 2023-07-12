@@ -103,8 +103,9 @@ class VehiclesController extends Controller
         $user_id = auth('sanctum')->id();
         $vehicle = new Vehicle();
         $vehicle = $this->save_vehicle($vehicle, $request, $user_id);
-        $driver_id=$request->driver_id;
-        $this->assignDriver($driver_id,$vehicle->id);
+        $driver_id = $request->driver_id;
+        $vehicle_driver = new VehicleDriver();
+        $this->assignDriver($vehicle_driver, $driver_id, $vehicle->id);
         return $this->sendResponse('Vehicle Added successfully.', $vehicle->load('driver'));
     }
 
@@ -170,8 +171,12 @@ class VehiclesController extends Controller
             $vehicle = Vehicle::find($id);
             if ($vehicle->user_id == auth('sanctum')->id()) {
                 $vehicle = $this->save_vehicle($vehicle, $request, null, 'edit');
-                $driver_id=$request->driver_id;
-                $this->assignDriver($driver_id,$vehicle->id);
+                $driver_id = $request->driver_id;
+                $vehicle_driver = VehicleDriver::where('vehicle_id', $id)->first();
+                if ($vehicle_driver == null) {
+                    $vehicle_driver = new VehicleDriver();
+                }
+                $this->assignDriver($vehicle_driver, $driver_id, $vehicle->id);
             } else {
                 throw new \Exception("");
             }
@@ -202,12 +207,11 @@ class VehiclesController extends Controller
             return $this->sendError('Unknown Error Occured');
         }
     }
-    public function assignDriver($driver_id,$vehicle_id)
+    public function assignDriver($vehicle_driver, $driver_id, $vehicle_id)
     {
-        $vehicle_driver=new VehicleDriver();
-        $vehicle_driver->user_id=$driver_id;
-        $vehicle_driver->vehicle_id=$vehicle_id;
-        $vehicle_driver->customer_id=auth('sanctum')->id();
+        $vehicle_driver->user_id = $driver_id;
+        $vehicle_driver->vehicle_id = $vehicle_id;
+        $vehicle_driver->customer_id = auth('sanctum')->id();
         $vehicle_driver->save();
     }
 }
