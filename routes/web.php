@@ -7,6 +7,7 @@ use App\Http\Controllers\FuelStationController;
 use App\Http\Controllers\ServiceProviderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\VehicleMakeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('vehicles', 'VehicleController');
     Route::get('get_vehicles', [VehicleController::class, 'get_data'])->name('get_vehicles');
+
     //Fuel Station route
     Route::resource('serviceprovider', 'ServiceProviderController');
     Route::get('get_service_provider', [ServiceProviderController::class, 'get_data'])->name('get_service_provider');
@@ -54,6 +56,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('fuel_station', 'FuelStationController');
     Route::get('get_fuel_station', [FuelStationController::class, 'get_data'])->name('get_fuel_station');
     Route::get('show_fuel_station_map/{id}', [FuelStationController::class, 'fuel_station_map'])->name('show_fuel_station_map');
+
+    Route::resource('vehicle_make', 'VehicleMakeController');
+    Route::get('get_vehicle_make', [VehicleMakeController::class, 'get_data'])->name('get_vehicle_make');
 });
 
 

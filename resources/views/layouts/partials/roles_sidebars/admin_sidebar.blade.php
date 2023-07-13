@@ -16,3 +16,9 @@
         <span class="label">Service Providers</span>
     </a>
 </li>
+<li>
+    <a class="{{ request()->is('vehicle_make*') ? 'active' : '' }}" href="{{ route('vehicle_make.index') }}">
+        <i data-acorn-icon="user" class="d-inline-block"></i>
+        <span class="label">Vehicle Make</span>
+    </a>
+</li>
