@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Vehicle;
+use App\VehicleMake;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -16,32 +18,21 @@ class VehicleMakeController extends Controller
      */
     public function index(Request $request)
     {
-        $customer_id = $request->customer;
-        if ($customer_id) {
-            return view('vehicle.index', compact('customer_id'));
-        } else {
-            return redirect()->back();
-        }
+        return view('vehicle_make.index');
     }
 
     public function get_data(Request $request)
     {
-        $customer_id = $request->customer;
-        $data = Vehicle::where('user_id', $customer_id)->latest()->get();
+        $data = VehicleMake::latest()->get();
         return DataTables::of($data)
             ->addColumn('vehicle_image', function ($row) {
-                return '<img class="picheight" src="' . $row->vehicle_image_url . '">';
+                return '<img class="picheight" src="' . $row->image_url . '">';
             })
-
-            ->addColumn('action', function ($row) use ($customer_id) {
-                $view_btn_url = route('vehicles.show', $row->id);
-                $edit_btn_url = route('vehicles.edit', [$row->id, 'customer' => $customer_id]);
-                return $this->viewButton($view_btn_url).$this->get_buttons($edit_btn_url, $row->id);
+            ->addColumn('action', function ($row)  {
+                $edit_btn_url = route('vehicle_make.edit', $row->id);
+                return $this->get_buttons($edit_btn_url, $row->id);
             })
-            ->addColumn('vehicle_status', function ($row) {
-                return '<p>"' . $row->status == true ? "Active" : "Inactive" . '"</p>';
-            })
-            ->rawColumns(['vehicle_image', 'action', 'vehicle_status'])
+            ->rawColumns(['vehicle_image', 'action'])
             ->make(true);
     }
     /**
@@ -51,12 +42,7 @@ class VehicleMakeController extends Controller
      */
     public function create(Request $request)
     {
-        $customer_id = $request->customer;
-        if ($customer_id) {
-            return view('vehicle.add',compact('customer_id'));
-        } else {
-            return redirect()->back();
-        }
+        return view('vehicle_make.add');
     }
 
     /**
@@ -67,29 +53,16 @@ class VehicleMakeController extends Controller
      */
     public function store(Request $request)
     {
-        $customer_id = $request->customer;
         $validator = Validator::make($request->all(), [
             'make' => 'required',
-            'color' => 'required',
-            'model' => 'required',
-            'engine_type' => 'required',
-            'year' => 'required',
-            'avg_kmpg' => 'required',
-            'license_plate' => 'required',
-            'license_no' => 'required',
-            'vehicle_owning_time' => 'required',
-            'current_car_value' => 'required',
-            'car_travel_distance' => 'required|integer',
-            'status' => 'required',
-            'vehicle_image' => 'required',
-            'customer' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('vehicles.create', ['customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+            return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
-        $vehicle = new Vehicle;
-        $vehicle = $this->save_vehicle($vehicle, $request, $customer_id);
-        return redirect()->route('vehicles.index', ['customer' => $customer_id])->with('alert', ['type' => 'success', 'message' => 'Driver saved successfully']);
+        $vehicle_make = new VehicleMake;
+        $vehicle_make = $this->save_vehicle_make($vehicle_make, $request);
+        return redirect()->route('vehicle_make.index')->with('alert', ['type' => 'success', 'message' => 'Vehicle Make saved successfully']);
     }
 
     /**
@@ -100,8 +73,7 @@ class VehicleMakeController extends Controller
      */
     public function show($id)
     {
-        $vehicle = Vehicle::find($id);
-        return view('vehicle.view',compact('vehicle'));
+        //
     }
 
     /**
@@ -110,16 +82,10 @@ class VehicleMakeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit(Request $request, $id)
     {
-        $customer_id = $request->customer;
-        if ($customer_id) {
-            $vehicle = Vehicle::find($id);
-            $status = $vehicle->status;
-            return view('vehicle.edit', compact('vehicle', 'status','customer_id'));
-        } else {
-            return redirect()->back();
-        }
+        $vehicle_make = VehicleMake::find($id);
+        return view('vehicle_make.edit', compact('vehicle_make'));
     }
 
     /**
@@ -131,28 +97,16 @@ class VehicleMakeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $customer_id = $request->customer;
         $validator = Validator::make($request->all(), [
             'make' => 'required',
-            'color' => 'required',
-            'model' => 'required',
-            'engine_type' => 'required',
-            'year' => 'required',
-            'avg_kmpg' => 'required',
-            'license_plate' => 'required',
-            'license_no' => 'required',
-            'vehicle_owning_time' => 'required',
-            'current_car_value' => 'required',
-            'car_travel_distance' => 'required|integer',
-            'status' => 'required',
-            'customer' => 'required',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('vehicles.edit', [$id,'customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+            return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
-        $vehicle = Vehicle::find($id);
-        $vehicle = $this->save_vehicle($vehicle, $request, null, 'edit');
-        return redirect()->route('vehicles.index', ['customer' => $customer_id])->with('alert', ['type' => 'success', 'message' => 'Vehicle "' . $vehicle->make . '" Updated successfully']);
+        $vehicle_make = VehicleMake::find($id);
+        $vehicle_make = $this->save_vehicle_make($vehicle_make, $request,'edit');
+        return redirect()->route('vehicle_make.index')->with('alert', ['type' => 'success', 'message' => '"' . $vehicle_make->make . '" Updated successfully']);
     }
 
     /**
@@ -163,9 +117,31 @@ class VehicleMakeController extends Controller
      */
     public function destroy($id)
     {
-        $vehicle = Vehicle::find($id);
-        $this->delete_image($vehicle->vehicle_image);
-        $vehicle->delete();
+        $vehicle_make = VehicleMake::find($id);
+        $this->delete_image($vehicle_make->image);
+        $vehicle_make->delete();
         return "deleted successfully";
+    }
+
+    public function save_vehicle_make($vehicle_make, $request, $type = null)
+    {
+        $vehicle_make->make = $request->make;
+        if ($request->hasFile('image')) {
+            if ($type != null) {
+                $this->delete_image($vehicle_make->image);
+            }
+            $file = $request->file('image');
+            $filename = 'vehicle_make_' . rand() . '.' . $file->getClientOriginalExtension();
+            $vehicle_make->image = $filename;
+            $file->storeAs('public/vehicle_make/', $filename);
+        }
+        $vehicle_make->save();
+        return $vehicle_make;
+    }
+    public function delete_image($path)
+    {
+        if (Storage::exists('public/vehicle_make/' . $path)) {
+            Storage::delete('public/vehicle_make/' . $path);
+        }
     }
 }
