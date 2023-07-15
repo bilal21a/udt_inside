@@ -8,6 +8,7 @@ use App\Http\Controllers\ServiceProviderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleMakeController;
+use App\Http\Controllers\VehicleModalController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('vehicle_make', 'VehicleMakeController');
     Route::get('get_vehicle_make', [VehicleMakeController::class, 'get_data'])->name('get_vehicle_make');
+
+    Route::resource('vehicle_modal', 'VehicleModalController');
+    Route::get('get_vehicle_modal', [VehicleModalController::class, 'get_data'])->name('get_vehicle_modal');
 });
 
 

@@ -97,7 +97,7 @@
 <body>
     @include('layouts.partials.header')
     <div id="root">
-        {{-- @include('layouts.partials.sidebar') --}}
+        @include('layouts.partials.sidebar')
         @include('layouts.partials.notification')
 
         <main>

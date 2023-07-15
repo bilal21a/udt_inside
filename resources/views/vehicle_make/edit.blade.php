@@ -17,7 +17,7 @@
             <form action="{{ route('vehicle_make.update',$vehicle_make->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                @include('vehicle.forms.common_form')
+                @include('vehicle_make.forms.common_form')
                 <button type="submit" class="btn btn-primary" id="success_message">Sumbit</button>
             </form>
         </div>

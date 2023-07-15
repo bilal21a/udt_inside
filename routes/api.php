@@ -4,6 +4,7 @@ use App\Http\Controllers\API\DriversController;
 use App\Http\Controllers\API\ForgetPasswordController;
 use App\Http\Controllers\API\FuelStationsController;
 use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\VehicleMakeModalController;
 use App\Http\Controllers\API\VehiclesController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // Vehicles routes
     Route::resource('vehicle', 'API\VehiclesController');
     
+    Route::get('get_vehicle_make', [VehicleMakeModalController::class, 'get_vehicle_make']);
+    Route::get('get_vehicle_modal/{make_id}', [VehicleMakeModalController::class, 'get_vehicle_modal']);
     
     // drivers routes
     Route::resource('driver', 'API\DriversController');

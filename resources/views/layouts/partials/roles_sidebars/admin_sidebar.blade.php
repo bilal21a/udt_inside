@@ -18,7 +18,13 @@
 </li>
 <li>
     <a class="{{ request()->is('vehicle_make*') ? 'active' : '' }}" href="{{ route('vehicle_make.index') }}">
-        <i data-acorn-icon="user" class="d-inline-block"></i>
+        <i data-acorn-icon="car" class="d-inline-block"></i>
         <span class="label">Vehicle Make</span>
+    </a>
+</li>
+<li>
+    <a class="{{ request()->is('vehicle_modal*') ? 'active' : '' }}" href="{{ route('vehicle_modal.index') }}">
+        <i data-acorn-icon="car" class="d-inline-block"></i>
+        <span class="label">Vehicle Modals</span>
     </a>
 </li>

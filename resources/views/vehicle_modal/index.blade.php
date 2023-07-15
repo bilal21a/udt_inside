@@ -13,20 +13,20 @@
         <div class="page-title-container">
             <div class="row">
                 <div class="col-12 col-sm-6">
-                    <h1 class="mb-0 pb-0 display-4" id="title">Vehicles Make Managment</h1>
+                    <h1 class="mb-0 pb-0 display-4" id="title">Vehicles Modal Managment</h1>
                 </div>
             </div>
         </div>
 
-        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('vehicle_make.create') }}">
+        <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('vehicle_modal.create') }}">
             <i data-acorn-icon="plus"></i>
-            <span>Add Vehicles Make</span>
+            <span>Add Vehicles Modal</span>
         </a>
 
         {{-- -----Table----- --}}
         @php
             $tableName = 'datatable';
-            $tableData = ['Image','Make','Actions'];
+            $tableData = ['Image','Modal','Make','Actions'];
         @endphp
         @include('common.table.table')
     </div>
@@ -37,15 +37,15 @@
 @section('js_after')
     {{-- **Show Data** --}}
     <script>
-        var tabelDataArray = ['vehicle_image','make','action'];
-        var get_data_url = "{{ route('get_vehicle_make') }}"
+        var tabelDataArray = ['image','modal','make','action'];
+        var get_data_url = "{{ route('get_vehicle_modal') }}"
     </script>
     @include('common.js.get_data')
 
 
     {{-- **Delete Data** --}}
     <script>
-        var delete_data_url = '{{ route('vehicle_make.destroy', ':id') }}'
+        var delete_data_url = '{{ route('vehicle_modal.destroy', ':id') }}'
     </script>
     @include('common.js.delete_data')
 @endsection
