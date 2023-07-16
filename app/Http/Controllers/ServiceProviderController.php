@@ -36,8 +36,19 @@ class ServiceProviderController extends Controller
             })
             ->addColumn('action', function ($row) {
                 $edit_btn_url = route('serviceprovider.edit', $row->id);
-                $fuel_station_url = route('fuel_station.index', ['service_provider'=>$row->id]);
-                return $this->pumpButton($fuel_station_url, 'Fuel Stations') . $this->get_buttons($edit_btn_url, $row->id);
+                if ($row->role=='omc') {
+                    $type_url = route('fuel_station.index', ['service_provider'=>$row->id]);
+                    $type_btn=$this->omcButton($type_url, 'Fuel Stations');
+                }
+                if ($row->role=='insurance') {
+                    $type_url = route('fuel_station.index', ['service_provider'=>$row->id]);
+                    $type_btn=$this->insuranceButton($type_url, 'Fuel Stations');
+                }
+                if ($row->role=='tollgate') {
+                    $type_url = route('fuel_station.index', ['service_provider'=>$row->id]);
+                    $type_btn=$this->tollgateButton($type_url, 'Fuel Stations');
+                }
+                return  $type_btn. $this->get_buttons($edit_btn_url, $row->id);
             })
             ->rawColumns(['profile_image', 'full_name', 'action','type'])
             ->make(true);
