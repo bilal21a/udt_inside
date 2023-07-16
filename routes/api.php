@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     
     // Fuel Station routes
     Route::resource('fuel_station', 'API\FuelStationsController');
+    
+    // Toll gate routes
+    Route::resource('fuel_station', 'API\FuelStationsController');
 
     // Vehicles routes
     Route::resource('vehicle', 'API\VehiclesController');
