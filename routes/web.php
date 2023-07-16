@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\FuelStationController;
 use App\Http\Controllers\ServiceProviderController;
+use App\Http\Controllers\TollGateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleMakeController;
@@ -54,9 +55,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('serviceprovider', 'ServiceProviderController');
     Route::get('get_service_provider', [ServiceProviderController::class, 'get_data'])->name('get_service_provider');
 
+    // omc
     Route::resource('fuel_station', 'FuelStationController');
     Route::get('get_fuel_station', [FuelStationController::class, 'get_data'])->name('get_fuel_station');
     Route::get('show_fuel_station_map/{id}', [FuelStationController::class, 'fuel_station_map'])->name('show_fuel_station_map');
+  
+    // tollgate
+    Route::resource('toll_gate', 'TollGateController');
+    Route::get('get_toll_gate', [TollGateController::class, 'get_data'])->name('get_toll_gate');
 
     Route::resource('vehicle_make', 'VehicleMakeController');
     Route::get('get_vehicle_make', [VehicleMakeController::class, 'get_data'])->name('get_vehicle_make');
