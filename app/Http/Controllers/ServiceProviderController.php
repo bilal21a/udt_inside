@@ -23,7 +23,7 @@ class ServiceProviderController extends Controller
 
     public function get_data()
     {
-        $data = User::where('role', 'service_provider')->get();
+        $data = User::whereIn('role', ['omc','insurance','tollgate'])->get();
         return DataTables::of($data)
             ->addColumn('profile_image', function ($row) {
                 return '<img class="picheight" src="' . $row->profile_url . '">';
@@ -31,12 +31,15 @@ class ServiceProviderController extends Controller
             ->addColumn('full_name', function ($row) {
                 return $row->first_name . ' ' . $row->last_name;
             })
+            ->addColumn('type', function ($row) {
+                return $row->role;
+            })
             ->addColumn('action', function ($row) {
                 $edit_btn_url = route('serviceprovider.edit', $row->id);
                 $fuel_station_url = route('fuel_station.index', ['service_provider'=>$row->id]);
                 return $this->pumpButton($fuel_station_url, 'Fuel Stations') . $this->get_buttons($edit_btn_url, $row->id);
             })
-            ->rawColumns(['profile_image', 'full_name', 'action'])
+            ->rawColumns(['profile_image', 'full_name', 'action','type'])
             ->make(true);
     }
     /**
@@ -67,12 +70,13 @@ class ServiceProviderController extends Controller
             'profile_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
             'address' => 'required',
             'gender' => 'required',
+            'service_provider_type' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = new User();
-        $user = $this->save_user($user, $request, 'service_provider');
+        $user = $this->save_user($user, $request, $request->service_provider_type);
 
         return redirect()->route('serviceprovider.index')->with('alert', ['type' => 'success', 'message' => 'Service Provider saved successfully']);
     }
@@ -118,12 +122,13 @@ class ServiceProviderController extends Controller
             'profile_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
             'address' => 'required',
             'gender' => 'required',
+            'service_provider_type' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = User::find($id);
-        $user = $this->save_user($user, $request, 'service_provider', 'edit');
+        $user = $this->save_user($user, $request, $request->service_provider_type, 'edit');
         return redirect()->route('serviceprovider.index')->with('alert', ['type' => 'success', 'message' => 'Customer "' . $user->full_name . '" Updated successfully']);
     }
 

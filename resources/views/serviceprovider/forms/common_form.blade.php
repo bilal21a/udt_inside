@@ -22,9 +22,11 @@
     <input type="email" name="email" class="form-control" value="{{ isset($user) ? $user->email : old('email') }}">
 </div>
 <div class="mb-3">
-    <label class="form-label">Password @if(!isset($user)) <span class="text-danger">*</span> @endif</label>
-    <input type="text" name="password" class="form-control"
-        value="{{ old('password') }}">
+    <label class="form-label">Password @if (!isset($user))
+            <span class="text-danger">*</span>
+        @endif
+    </label>
+    <input type="text" name="password" class="form-control" value="{{ old('password') }}">
 </div>
 
 <div class="mb-3">
@@ -34,6 +36,14 @@
 <div class="mb-3">
     <label class="form-label">Address <span class="text-danger">*</span></label>
     <textarea placeholder="" name="address" class="form-control" rows="3" data-gramm="false" wt-ignore-input="true">{{ isset($user) ? $user->address : old('address') }}</textarea>
+</div>
+<div class="mb-3">
+    <label class="form-label">Service Provider Type<span class="text-danger">*</span></label>
+    <select name="service_provider_type" class="form-select">
+        <option value="omc" {{ isset($user) && $user->role == "omc" ? 'selected' : '' }}>OMC</option>
+        <option value="insurance" {{ isset($user) && $user->role == "insurance" ? 'selected' : '' }}>Insurance</option>
+        <option value="tollgate" {{ isset($user) && $user->role == "tollgate" ? 'selected' : '' }}>Tollgate</option>
+    </select>
 </div>
 <div class="mb-4">
     <label class="form-label d-block">Gender <span class="text-danger">*</span></label>

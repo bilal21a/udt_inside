@@ -22,11 +22,11 @@
             <i data-acorn-icon="plus"></i>
             <span>Add Service Provider</span>
         </a>
-        
+
         {{-- -----Table----- --}}
         @php
             $tableName = 'datatable';
-            $tableData = ['Image', 'Name', 'Email', 'Phone', 'CNIC', 'Address', 'Gender', 'Actions'];
+            $tableData = ['Image', 'Name', 'Type', 'Email', 'Phone', 'CNIC', 'Address', 'Gender', 'Actions'];
         @endphp
         @include('common.table.table')
     </div>
@@ -37,7 +37,8 @@
 @section('js_after')
     {{-- **Show Data** --}}
     <script>
-        var tabelDataArray = ['profile_image', 'full_name', 'email', 'phone', 'cnic', 'address', 'gender', 'action'];
+        var tabelDataArray = ['profile_image', 'full_name', 'type', 'email', 'phone', 'cnic', 'address', 'gender',
+        'action'];
         var get_data_url = "{{ route('get_service_provider') }}"
     </script>
     @include('common.js.get_data')
