@@ -83,6 +83,11 @@ Route::get('/logout', function () {
 })->name('logout');
 
 
+Route::get('/test_ui', function () {
+    return view('test');
+});
+
+
 
 
 //resource controller

@@ -1,4 +1,4 @@
-$(function (e) {
+$(function(e) {
     'use strict';
 
     // basic datatable
@@ -28,7 +28,7 @@ $(function (e) {
         responsive: {
             details: {
                 display: $.fn.dataTable.Responsive.display.modal({
-                    header: function (row) {
+                    header: function(row) {
                         var data = row.data();
                         return data[0] + ' ' + data[1];
                     }
@@ -58,16 +58,15 @@ $(function (e) {
             sSearch: '',
         }
     });
-    $('#delete-datatable tbody').on('click', 'tr', function () {
+    $('#delete-datatable tbody').on('click', 'tr', function() {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
-        }
-        else {
+        } else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
     });
-    $('#button').on("click", function () {
+    $('#button').on("click", function() {
         table.row('.selected').remove().draw(false);
     });
     // delete row datatable
@@ -83,8 +82,7 @@ $(function (e) {
 
     // hidden columns
     $('#hidden-columns').DataTable({
-        columnDefs: [
-            {
+        columnDefs: [{
                 target: 2,
                 visible: false,
                 searchable: false,
@@ -98,15 +96,14 @@ $(function (e) {
         scrollX: true
     });
     // hidden columns
-    
+
     // add row datatable
     var t = $('#add-row').DataTable();
     var counter = 1;
-    $('#addRow').on('click', function () {
+    $('#addRow').on('click', function() {
         t.row.add([counter + '.1', counter + '.2', counter + '.3', counter + '.4', counter + '.5']).draw(false);
         counter++;
     });
     // add row datatable
 
 });
-
