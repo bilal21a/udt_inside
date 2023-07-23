@@ -73,15 +73,7 @@
         <div class="main-content app-content">
             <div class="container-fluid">
                 <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-                    <h1 class="page-title fw-semibold fs-18 mb-0">Data Tables</h1>
-                    <div class="ms-md-1 ms-0">
-                        <nav>
-                            <ol class="breadcrumb mb-0">
-                                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Data Tables</li>
-                            </ol>
-                        </nav>
-                    </div>
+                    <h1 class="page-title fw-semibold fs-18 mb-0">@yield('header')</h1>
                 </div>
                 @yield('content')
             </div>
