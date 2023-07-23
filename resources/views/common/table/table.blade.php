@@ -3,12 +3,11 @@
          <div class="card custom-card">
              <div class="card-header">
                  <div class="card-title">
-                     {{ $table_name }}
+                     {!! $table_name !!}
                  </div>
              </div>
              <div class="card-body">
-                 <table id="{{ $table_id }}" class="responsiveDataTable table table-bordered text-nowrap"
-                     style="width:100%">
+                 <table id="{{ $table_id }}" class="responsiveDataTable table table-bordered text-nowrap">
                      <thead>
                          <tr>
                              @foreach ($tableData as $data)
