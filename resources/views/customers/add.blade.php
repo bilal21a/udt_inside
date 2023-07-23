@@ -1,16 +1,8 @@
 @extends('layouts.app')
-
+@section('header')
+    Add Customer
+@endsection
 @section('content')
-    <!-- Title and Top Buttons Start -->
-
-    <div class="page-title-container">
-        <div class="row">
-            <div class="col-12 col-sm-6">
-                <h1 class="mb-0 pb-0 display-4" id="title">Add Customer</h1>
-            </div>
-        </div>
-    </div>
-
     @include('common.alert.alert')
     <div class="row">
         <div class="col-xl-12">
