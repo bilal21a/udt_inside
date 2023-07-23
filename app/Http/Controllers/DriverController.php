@@ -36,7 +36,7 @@ class DriverController extends Controller
 
         return DataTables::of($data)
             ->addColumn('profile_image', function ($row) {
-                return '<img class="picheight" src="' . $row->profile_url . '">';
+                return '<img class="img-fluid" src="' . $row->profile_url . '">';
             })
             ->addColumn('full_name', function ($row) {
                 return $row->first_name . ' ' . $row->last_name;
