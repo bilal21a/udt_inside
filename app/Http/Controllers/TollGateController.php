@@ -35,7 +35,7 @@ class TollGateController extends Controller
         $data = TollGate::where('user_id', $service_provider)->get();
         return DataTables::of($data)
             ->addColumn('image', function ($row) {
-                return '<img class="picheight" src="' . $row->toll_gate_image_url . '">';
+                return '<img class="img-fluid" src="' . $row->toll_gate_image_url . '">';
             })
             ->addColumn('address', function ($row) {
                 return $row->address;

@@ -31,7 +31,7 @@ class FuelStationController extends Controller
         $data = FuelStation::where('user_id', $service_provider)->get();
         return DataTables::of($data)
             ->addColumn('image', function ($row) {
-                return '<img class="picheight" src="' . $row->fuel_station_image_url . '">';
+                return '<img class="img-fluid" src="' . $row->fuel_station_image_url . '">';
             })
             ->addColumn('map', function ($row) {
                 // dd($row->approval_certificate_image_url);

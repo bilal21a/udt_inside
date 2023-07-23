@@ -26,7 +26,7 @@ class VehicleMakeController extends Controller
         $data = VehicleMake::latest()->get();
         return DataTables::of($data)
             ->addColumn('vehicle_image', function ($row) {
-                return '<img class="picheight" src="' . $row->image_url . '">';
+                return '<img class="img-fluid" src="' . $row->image_url . '">';
             })
             ->addColumn('action', function ($row)  {
                 $edit_btn_url = route('vehicle_make.edit', $row->id);

@@ -32,7 +32,7 @@ class VehicleController extends Controller
         $data = Vehicle::where('user_id', $customer_id)->latest()->get();
         return DataTables::of($data)
             ->addColumn('vehicle_image', function ($row) {
-                return '<img class="picheight" src="' . $row->vehicle_image_url . '">';
+                return '<img class="img-fluid" src="' . $row->vehicle_image_url . '">';
             })
 
             ->addColumn('action', function ($row) use ($customer_id) {

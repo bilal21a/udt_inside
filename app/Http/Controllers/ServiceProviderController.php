@@ -26,7 +26,7 @@ class ServiceProviderController extends Controller
         $data = User::whereIn('role', ['omc','insurance','tollgate'])->get();
         return DataTables::of($data)
             ->addColumn('profile_image', function ($row) {
-                return '<img class="picheight" src="' . $row->profile_url . '">';
+                return '<img class="img-fluid" src="' . $row->profile_url . '">';
             })
             ->addColumn('full_name', function ($row) {
                 return $row->first_name . ' ' . $row->last_name;
@@ -42,11 +42,11 @@ class ServiceProviderController extends Controller
                 }
                 if ($row->role=='insurance') {
                     $type_url = route('fuel_station.index', ['service_provider'=>$row->id]);
-                    $type_btn=$this->insuranceButton($type_url, 'Fuel Stations');
+                    $type_btn=$this->omcButton($type_url, 'Fuel Stations');
                 }
                 if ($row->role=='tollgate') {
-                    $type_url = route('fuel_station.index', ['service_provider'=>$row->id]);
-                    $type_btn=$this->tollgateButton($type_url, 'Fuel Stations');
+                    $type_url = route('toll_gate.index', ['service_provider'=>$row->id]);
+                    $type_btn=$this->omcButton($type_url, 'Fuel Stations');
                 }
                 return  $type_btn. $this->get_buttons($edit_btn_url, $row->id);
             })

@@ -26,7 +26,7 @@ class VehicleModalController extends Controller
         $data = VehicleModal::latest()->get();
         return DataTables::of($data)
             ->addColumn('image', function ($row) {
-                return '<img class="picheight" src="' . $row->image_url . '">';
+                return '<img class="img-fluid" src="' . $row->image_url . '">';
             })
             ->addColumn('make', function ($row) {
                 return $row->vehicle_make->make;
