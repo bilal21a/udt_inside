@@ -28,7 +28,8 @@
     <input type="file" name="image" class="form-control">
     @if (isset($tollGate) && $tollGate->image != null)
         <div class="sh-15 me-1 mb-1 d-inline-block">
-            <img src="{{ $tollGate->toll_gate_image_url }}" class="img-fluid-height rounded-md" alt="thumb">
+            <img class="rounded float-start" width="200px" src="{{ $tollGate->toll_gate_image_url }}" alt="Toll Gate">
+
         </div>
     @endif
 </div>

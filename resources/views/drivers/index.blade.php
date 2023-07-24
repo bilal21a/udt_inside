@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('header')
     Drivers Managment
-    <a href="{{ route('drivers.create', ['customer' => $customer_id]) }}" class="btn btn-primary d-flex align-items-center justify-content-center mt-1">
+    <a href="{{ route('drivers.create', ['customer' => $customer_id]) }}"
+        class="btn btn-primary d-flex align-items-center justify-content-center mt-1">
         <i class="ri-add-circle-line fs-16 align-middle me-1"></i>Add Driver
     </a>
 @endsection
@@ -12,7 +13,6 @@
         $table_id = 'datatable';
         $tableData = ['Image', 'Name', 'Email', 'Phone', 'CNIC', 'Address', 'Gender', 'Actions'];
     @endphp
-    </a>
 
     {{-- -----Table----- --}}
     @include('common.table.table')
