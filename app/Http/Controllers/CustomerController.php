@@ -25,7 +25,8 @@ class CustomerController extends Controller
     {
         $data = User::where('role', 'customer')->get();
         return DataTables::of($data)
-            ->addColumn('profile_image', function ($row) {
+        ->addColumn('profile_image', function ($row) {
+                // dd($row);
                 return '<img class="img-fluid" src="' . $row->profile_url . '">';
             })
             ->addColumn('full_name', function ($row) {

@@ -1,19 +1,24 @@
 @extends('layouts.app')
-
+@section('header')
+    Dashboard
+@endsection
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <!-- Inventory Start -->
-                <section class="scroll-section" id="horizontal">
-                    <h2 class="mb-4">Dashboard</h2>
-                    <div class="row g-2">
-                        <div class="col-12 col-xl-4 mb-5">
-                            <div class="card bg-primary ">
-                                <div class="h-100 row g-0 card-body align-items-center">
-                                    <div class="col-auto">
-                                        <div
-                                            class="border border-light sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-12">
+            <!-- Inventory Start -->
+            <section class="scroll-section" id="horizontal">
+                {{-- <h2 class="mb-4">Dashboard</h2> --}}
+
+
+
+
+                <div class="row">
+                    <div class="col-xxl-4 col-sm-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap align-items-top gap-2">
+                                    <div class="me-1">
+                                        <span class="avatar avatar-lg bg-primary">
                                             <svg fill="#dadada" version="1.1" id="Layer_1"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px"
@@ -50,28 +55,33 @@
                                                         </g>
                                                     </g>
                                                 </g>
-                                            </svg>
-                                        </div>
+                                            </svg> </span>
                                     </div>
-                                    <div class="col">
-                                        <div class="heading mb-0 sh-8 d-flex align-items-center lh-1-25 ps-3 text-light">
-                                            Total Customers</div>
-                                    </div>
-                                    <div class="col-auto ps-3">
-                                        <div class="display-5 text-light customers">
-                                            <div class="spinner-grow" role="status">
+                                    <div class="flex-fill">
+                                        <h5 class="d-block fw-semibold fs-18 mb-1">Customers
+                                        </h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="text-muted fs-12">Total Customers</div>
+                                            <div class="text-success">
+                                                {{ $customers }}
                                             </div>
                                         </div>
+                                        <a href="
+                                        {{ route('customers.index') }}
+                                            "
+                                            class="text-primary fs-12">View All<i
+                                                class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-xl-4 mb-5">
-                            <div class="card bg-primary ">
-                                <div class="h-100 row g-0 card-body align-items-center">
-                                    <div class="col-auto">
-                                        <div
-                                            class="border border-light sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center">
+                    </div>
+                    <div class="col-xxl-4 col-sm-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap align-items-top gap-2">
+                                    <div class="me-1">
+                                        <span class="avatar avatar-lg bg-primary">
                                             <svg fill="#dadada" height="30px" width="30px" version="1.1" id="Capa_1"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 489.785 489.785"
@@ -98,28 +108,31 @@
                                                         </path>
                                                     </g>
                                                 </g>
-                                            </svg>
-                                        </div>
+                                            </svg> </span>
                                     </div>
-                                    <div class="col">
-                                        <div class="heading mb-0 sh-8 d-flex align-items-center lh-1-25 ps-3 text-light">
-                                            Total Drivers</div>
-                                    </div>
-                                    <div class="col-auto ps-3">
-                                        <div class="display-5 text-light drivers">
-                                            <div class="spinner-grow" role="status">
+                                    <div class="flex-fill">
+                                        <h5 class="d-block fw-semibold fs-18 mb-1">Drivers</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="text-muted fs-12">Total Drivers</div>
+                                            <div class="text-success pb-3">
+                                                {{ $drivers }}
                                             </div>
                                         </div>
+                                        {{-- <a href="#
+                                        {{ route('vehicles.index', ['customer' => $id]) }}
+                                            "
+                                            class="text-primary fs-12"> </a> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-xl-4 mb-5">
-                            <div class="card bg-primary ">
-                                <div class="h-100 row g-0 card-body align-items-center">
-                                    <div class="col-auto">
-                                        <div
-                                            class="border border-light sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center">
+                    </div>
+                    <div class="col-xxl-4 col-sm-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap align-items-top gap-2">
+                                    <div class="me-1">
+                                        <span class="avatar avatar-lg bg-primary">
                                             <svg fill="#dadada" width="35px" height="35px"
                                                 viewBox="0 -43.92 122.88 122.88" version="1.1" id="Layer_1"
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -127,8 +140,9 @@
                                                 style="enable-background:new 0 0 122.88 35.03" xml:space="preserve"
                                                 stroke="#dadada">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke="#CCCCCC" stroke-width="0.9830399999999999"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke="#CCCCCC"
+                                                    stroke-width="0.9830399999999999"></g>
                                                 <g id="SVGRepo_iconCarrier">
                                                     <style type="text/css">
                                                         .st0 {
@@ -142,32 +156,32 @@
                                                         </path>
                                                     </g>
                                                 </g>
-                                            </svg>
-                                        </div>
+                                            </svg> </span>
                                     </div>
-                                    <div class="col">
-                                        <div class="heading mb-0 sh-8 d-flex align-items-center lh-1-25 ps-3 text-light">
-                                            Total Vehicles</div>
-                                    </div>
-                                    <div class="col-auto ps-3">
-                                        <div class="display-5 text-light vehicles">
-                                            <div class="spinner-grow" role="status">
+                                    <div class="flex-fill">
+                                        <h5 class="d-block fw-semibold fs-18 mb-1">Vehicles</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="text-muted fs-12">Total Vehicles</div>
+                                            <div class="text-success pb-3">
+                                                {{ $vehicles }}
                                             </div>
                                         </div>
+                                        {{-- <a href="#
+                                        {{ route('vehicles.index', ['customer' => $id]) }}
+                                            "
+                                            class="text-primary fs-12">View All<i
+                                                class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-                    <div class="row g-2">
-                        <div class="col-12 col-xl-4 mb-5">
-                            <div class="card bg-primary border">
-                                <div class="h-100 row g-0 card-body align-items-center">
-                                    <div class="col-auto">
-                                        <div
-                                            class="border border-light sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center">
+                    <div class="col-xxl-4 col-sm-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap align-items-top gap-2">
+                                    <div class="me-1">
+                                        <span class="avatar avatar-lg bg-primary">
                                             <svg fill="#dadada" height="30px" width="30px" version="1.1"
                                                 id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 299 299"
@@ -194,28 +208,33 @@
                                                         </g>
                                                     </g>
                                                 </g>
-                                            </svg>
-                                        </div>
+                                            </svg> </span>
                                     </div>
-                                    <div class="col">
-                                        <div class="heading mb-0 sh-8 d-flex align-items-center lh-1-25 ps-3 text-light">
-                                            Total Service Providers</div>
-                                    </div>
-                                    <div class="col-auto ps-3">
-                                        <div class="display-5 text-light service_provider">
-                                            <div class="spinner-grow" role="status">
+                                    <div class="flex-fill">
+                                        <h5 class="d-block fw-semibold fs-18 mb-1">Service Providers</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="text-muted fs-12">Total Service Providers
+                                            </div>
+                                            <div class="text-success">
+                                                 {{ $service_provider }}
                                             </div>
                                         </div>
+                                        <a href="
+                                        {{ route('serviceprovider.index') }}
+                                            "
+                                            class="text-primary fs-12">View All<i
+                                                class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-xl-4 mb-5">
-                            <div class="card bg-primary border">
-                                <div class="h-100 row g-0 card-body align-items-center">
-                                    <div class="col-auto">
-                                        <div
-                                            class="border border-light sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center">
+                    </div>
+                    <div class="col-xxl-4 col-sm-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap align-items-top gap-2">
+                                    <div class="me-1">
+                                        <span class="avatar avatar-lg bg-primary">
                                             <svg fill="#dadada" height="20px" width="20px" version="1.1"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -233,26 +252,30 @@
                                                         <circle cx="112" cy="111.997" r="16"></circle>
                                                     </g>
                                                 </g>
-                                            </svg>
-                                        </div>
+                                            </svg> </span>
                                     </div>
-                                    <div class="col">
-                                        <div class="heading mb-0 sh-8 d-flex align-items-center lh-1-25 ps-3 text-light">
-                                            Total Fuel Stations</div>
-                                    </div>
-                                    <div class="col-auto ps-3">
-                                        <div class="display-5 text-light fuel_stations">
-                                            <div class="spinner-grow" role="status">
+                                    <div class="flex-fill">
+                                        <h5 class="d-block fw-semibold fs-18 mb-1">Fuel Stations</h5>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="text-muted fs-12">Total Fuel Stations
+                                            </div>
+                                            <div class="text-success pb-3">
+                                                {{ $fuel_stations }}
                                             </div>
                                         </div>
+                                        {{-- <a href="#
+                                        {{ route('vehicles.index', ['customer' => $id]) }}
+                                            "
+                                            class="text-primary fs-12">View All<i
+                                                class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <!-- Inventory End -->
-            </div>
+                </div>
+            </section>
+            <!-- Inventory End -->
         </div>
     </div>
 @endsection
