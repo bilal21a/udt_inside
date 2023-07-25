@@ -4,10 +4,10 @@
        <!-- Start::main-sidebar-header -->
        <div class="main-sidebar-header">
            <a href="#" class="header-logo">
-               <img src="https://udt-iota.vercel.app/assets/logo-2-2938deda.png" alt="logo" class="desktop-logo">
-               <img src="https://udt-iota.vercel.app/assets/logo-2-2938deda.png" alt="logo" class="toggle-logo">
-               <img src="https://udt-iota.vercel.app/assets/logo-2-2938deda.png" alt="logo" class="desktop-dark">
-               <img src="https://udt-iota.vercel.app/assets/logo-2-2938deda.png" alt="logo" class="toggle-dark">
+               <img src="{{ asset('assets/logo/logo_black.png') }}" alt="logo" class="desktop-logo">
+               <img src="{{ asset('assets/logo/logo_black.png') }}" alt="logo" class="toggle-logo">
+               <img src="{{ asset('assets/logo/logo_black.png') }}" alt="logo" class="desktop-dark">
+               <img src="{{ asset('assets/logo/logo_black.png') }}" alt="logo" class="toggle-dark">
            </a>
        </div>
        <!-- End::main-sidebar-header -->
@@ -32,7 +32,7 @@
                    <li class="slide">
                        <a href="{{ route('home') }}"
                            class="side-menu__item {{ request()->is('home*') ? 'active' : '' }}">
-                           <i class="bx bx-gift side-menu__icon"></i>
+                           <i class="bx bxs-dashboard side-menu__icon"></i>
                            <span class="side-menu__label">Dashboard</span>
                        </a>
                    </li>
@@ -46,7 +46,7 @@
                    <li class="slide">
                        <a href="{{ route('customers.index') }}"
                            class="side-menu__item {{ request()->is('customers*') ? 'active' : '' }}">
-                           <i class="bx bx-gift side-menu__icon"></i>
+                           <i class="bx bxs-user side-menu__icon"></i>
                            <span class="side-menu__label">Customers</span>
                        </a>
                    </li>
@@ -54,7 +54,7 @@
                    <li class="slide">
                        <a href="{{ route('serviceprovider.index') }}"
                            class="side-menu__item {{ request()->is('serviceprovider*') ? 'active' : '' }}">
-                           <i class="bx bx-gift side-menu__icon"></i>
+                           <i class="bx bxs-user side-menu__icon"></i>
                            <span class="side-menu__label">Service Providers</span>
                        </a>
                    </li>
@@ -68,7 +68,7 @@
                    <li class="slide">
                        <a href="{{ route('vehicle_make.index') }}"
                            class="side-menu__item {{ request()->is('vehicle_make*') ? 'active' : '' }}">
-                           <i class="bx bx-gift side-menu__icon"></i>
+                           <i class="bx bxs-car side-menu__icon"></i>
                            <span class="side-menu__label">Vehicle Make</span>
                        </a>
                    </li>
@@ -76,7 +76,7 @@
                    <li class="slide">
                        <a href="{{ route('vehicle_modal.index') }}"
                            class="side-menu__item {{ request()->is('vehicle_modal*') ? 'active' : '' }}">
-                           <i class="bx bx-gift side-menu__icon"></i>
+                           <i class="bx bxs-car side-menu__icon"></i>
                            <span class="side-menu__label">Vehicle Modals</span>
                        </a>
                    </li>
@@ -86,7 +86,7 @@
                     <li class="slide">
                         <a href="{{ route('logout') }}"
                             class="side-menu__item">
-                            <i class="bx bx-gift side-menu__icon"></i>
+                            <i class="bx bxs-exit side-menu__icon"></i>
                             <span class="side-menu__label">Logout</span>
                         </a>
                     </li>

@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> YNEX - Bootstrap 5 Premium Admin & Dashboard Template </title>
+    <title>UDT - LOGIN</title>
     <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
     <meta name="Author" content="Spruko Technologies Private Limited">
     <meta name="keywords"
@@ -51,23 +51,16 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
 
     @yield('css')
-    <style>
-        .picheight {
-            height: 96px !important;
-            width: 90px !important;
-            border-radius: 10px 0px 0px 10px;
-        }
-    </style>
 </head>
 
 
 <body>
 
     @include('layouts.partials.switcher')
-                @yield('content')
+    @yield('content')
 
-        @include('layouts.partials.searchModal')
-        @include('layouts.partials.footer')
+    @include('layouts.partials.searchModal')
+    @include('layouts.partials.footer')
 
     </div>
 
