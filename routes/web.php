@@ -28,6 +28,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('sign_up', function () {
+    return view('auth.sign_up_basic');
+});
+
 Route::middleware(['auth'])->group(function () {
     // home routes
     Route::get('/home', 'HomeController@index')->name('home');

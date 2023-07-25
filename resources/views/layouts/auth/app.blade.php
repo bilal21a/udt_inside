@@ -1,106 +1,130 @@
 <!DOCTYPE html>
-<html lang="en" data-footer="true" data-override='{"attributes": {"placement": "vertical" }}'>
+<html lang="en" dir="ltr" data-nav-layout="vertical" data-theme-mode="light" data-header-styles="light"
+    data-menu-styles="dark" data-toggled="close">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>UDT - ADMIN</title>
-    <meta name="description"
-        content="A vertical menu that newer shows larger pinned version and switches between mobile view and semi-hidden view." />
-    <link rel="apple-touch-icon-precomposed" sizes="57x57"
-        href="{{ asset('acron/img/favicon/apple-touch-icon-57x57.png') }}" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114"
-        href="{{ asset('acron/img/favicon/apple-touch-icon-114x114.png') }}" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72"
-        href="{{ asset('acron/img/favicon/apple-touch-icon-72x72.png') }}" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144"
-        href="{{ asset('acron/img/favicon/apple-touch-icon-144x144.png') }}" />
-    <link rel="apple-touch-icon-precomposed" sizes="60x60"
-        href="{{ asset('acron/img/favicon/apple-touch-icon-60x60.png') }}" />
-    <link rel="apple-touch-icon-precomposed" sizes="120x120"
-        href="{{ asset('acron/img/favicon/apple-touch-icon-120x120.png') }}" />
-    <link rel="apple-touch-icon-precomposed" sizes="76x76"
-        href="{{ asset('acron/img/favicon/apple-touch-icon-76x76.png') }}" />
-    <link rel="apple-touch-icon-precomposed" sizes="152x152"
-        href="{{ asset('acron/img/favicon/apple-touch-icon-152x152.png') }}" />
-    <link rel="icon" type="image/png" href="{{ asset('acron/img/favicon/favicon-196x196.png') }}" sizes="196x196" />
-    <link rel="icon" type="image/png" href="{{ asset('acron/img/favicon/favicon-96x96.png') }}" sizes="96x96" />
-    <link rel="icon" type="image/png" href="{{ asset('acron/img/favicon/favicon-32x32.png') }}" sizes="32x32" />
-    <link rel="icon" type="image/png" href="{{ asset('acron/img/favicon/favicon-16x16.png') }}" sizes="16x16" />
-    <link rel="icon" type="image/png" href="{{ asset('acron/img/favicon/favicon-128.png') }}" sizes="128x128" />
-    <meta name="application-name" content="&nbsp;" />
-    <meta name="msapplication-TileColor" content="#FFFFFF" />
-    <meta name="msapplication-TileImage" content="{{ asset('acron/img/favicon/mstile-144x144.png') }}" />
-    <meta name="msapplication-square70x70logo" content="{{ asset('acron/img/favicon/mstile-70x70.png') }}" />
-    <meta name="msapplication-square150x150logo" content="{{ asset('acron/img/favicon/mstile-150x150.png') }}" />
-    <meta name="msapplication-wide310x150logo" content="{{ asset('acron/img/favicon/mstile-310x150.png') }}" />
-    <meta name="msapplication-square310x310logo" content="{{ asset('acron/img/favicon/mstile-310x310.png') }}" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="{{ asset('acron/font/CS-Interface/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('acron/css/vendor/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('acron/css/vendor/OverlayScrollbars.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('acron/css/styles.css') }}" />
-    <link rel="stylesheet" href="{{ asset('acron/css/main.css') }}" />
-    <link rel="stylesheet" href="{{ asset('acron/css/vendor/select2.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('acron/css/vendor/bootstrap-datepicker3.standalone.min.css') }}" />
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> YNEX - Bootstrap 5 Premium Admin & Dashboard Template </title>
+    <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
+    <meta name="Author" content="Spruko Technologies Private Limited">
+    <meta name="keywords"
+        content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
 
-    <link rel="stylesheet" href="{{ asset('acron/css/vendor/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('acron/css/vendor/select2-bootstrap4.min.css') }}" />
-    <script src="{{ asset('acron/js/base/loader.js') }}"></script>
-    @yield('css_after')
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
+
+    <!-- Choices JS -->
+    <script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
+
+    <!-- Main Theme Js -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+
+    <!-- Bootstrap Css -->
+    <link id="style" href="{{ asset('assets/libs/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Style Css -->
+    <link href="{{ asset('assets/css/styles.min.css') }}" rel="stylesheet">
+
+    <!-- Icons Css -->
+    <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet">
+
+    <!-- Node Waves Css -->
+    <link href="{{ asset('assets/libs/node-waves/waves.min.css') }}" rel="stylesheet">
+
+    <!-- Simplebar Css -->
+    <link href="{{ asset('assets/libs/simplebar/simplebar.min.css') }}" rel="stylesheet">
+
+    <!-- Color Picker Css -->
+    <link rel="stylesheet" href="{{ asset('assets/libs/flatpickr/flatpickr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/@simonwep/pickr/themes/nano.min.css') }}">
+
+    <!-- Choices Css -->
+    <link rel="stylesheet" href="{{ asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
+
+    @yield('css')
+    <style>
+        .picheight {
+            height: 96px !important;
+            width: 90px !important;
+            border-radius: 10px 0px 0px 10px;
+        }
+    </style>
 </head>
 
-<body class="h-100 p-0" >
-    <div id="root" class="h-100">
-        @yield('content')
+
+<body>
+
+    @include('layouts.partials.switcher')
+                @yield('content')
+
+        @include('layouts.partials.searchModal')
+        @include('layouts.partials.footer')
+
     </div>
 
-    <!-- Vendor Scripts Start -->
-    <script src="{{ asset('acron/js/vendor/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ asset('acron/js/vendor/datatables.min.js') }}"></script>
-    <script src="{{ asset('acron/js/vendor/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('acron/js/vendor/OverlayScrollbars.min.js') }}"></script>
-    <script src="{{ asset('acron/js/vendor/autoComplete.min.js') }}"></script>
-    <script src="{{ asset('acron/js/vendor/clamp.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
-    <script src="{{ asset('acron/icon/acorn-icons.js') }}"></script>
-    <script src="{{ asset('acron/icon/acorn-icons-interface.js') }}"></script>
-    <!-- Vendor Scripts End -->
-    <!-- Template Base Scripts Start -->
-    <script src="{{ asset('acron/js/base/helpers.js') }}"></script>
-    <script src="{{ asset('acron/js/base/globals.js') }}"></script>
-    <script src="{{ asset('acron/js/base/nav.js') }}"></script>
-    <script src="{{ asset('acron/js/base/settings.js') }}"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css"
-        integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js"
-        integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <div class="scrollToTop">
+        <span class="arrow"><i class="ri-arrow-up-s-fill fs-20"></i></span>
+    </div>
+    <div id="responsive-overlay"></div>
+    <!-- Popper JS -->
+    <script src="{{ asset('assets/libs/@popperjs/core/umd/popper.min.js') }}"></script>
 
-    <!-- Template Base Scripts End -->
-    <!-- Page Specific Scripts Start -->
-    <script src="{{ asset('acron/js/cs/scrollspy.js') }}"></script>
-    <script src="{{ asset('acron/js/vendor/datepicker/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('acron/js/vendor/datepicker/locales/bootstrap-datepicker.es.min.js') }}"></script>
-    <script src="{{ asset('acron/js/vendor/jquery.validate/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('acron/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
-    <script src="{{ asset('acron/js/vendor/select2.full.min.js') }}"></script>
-    <script src="{{ asset('acron/js/common.js') }}"></script>
-    <script src="{{ asset('acron/js/scripts.js') }}"></script>
-    <script src="{{ asset('acron/js/forms/controls.select2.js') }}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    <script src="{{ asset('acron/js/forms/genericforms.js') }}"></script>
+    <!-- Defaultmenu JS -->
+    <script src="{{ asset('assets/js/defaultmenu.min.js') }}"></script>
+
+    <!-- Node Waves JS-->
+    <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+
+    <!-- Sticky JS -->
+    <script src="{{ asset('assets/js/sticky.js') }}"></script>
+
+    <!-- Simplebar JS -->
+    <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/simplebar.js') }}"></script>
+
+    <!-- Color Picker JS -->
+    <script src="{{ asset('assets/libs/@simonwep/pickr/pickr.es5.min.js') }}"></script>
+
+    <!-- Custom-Switcher JS -->
+    <script src="{{ asset('assets/js/custom-switcher.min.js') }}"></script>
+
+    <!-- Jquery Cdn -->
+
+    <!-- Datatables Cdn -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- Internal Datatables JS -->
+    <script src="{{ asset('assets/js/datatables.js') }}"></script>
+
+    <!-- Custom JS -->
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+
     @yield('js_after')
-    <!-- Page Specific Scripts End -->
+
 </body>
 
 </html>
