@@ -11,13 +11,13 @@
             <div class="header-element">
                 <div class="horizontal-logo">
                     <a href="index.html" class="header-logo">
-                        <img src="../assets/images/brand-logos/desktop-logo.png" alt="logo"
+                        <img src="https://udt-iota.vercel.app/assets/logo-2-2938deda.png" alt="logo"
                             class="desktop-logo">
-                        <img src="../assets/images/brand-logos/toggle-logo.png" alt="logo"
+                        <img src="https://udt-iota.vercel.app/assets/logo-2-2938deda.png" alt="logo"
                             class="toggle-logo">
-                        <img src="../assets/images/brand-logos/desktop-dark.png" alt="logo"
+                        <img src="https://udt-iota.vercel.app/assets/logo-2-2938deda.png" alt="logo"
                             class="desktop-dark">
-                        <img src="../assets/images/brand-logos/toggle-dark.png" alt="logo"
+                        <img src="https://udt-iota.vercel.app/assets/logo-2-2938deda.png" alt="logo"
                             class="toggle-dark">
                     </a>
                 </div>

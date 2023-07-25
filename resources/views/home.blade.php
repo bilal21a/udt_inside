@@ -7,11 +7,6 @@
         <div class="col-12">
             <!-- Inventory Start -->
             <section class="scroll-section" id="horizontal">
-                {{-- <h2 class="mb-4">Dashboard</h2> --}}
-
-
-
-
                 <div class="row">
                     <div class="col-xxl-4 col-sm-12">
                         <div class="card custom-card">
@@ -19,11 +14,11 @@
                                 <div class="d-flex flex-wrap align-items-top gap-2">
                                     <div class="me-1">
                                         <span class="avatar avatar-lg bg-primary">
-                                            <svg fill="#dadada" version="1.1" id="Layer_1"
+                                            <svg fill="#ffffff" version="1.1" id="Layer_1"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px"
                                                 viewBox="924 578 200 200" enable-background="new 924 578 200 200"
-                                                xml:space="preserve" stroke="#dadada">
+                                                xml:space="preserve" stroke="#ffffff">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                     stroke-linejoin="round"></g>
@@ -82,10 +77,10 @@
                                 <div class="d-flex flex-wrap align-items-top gap-2">
                                     <div class="me-1">
                                         <span class="avatar avatar-lg bg-primary">
-                                            <svg fill="#dadada" height="30px" width="30px" version="1.1" id="Capa_1"
+                                            <svg fill="#ffffff" height="30px" width="30px" version="1.1" id="Capa_1"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 489.785 489.785"
-                                                xml:space="preserve" stroke="#dadada">
+                                                xml:space="preserve" stroke="#ffffff">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                     stroke-linejoin="round"></g>
@@ -133,12 +128,12 @@
                                 <div class="d-flex flex-wrap align-items-top gap-2">
                                     <div class="me-1">
                                         <span class="avatar avatar-lg bg-primary">
-                                            <svg fill="#dadada" width="35px" height="35px"
+                                            <svg fill="#ffffff" width="35px" height="35px"
                                                 viewBox="0 -43.92 122.88 122.88" version="1.1" id="Layer_1"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
                                                 style="enable-background:new 0 0 122.88 35.03" xml:space="preserve"
-                                                stroke="#dadada">
+                                                stroke="#ffffff">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                     stroke-linejoin="round" stroke="#CCCCCC"
@@ -182,10 +177,10 @@
                                 <div class="d-flex flex-wrap align-items-top gap-2">
                                     <div class="me-1">
                                         <span class="avatar avatar-lg bg-primary">
-                                            <svg fill="#dadada" height="30px" width="30px" version="1.1"
+                                            <svg fill="#ffffff" height="30px" width="30px" version="1.1"
                                                 id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 299 299"
-                                                xml:space="preserve" stroke="#dadada">
+                                                xml:space="preserve" stroke="#ffffff">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                     stroke-linejoin="round"></g>
@@ -235,7 +230,7 @@
                                 <div class="d-flex flex-wrap align-items-top gap-2">
                                     <div class="me-1">
                                         <span class="avatar avatar-lg bg-primary">
-                                            <svg fill="#dadada" height="20px" width="20px" version="1.1"
+                                            <svg fill="#ffffff" height="20px" width="20px" version="1.1"
                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
                                                 enable-background="new 0 0 512 512">
