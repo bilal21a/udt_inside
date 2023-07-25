@@ -61,7 +61,7 @@
     <p class="mb-2 text-muted">Notes <span class="text-danger">*</span></p>
     <textarea placeholder="" name="notes" class="form-control" rows="3" data-gramm="false" wt-ignore-input="true">{{ isset($fuelpump) ? $fuelpump->notes : old('notes') }}</textarea>
 </div>
-
+{{-- @dd($fuelpump) --}}
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">Fuel Type <span class="text-danger">*</span></p>
     <div class="form-check form-check-inline">
@@ -73,8 +73,8 @@
         <label class="form-check-label" for="inlineRadio2">Diesel</label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="fuel_type[]" id="inlineRadio2" value="hi_oct" {{ isset($fuelpump) ? ($fuelpump->is_hi_oct == 1 ? 'checked' : '') : '' }}>
-        <label class="form-check-label" for="inlineRadio2">Hi-Octane</label>
+        <input class="form-check-input" type="checkbox" name="fuel_type[]" id="inlineRadio3" value="hi_oct" {{ isset($fuelpump) ? ($fuelpump->is_hi_oct == 1 ? 'checked' : '') : '' }}>
+        <label class="form-check-label" for="inlineRadio3">Hi-Octane</label>
     </div>
 </div>
 

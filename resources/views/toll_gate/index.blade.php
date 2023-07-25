@@ -11,7 +11,7 @@
     @php
         $table_name = 'Toll Gates List';
         $table_id = 'datatable';
-        $tableData = ['Image', 'Name', 'Email', 'Phone', 'CNIC', 'Address', 'Gender', 'Actions'];
+        $tableData = ['Image', 'Name', 'Address', 'STV Fee', 'LTV Fee', 'Actions'];
     @endphp
     @include('common.table.table')
     @include('common.modal.add_edit_modal')
@@ -20,7 +20,7 @@
 @section('js_after')
     {{-- **Show Data** --}}
     <script>
-        var tabelDataArray = ['image', 'name', 'address', 'status', 'action'];
+        var tabelDataArray = ['image', 'name', 'address', 'stv_fee', 'ltv_fee', 'action'];
         var get_data_url = "{{ route('get_toll_gate', ['service_provider' => $service_provider]) }}"
     </script>
     @include('common.js.get_data')

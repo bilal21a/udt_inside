@@ -42,8 +42,8 @@ class FuelStationController extends Controller
                 $cross='<i class="bi-x-circle-fill text-danger"></i></i>';
                 return '<div class="d-flex flex-driection-column"style="padding-left: 71px;flex-direction: column;
                 width: fit-content;"><span class="badge rounded-pill bg-outline-primary tex mb-1">Petrol '.($row->is_petrol?$check:$cross).'</span>
-               <span class="badge rounded-pill bg-outline-primary mb-1"> Diesel '.($row->is_petrol?$check:$cross).'</span>
-               <span class="badge rounded-pill bg-outline-primary mb-1"> Hi-Octane '.($row->is_petrol?$check:$cross).'</span>
+               <span class="badge rounded-pill bg-outline-primary mb-1"> Diesel '.($row->is_diesel?$check:$cross).'</span>
+               <span class="badge rounded-pill bg-outline-primary mb-1"> Hi-Octane '.($row->is_hi_oct?$check:$cross).'</span>
                </div>';
             })
             ->addColumn('status', function ($row) {
