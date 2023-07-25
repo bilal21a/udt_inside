@@ -45,7 +45,8 @@
                    <!-- Start::slide -->
                    <li class="slide">
                        <a href="{{ route('customers.index') }}"
-                           class="side-menu__item {{ request()->is('customers*') ? 'active' : '' }}">
+
+                           class="side-menu__item {{ request()->is('customers*')|| request()->is('vehicles*') || request()->is('drivers*')  ? 'active' : '' }}">
                            <i class="bx bxs-user side-menu__icon"></i>
                            <span class="side-menu__label">Customers</span>
                        </a>
@@ -53,7 +54,7 @@
 
                    <li class="slide">
                        <a href="{{ route('serviceprovider.index') }}"
-                           class="side-menu__item {{ request()->is('serviceprovider*') ? 'active' : '' }}">
+                           class="side-menu__item {{ request()->is('serviceprovider*') ||  request()->is('fuel_station*') ? 'active' : '' }}">
                            <i class="bx bxs-user side-menu__icon"></i>
                            <span class="side-menu__label">Service Providers</span>
                        </a>
