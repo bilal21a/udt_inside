@@ -609,9 +609,9 @@
                 <!-- End::header-link|dropdown-toggle -->
                 <ul class="main-header-dropdown dropdown-menu pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
                     aria-labelledby="mainHeaderProfile">
-                    <li><a class="dropdown-item d-flex border-block-end" href="javascript:void(0);"><i
+                    <li><a class="dropdown-item d-flex border-block-end"><i
                                 class="ti ti-wallet fs-18 me-2 op-7"></i>Role : {{ ucfirst($user_name->role) }}</a></li>
-                  <li><a class="dropdown-item d-flex" href="sign-in-cover.html"><i
+                  <li><a class="dropdown-item d-flex" href="{{ route('logout') }}"><i
                                 class="ti ti-logout fs-18 me-2 op-7"></i>Log Out</a></li>
                 </ul>
             </div>
