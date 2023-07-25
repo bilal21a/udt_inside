@@ -26,7 +26,7 @@ View Vehicles Info
                     </div>
 
                     <div class="mb-4">
-                        <p class="fs-15 fw-semibold mb-2">Product Details :</p>
+                        <p class="fs-15 fw-semibold mb-2">Vehicle Details :</p>
                         <div class="row">
                             <div class="col-xl-10">
                                 <div class="table-responsive">
