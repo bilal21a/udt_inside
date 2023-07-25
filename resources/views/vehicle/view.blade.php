@@ -1,69 +1,98 @@
 @extends('layouts.app')
-
-@section('css_after')
-    <style>
-        .width_image {
-            width: 450px;
-        }
-
-        .list_styling {
-            list-style: none
-        }
-    </style>
+@section('header')
+View Vehicles Info
 @endsection
 @section('content')
-    <div class="page-title-container">
-        <div class="page-title-container">
-            <div class="row">
-                <div class="col-12 col-sm-6">
-                    <h1 class="mb-0 pb-0 display-4 ms-3" id="title">View Vehicle Info</h1>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card custom-card">
+                <div class="card-header justify-content-between">
+                    <div class="card-title">
+                       Vehicles Info
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Title Start -->
-            <div class="col-3"></div>
-            <div class="col-4 col-md-7">
-                <img class="width_image" src="{{ $vehicle->vehicle_image_url }}"alt="">
-            </div>
-            <div class="col-5"></div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Title Start -->
+                        <div class="col-2">
 
-        </div>
-        <div>
-            <div>
-                <div class="row mt-5 pt-4">
-                    <div class="col-3"></div>
-                    <div class="col-6 mt-5 h5 d-flex " style="font-size: 17px; line-height: 25px">
-                        <div class="me-5">
-                            <ul class="p-0 list_styling">
-                                <li class="mb-1">Maker</li>
-                                <li class="mb-1">Model</li>
-                                <li class="mb-1">Vehicle type</li>
-                                <li class="mb-1">Year of issue</li>
-                                <li class="mb-1">Mileage</li>
-                                <li class="mb-1">Listing status</li>
-                                <li class="mb-1">Price</li>
-                                <li class="mb-1">How Long You Have Owned The Vehicle?</li>
-                                <li class="mb-1">How Many Kilometer Will This Car <br>Travels Over Next 12 Months</li>
-                            </ul>
                         </div>
-                        <div class="ms-5">
-                            <ul class="p-0 list_styling">
-                                <li class="mb-1">{{ $vehicle->make }}</li>
-                                <li class="mb-1">{{ $vehicle->model }}</li>
-                                <li class="mb-1"> {{ $vehicle->engine_type }}</li>
-                                <li class="mb-1"> {{ $vehicle->year }}</li>
-                                <li class="mb-1">{{ $vehicle->avg_kmpg }}</li>
-                                <li class="mb-1"> {{ $vehicle->status == true ? 'Active' : 'Inactive' }}</li>
-                                <li class="mb-1"> {{ $vehicle->current_car_value }}</li>
-                                <li class="mb-1"> {{ $vehicle->vehicle_owning_time }}</li>
-                                <li class="mb-1"> {{ $vehicle->car_travel_distance }}</li>
-                            </ul>
+                        <div class="col-5 col-md-7">
+                            <img class="rounded float-start " width="320px" src="{{ $vehicle->vehicle_image_url }}"
+                                alt="Edit Car">
+                        </div>
+                        <div class="col-5"></div>
+
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="fs-15 fw-semibold mb-2">Product Details :</p>
+                        <div class="row">
+                            <div class="col-xl-10">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered text-nowrap">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row" class="fw-semibold">
+                                                    Maker
+                                                </th>
+                                                <td>{{ $vehicle->make }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="fw-semibold">
+                                                    Model </th>
+                                                <td>
+                                                    {{ $vehicle->model }} </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="fw-semibold">
+                                                    Vehicle type
+                                                </th>
+                                                <td>
+                                                    {{ $vehicle->engine_type }} </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="fw-semibold">
+                                                    Year of issue </th>
+                                                <td>
+                                                    {{ $vehicle->year }} </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="fw-semibold">
+                                                    Mileage </th>
+                                                <td>
+                                                    {{ $vehicle->avg_kmpg }} </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="fw-semibold">
+                                                    Listing status </th>
+                                                <td>
+                                                    {{ $vehicle->status == true ? 'Active' : 'Inactive' }}
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="fw-semibold">
+                                                    Price </th>
+                                                <td>
+                                                    {{ $vehicle->current_car_value }}
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="fw-semibold">
+                                                    Color </th>
+                                                <td>
+                                                    {{ $vehicle->color }}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-3"></div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js_after')
+    <script></script>
 @endsection

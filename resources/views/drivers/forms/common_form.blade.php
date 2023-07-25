@@ -38,42 +38,12 @@
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">License Issue Date</p>
-    <input type="text" class="form-control" name="license_issue_date" value="{{ isset($user) ? $user->driver_info->license_issue_date : old('license_issue_date') }}">
+    <input type="date" class="form-control" name="license_issue_date" value="{{ isset($user) ? $user->driver_info->license_issue_date : old('license_issue_date') }}">
 </div>
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">License Expiry Date</p>
-    <input type="text" class="form-control" name="license_exp_date" value="{{ isset($user) ? $user->driver_info->license_exp_date : old('license_exp_date') }}">
-</div>
-
-<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-    <p class="mb-2 text-muted">Profile Image <span class="text-danger">*</span></p>
-    <input type="file" name="profile_image" class="form-control">
-    @if (isset($user) && $user->profile_image != null)
-    <div class="sh-15 me-1 mb-1 d-inline-block">
-        <img src="{{ asset($user->profile_url) }}" class="img-fluid-height rounded-md" alt="thumb">
-    </div>
-    @endif
-</div>
-
-<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-    <p class="mb-2 text-muted">Driver License (Front) <span class="text-danger">*</span></p>
-    <input type="file" name="license_img_front" class="form-control">
-    @if (isset($user) && $user->driver_info->license_img_front != null)
-    <div class="sh-15 me-1 mb-1 d-inline-block">
-        <img src="{{ asset("storage/driver/license_front/".$user->driver_info->license_img_front) }}" class="img-fluid-height rounded-md" alt="thumb">
-    </div>
-    @endif
-</div>
-
-<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-    <p class="mb-2 text-muted">Driver License (Back) <span class="text-danger">*</span></p>
-    <input type="file" name="license_img_back" class="form-control">
-    @if (isset($user) && $user->driver_info->license_img_back != null)
-    <div class="sh-15 me-1 mb-1 d-inline-block">
-        <img src="{{ asset("storage/driver/license_back/".$user->driver_info->license_img_back) }}" class="img-fluid-height rounded-md" alt="thumb">
-    </div>
-    @endif
+    <input type="date" class="form-control" name="license_exp_date" value="{{ isset($user) ? $user->driver_info->license_exp_date : old('license_exp_date') }}">
 </div>
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
@@ -92,5 +62,40 @@
         <label class="form-check-label" for="female">Female</label>
     </div>
 </div>
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+    
+</div>
+
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+    <p class="mb-2 text-muted">Profile Image <span class="text-danger">*</span></p>
+    <input type="file" name="profile_image" class="form-control">
+    @if (isset($user) && $user->profile_image != null)
+    <div class="sh-15 me-1 mb-1 d-inline-block">
+        <img class="rounded float-start" width="200px" src="{{ asset($user->profile_url) }}" alt="Edit Car">
+    </div>
+    @endif
+</div>
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+    <p class="mb-2 text-muted">Driver License (Front) <span class="text-danger">*</span></p>
+    <input type="file" name="license_img_front" class="form-control">
+    @if (isset($user) && $user->driver_info->license_img_front != null)
+    <div class="sh-15 me-1 mb-1 d-inline-block">
+        <img class="rounded float-start" width="200px" src="{{ asset("storage/driver/license_front/".$user->driver_info->license_img_front) }}" alt="Edit Car">
+    </div>
+    @endif
+</div>
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+    <p class="mb-2 text-muted">Driver License (Back) <span class="text-danger">*</span></p>
+    <input type="file" name="license_img_back" class="form-control">
+    @if (isset($user) && $user->driver_info->license_img_back != null)
+    <div class="sh-15 me-1 mb-1 d-inline-block">
+        <img class="rounded float-start" width="200px" src="{{  asset("storage/driver/license_back/".$user->driver_info->license_img_back) }}" alt="Edit Car">
+    </div>
+    @endif
+</div>
+
 
 <input type="hidden" name="customer" value="{{ $customer_id }}">

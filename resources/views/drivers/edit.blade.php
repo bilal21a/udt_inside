@@ -13,7 +13,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('drivers.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('drivers.update', $user->id) }}" method="post" enctype="multipart/form-data"
+                        class="row gy-4">
                         @csrf
                         @method('PUT')
                         @include('drivers.forms.common_form')
@@ -25,7 +26,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('js_after')

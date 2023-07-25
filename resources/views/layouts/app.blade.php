@@ -52,6 +52,14 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
 
     @yield('css')
+<<<<<<< HEAD
+=======
+    <style>
+        .list_styling {
+            list-style: none
+        }
+    </style>
+>>>>>>> 448ab9b (vehicle and one more this)
 </head>
 
 
