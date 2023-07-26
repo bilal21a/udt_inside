@@ -76,7 +76,7 @@
                 @yield('content')
             </div>
         </div>
-
+        @include('common.modal.simple_modal')
         @include('layouts.partials.searchModal')
         @include('layouts.partials.footer')
 
@@ -133,6 +133,9 @@
 
     <!-- Custom JS -->
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    {{-- google map --}}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqHMMnNBIKO-QfXVkrUEpEzxZ49aUt_z0&libraries=places">
+    </script>
 
     @yield('js_after')
 

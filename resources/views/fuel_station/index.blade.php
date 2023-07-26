@@ -53,27 +53,27 @@
             });
         }
 
-        function initMap() {
-            var lat = 37.7749; // Replace with your desired latitude
-            var lng = -122.4194; // Replace with your desired longitude
+        // function initMap() {
+        //     var lat = 37.7749; // Replace with your desired latitude
+        //     var lng = -122.4194; // Replace with your desired longitude
 
-            var mapOptions = {
-                center: {
-                    lat: lat,
-                    lng: lng
-                },
-                zoom: 12
-            };
+        //     var mapOptions = {
+        //         center: {
+        //             lat: lat,
+        //             lng: lng
+        //         },
+        //         zoom: 12
+        //     };
 
-            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        //     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-            var marker = new google.maps.Marker({
-                position: {
-                    lat: lat,
-                    lng: lng
-                },
-                map: map
-            });
-        }
+        //     var marker = new google.maps.Marker({
+        //         position: {
+        //             lat: lat,
+        //             lng: lng
+        //         },
+        //         map: map
+        //     });
+        // }
     </script>
 @endsection
