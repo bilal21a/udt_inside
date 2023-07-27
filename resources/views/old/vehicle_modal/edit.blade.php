@@ -6,7 +6,7 @@
     <div class="page-title-container">
         <div class="row">
             <div class="col-12 col-sm-6">
-                <h1 class="mb-0 pb-0 display-4" id="title">Edit Vehicle Modal</h1>
+                <h1 class="mb-0 pb-0 display-4" id="title">Edit Vehicle Model</h1>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
                 @csrf
                 @method('PUT')
                 @include('vehicle_modal.forms.common_form')
-                <button type="submit" class="btn btn-primary" id="success_message">Sumbit</button>
+                <button type="submit" class="btn btn-primary" id="success_message">Submit</button>
             </form>
         </div>
     </div>

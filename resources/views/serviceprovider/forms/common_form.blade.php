@@ -38,7 +38,7 @@
 </div>
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-    <p class="mb-2 text-muted">Address <span class="text-danger">*</span></p>
+    <p class="mb-2 text-muted">Address <span class="text-danger"></span></p>
     <textarea placeholder="" name="address" class="form-control" rows="3" data-gramm="false" wt-ignore-input="true">{{ isset($user) ? $user->address : old('address') }}</textarea>
 </div>
 
@@ -46,8 +46,8 @@
     <p class="mb-2 text-muted">Service Provider Type<span class="text-danger">*</span></p>
     <select name="service_provider_type" class="form-select">
         <option value="omc" {{ isset($user) && $user->role == 'omc' ? 'selected' : '' }}>OMC</option>
-        <option value="insurance" {{ isset($user) && $user->role == 'insurance' ? 'selected' : '' }}>Insurance</option>
-        <option value="tollgate" {{ isset($user) && $user->role == 'tollgate' ? 'selected' : '' }}>Tollgate</option>
+        <option value="insurance" {{ isset($user) && $user->role == 'insurance' ? 'selected' : '' }}>Insurance Company</option>
+        <option value="tollgate" {{ isset($user) && $user->role == 'tollgate' ? 'selected' : '' }}>Toll Gate</option>
     </select>
 </div>
 

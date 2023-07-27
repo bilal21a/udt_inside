@@ -8,17 +8,22 @@ trait ButtonsTrait
     public function get_buttons($edit_btn_url, $id)
     {
         return '
-        <a class="btn btn-icon btn-outline-success rounded-pill btn-wave" href="' . $edit_btn_url . '">
-            <i class="ri-edit-circle-line"></i>
+        <a href="' . $edit_btn_url . '"
+                            class="btn btn-icon btn-sm btn-info-transparent rounded-pill"><i
+                                class="ri-edit-line"></i>
         </a>
-        <button class="btn btn-icon btn-outline-danger rounded-pill btn-wave" onclick="deleteData(' . $id . ')" >
-            <i class="ri-delete-bin-line"></i>
-        </button>';
+
+        <a onclick="deleteData(' . $id . ')"
+        class="btn btn-icon btn-sm btn-danger-transparent rounded-pill"><i
+            class="ri-delete-bin-line"></i></a>';
+
+
+
     }
 
     public function viewButton($view_btn_url, $title = 'View')
     {
-        return '<a href="' . $view_btn_url . '" class="btn btn-icon btn-outline-secondary rounded-pill btn-wave">
+        return '<a href="' . $view_btn_url . '" class="btn btn-icon btn-sm btn-info-transparent rounded-pill">
             <i class="ri-eye-line"></i>
         </a>';
     }
@@ -81,7 +86,7 @@ trait ButtonsTrait
 
     public function omcButton($view_btn_url, $title = 'View')
     {
-        return '<a href="' . $view_btn_url . '" class="btn btn-icon btn-outline-secondary rounded-pill btn-wave">
+        return '<a href="' . $view_btn_url . '" class="btn btn-icon btn-sm btn-info-transparent rounded-pill">
             <i class="ri-car-line"></i>
         </a>';
     }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    Edit Vehicle Modal
+    Edit Vehicle Model
 @endsection
 @section('content')
     @include('common.alert.alert')
@@ -9,7 +9,7 @@
             <div class="card custom-card">
                 <div class="card-header justify-content-between">
                     <div class="card-title">
-                        Edit Vehicle Modal
+                        Edit Vehicle Model
                     </div>
                 </div>
                 <div class="card-body">
@@ -19,7 +19,7 @@
                         @method('PUT')
                         @include('vehicle_modal.forms.common_form')
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary" id="success_message">Sumbit</button>
+                            <button type="submit" class="btn btn-primary" id="success_message">Submit</button>
                         </div>
                     </form>
                 </div>

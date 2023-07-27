@@ -9,7 +9,7 @@
             <div class="card custom-card">
                 <div class="card-header justify-content-between">
                     <div class="card-title">
-                        Add Customer
+                        Add Service Provider
                     </div>
                 </div>
                 <div class="card-body">
@@ -17,7 +17,7 @@
                         @csrf
                         @include('serviceprovider.forms.common_form')
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary" id="success_message">Sumbit</button>
+                            <button type="submit" class="btn btn-primary" id="success_message">Submit</button>
                         </div>
                     </form>
                 </div>

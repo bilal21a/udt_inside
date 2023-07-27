@@ -25,6 +25,6 @@
 <li>
     <a class="{{ request()->is('vehicle_modal*') ? 'active' : '' }}" href="{{ route('vehicle_modal.index') }}">
         <i data-acorn-icon="car" class="d-inline-block"></i>
-        <span class="label">Vehicle Modals</span>
+        <span class="label">Vehicle Models</span>
     </a>
 </li>

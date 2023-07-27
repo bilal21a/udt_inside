@@ -17,7 +17,7 @@
             <form action="{{ route('vehicle_make.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @include('vehicle_make.forms.common_form')
-                <button type="submit" class="btn btn-primary" id="success_message">Sumbit</button>
+                <button type="submit" class="btn btn-primary" id="success_message">Submit</button>
             </form>
         </div>
     </div>

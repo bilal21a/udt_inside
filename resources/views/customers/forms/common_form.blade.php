@@ -21,10 +21,7 @@
     <p class="mb-2 text-muted">Password @if (!isset($user))<span class="text-danger">*</span>@endif</p>
     <input type="text" name="password" class="form-control" value="{{ old('password') }}">
 </div>
-<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-    <p class="mb-2 text-muted">CNIC <span class="text-danger">*</span></p>
-    <input type="text" name="cnic" class="form-control" value="{{ isset($user) ? $user->cnic : old('cnic') }}">
-</div>
+
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">Profile Image <span class="text-danger">*</span></p>
     <input type="file" name="profile_image" class="form-control">

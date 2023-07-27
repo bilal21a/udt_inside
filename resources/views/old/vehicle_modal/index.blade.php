@@ -13,14 +13,14 @@
         <div class="page-title-container">
             <div class="row">
                 <div class="col-12 col-sm-6">
-                    <h1 class="mb-0 pb-0 display-4" id="title">Vehicles Modal Managment</h1>
+                    <h1 class="mb-0 pb-0 display-4" id="title">Vehicles Model Managment</h1>
                 </div>
             </div>
         </div>
 
         <a class="btn btn-icon btn-icon-start btn-primary mb-4" href="{{ route('vehicle_modal.create') }}">
             <i data-acorn-icon="plus"></i>
-            <span>Add Vehicles Modal</span>
+            <span>Add Vehicles Model</span>
         </a>
 
         {{-- -----Table----- --}}

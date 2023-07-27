@@ -18,7 +18,7 @@
                 @csrf
                 @method('PUT')
                 @include('fuel_station.forms.common_form')
-                <button type="submit" class="btn btn-primary" id="success_message">Sumbit</button>
+                <button type="submit" class="btn btn-primary" id="success_message">Submit</button>
             </form>
         </div>
     </div>

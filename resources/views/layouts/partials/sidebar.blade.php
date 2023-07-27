@@ -78,12 +78,12 @@
                        <a href="{{ route('vehicle_modal.index') }}"
                            class="side-menu__item {{ request()->is('vehicle_modal*') ? 'active' : '' }}">
                            <i class="bx bxs-car side-menu__icon"></i>
-                           <span class="side-menu__label">Vehicle Modals</span>
+                           <span class="side-menu__label">Vehicle Models</span>
                        </a>
                    </li>
 
                     <!-- Start::slide__category -->
-                    <li class="slide__category"><span class="category-name">Site Setting</span></li>
+                    <li class="slide__category"><span class="category-name">Setting</span></li>
                     <li class="slide">
                         <a href="{{ route('logout') }}"
                             class="side-menu__item">

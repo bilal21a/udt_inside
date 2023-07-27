@@ -11,7 +11,7 @@
     @php
         $table_name = 'Customers List';
         $table_id = 'datatable';
-        $tableData = ['Image', 'Name', 'Email', 'Phone', 'CNIC', 'Address', 'Gender', 'Actions'];
+        $tableData = ['Image', 'Name', 'Email', 'Phone', 'Address', 'Gender', 'Actions'];
     @endphp
     @include('common.table.table')
 
@@ -21,7 +21,7 @@
 @section('js_after')
     {{-- **Show Data** --}}
     <script>
-        var tabelDataArray = ['profile_image', 'full_name', 'email', 'phone', 'cnic', 'address', 'gender', 'action'];
+        var tabelDataArray = ['profile_image', 'full_name', 'email', 'phone', 'address', 'gender', 'action'];
         var get_data_url = "{{ route('get_customers') }}"
     </script>
     @include('common.js.get_data')

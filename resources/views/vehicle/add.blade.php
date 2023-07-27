@@ -17,7 +17,7 @@
                         @csrf
                         @include('vehicle.forms.common_form')
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary" id="success_message">Sumbit</button>
+                            <button type="submit" class="btn btn-primary" id="success_message">Submit</button>
                         </div>
                     </form>
                 </div>

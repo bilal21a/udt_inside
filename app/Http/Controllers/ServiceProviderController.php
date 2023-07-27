@@ -79,7 +79,6 @@ class ServiceProviderController extends Controller
             'password' => 'required',
             'cnic' => 'required',
             'profile_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
-            'address' => 'required',
             'gender' => 'required',
             'service_provider_type' => 'required',
         ]);
@@ -131,7 +130,6 @@ class ServiceProviderController extends Controller
             'email' => 'required|unique:users,email,' . $id . ',id',
             'cnic' => 'required',
             'profile_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
-            'address' => 'required',
             'gender' => 'required',
             'service_provider_type' => 'required',
         ]);
