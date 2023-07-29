@@ -37,6 +37,8 @@
 
     <!-- Simplebar Css -->
     <link href="{{ asset('assets/libs/simplebar/simplebar.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/js/simplebar.js') }}"></script>
+
 
     <!-- Color Picker Css -->
     <link rel="stylesheet" href="{{ asset('assets/libs/flatpickr/flatpickr.min.css') }}">
@@ -115,7 +117,19 @@
     <!-- Custom-Switcher JS -->
     <script src="{{ asset('assets/js/custom-switcher.min.js') }}"></script>
 
-    <!-- Jquery Cdn -->
+    <!-- JSVector Maps JS -->
+    <script src="{{ asset('assets/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
+
+    <!-- JSVector Maps MapsJS -->
+    <script src="{{ asset('assets/libs/jsvectormap/maps/world-merc.js') }}"></script>
+
+    <!-- Apex Charts JS -->
+    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+    <!-- Chartjs Chart JS -->
+    <script src="{{ asset('assets/libs/chart.js/chart.min.js') }}"></script>
+
+
 
     <!-- Datatables Cdn -->
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -133,6 +147,8 @@
 
     <!-- Custom JS -->
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     {{-- google map --}}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqHMMnNBIKO-QfXVkrUEpEzxZ49aUt_z0&libraries=places">
     </script>
