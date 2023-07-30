@@ -22,17 +22,15 @@ class TollGateController extends Controller
     public function index(Request $request)
     {
         $service_provider = $request->service_provider;
-        if ($service_provider) {
-            return view('toll_gate.index', compact('service_provider'));
-        } else {
-            return redirect()->back();
-        }
+        return view('toll_gate.index', compact('service_provider'));
     }
 
     public function get_data(Request $request)
     {
         $service_provider = $request->service_provider;
-        $data = TollGate::where('user_id', $service_provider)->get();
+        $data = TollGate::when($service_provider != null, function ($query) use ($service_provider) {
+            return $query->with('serviceProvider')->where('user_id', $service_provider);
+        })->get();
         return DataTables::of($data)
             ->addColumn('image', function ($row) {
                 return '<img class="img-fluid" src="' . $row->toll_gate_image_url . '">';
@@ -53,12 +51,15 @@ class TollGateController extends Controller
                 $status = $row->status == 1 ? "Active" : "Inactive";
                 return $status;
             })
+            ->addColumn('service_provider', function ($row) use($service_provider) {
+                return $service_provider == null ?  '<span class="text-info fw-semibold">' . $row->serviceProvider->full_name . '</span>' : '';
+            })
             ->addColumn('action', function ($row) use ($service_provider) {
                 $edit_btn_url = route('toll_gate.edit', [$row->id, 'service_provider' => $service_provider]);
                 // Modify the get_buttons function according to your requirements
                 return $this->get_buttons($edit_btn_url, $row->id);
             })
-            ->rawColumns(['image', 'address', 'stv_fee', 'ltv_fee', 'note', 'action'])
+            ->rawColumns(['image', 'address', 'stv_fee', 'ltv_fee', 'note', 'action','service_provider'])
             ->make(true);
     }
     /**

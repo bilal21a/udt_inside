@@ -67,7 +67,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-1">
                                                 <div>
-                                                    <a class="text-primary" href="javascript:void(0);">View All<i
+                                                    <a class="text-primary" href="{{ route('customers.index') }}">View All<i
                                                             class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                                 </div>
                                                 <div class="text-end">
@@ -103,7 +103,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-1">
                                                 <div>
-                                                    <a class="text-secondary" href="javascript:void(0);">View All<i
+                                                    <a class="text-secondary" href="{{ route('drivers.index') }}">View All<i
                                                             class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                                 </div>
                                                 <div class="text-end">
@@ -139,7 +139,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-1">
                                                 <div>
-                                                    <a class="text-success" href="javascript:void(0);">View All<i
+                                                    <a class="text-success" href="{{ route('vehicles.index') }}">View All<i
                                                             class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                                 </div>
                                                 <div class="text-end">
@@ -175,7 +175,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-1">
                                                 <div>
-                                                    <a class="text-warning" href="javascript:void(0);">View All<i
+                                                    <a class="text-warning" href="{{ route('fuel_station.index') }}">View All<i
                                                             class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                                 </div>
                                                 <div class="text-end">
@@ -211,7 +211,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-1">
                                                 <div>
-                                                    <a class="text-warning" href="javascript:void(0);">View All<i
+                                                    <a class="text-warning" href="{{ route('toll_gate.index') }}">View All<i
                                                             class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                                 </div>
                                                 <div class="text-end">

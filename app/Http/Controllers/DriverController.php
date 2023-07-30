@@ -12,7 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DriverController extends Controller
 {
-    use DriverTrait,userTrait;
+    use DriverTrait, userTrait;
 
     /**
      * Display a listing of the resource.
@@ -22,17 +22,15 @@ class DriverController extends Controller
     public function index(Request $request)
     {
         $customer_id = $request->customer;
-        if ($customer_id) {
-            return view('drivers.index', compact('customer_id'));
-        } else {
-            return redirect()->back();
-        }
+        return view('drivers.index', compact('customer_id'));
     }
 
     public function get_data(Request $request)
     {
         $customer_id = $request->customer;
-        $data = User::where('role', 'driver')->where('parent_id', $customer_id)->latest()->get();
+        $data = User::where('role', 'driver')->when($customer_id != null, function ($query) use ($customer_id) {
+            return $query->where('parent_id', $customer_id);
+        })->latest()->get();
 
         return DataTables::of($data)
             ->addColumn('profile_image', function ($row) {
@@ -41,11 +39,14 @@ class DriverController extends Controller
             ->addColumn('full_name', function ($row) {
                 return $row->first_name . ' ' . $row->last_name;
             })
+            ->addColumn('customer', function ($row) use ($customer_id) {
+                return $customer_id == null ? '<span class="text-info fw-semibold">' . $row->customer->full_name . '</span>' : '';
+            })
             ->addColumn('action', function ($row) use ($customer_id) {
                 $edit_btn_url = route('drivers.edit', [$row->id, 'customer' => $customer_id]);
                 return $this->get_buttons($edit_btn_url, $row->id);
             })
-            ->rawColumns(['profile_image', 'full_name', 'action'])
+            ->rawColumns(['profile_image', 'full_name', 'action', 'customer'])
             ->make(true);
     }
 
@@ -95,7 +96,7 @@ class DriverController extends Controller
             return redirect()->route('drivers.create', ['customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = new User();
-        $user = $this->save_user($user, $request,'driver');
+        $user = $this->save_user($user, $request, 'driver');
         $driver = new DirverInfo();
         $driver = $this->driver_info_save($driver, $request, $user->id);
         return redirect()->route('drivers.index', ['customer' => $customer_id])->with('alert', ['type' => 'success', 'message' => 'Driver saved successfully']);
@@ -118,12 +119,12 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit(Request $request, $id)
     {
         $customer_id = $request->customer;
         if ($customer_id) {
             $user = User::with('driver_info')->find($id);
-            return view('drivers.edit', compact('user','customer_id'));
+            return view('drivers.edit', compact('user', 'customer_id'));
         } else {
             return redirect()->back();
         }
@@ -156,10 +157,10 @@ class DriverController extends Controller
             'customer' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('drivers.edit', [$id,'customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+            return redirect()->route('drivers.edit', [$id, 'customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $user = User::find($id);
-        $user = $this->save_user($user, $request,'driver', 'edit');
+        $user = $this->save_user($user, $request, 'driver', 'edit');
         $driver =  DirverInfo::where('user_id', $id)->first();
         $driver = $this->driver_info_save($driver, $request, $user->id, 'edit');
 

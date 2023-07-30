@@ -19,31 +19,34 @@ class VehicleController extends Controller
     public function index(Request $request)
     {
         $customer_id = $request->customer;
-        if ($customer_id) {
-            return view('vehicle.index', compact('customer_id'));
-        } else {
-            return redirect()->back();
-        }
+        return view('vehicle.index', compact('customer_id'));
     }
 
     public function get_data(Request $request)
     {
         $customer_id = $request->customer;
-        $data = Vehicle::where('user_id', $customer_id)->latest()->get();
+        $data = Vehicle::when($customer_id != null, function ($query) use ($customer_id) {
+            return $query->with('customer')->where('user_id', $customer_id);
+        })
+            ->latest()->get();
+
+        // dd($data);
         return DataTables::of($data)
             ->addColumn('vehicle_image', function ($row) {
                 return '<img class="img-fluid" src="' . $row->vehicle_image_url . '">';
             })
-
             ->addColumn('action', function ($row) use ($customer_id) {
                 $view_btn_url = route('vehicles.show', $row->id);
                 $edit_btn_url = route('vehicles.edit', [$row->id, 'customer' => $customer_id]);
-                return $this->viewButton($view_btn_url).$this->get_buttons($edit_btn_url, $row->id);
+                return $this->viewButton($view_btn_url) . $this->get_buttons($edit_btn_url, $row->id);
+            })
+            ->addColumn('customer', function ($row) use($customer_id) {
+                return $customer_id == null ?  '<span class="text-info fw-semibold">' . $row->customer->full_name . '</span>' : '';
             })
             ->addColumn('vehicle_status', function ($row) {
                 return '<p>"' . $row->status == true ? "Active" : "Inactive" . '"</p>';
             })
-            ->rawColumns(['vehicle_image', 'action', 'vehicle_status'])
+            ->rawColumns(['vehicle_image', 'action', 'customer', 'vehicle_status'])
             ->make(true);
     }
     /**
@@ -55,7 +58,7 @@ class VehicleController extends Controller
     {
         $customer_id = $request->customer;
         if ($customer_id) {
-            return view('vehicle.add',compact('customer_id'));
+            return view('vehicle.add', compact('customer_id'));
         } else {
             return redirect()->back();
         }
@@ -103,7 +106,7 @@ class VehicleController extends Controller
     public function show($id)
     {
         $vehicle = Vehicle::find($id);
-        return view('vehicle.view',compact('vehicle'));
+        return view('vehicle.view', compact('vehicle'));
     }
 
     /**
@@ -112,13 +115,13 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit(Request $request, $id)
     {
         $customer_id = $request->customer;
         if ($customer_id) {
             $vehicle = Vehicle::find($id);
             $status = $vehicle->status;
-            return view('vehicle.edit', compact('vehicle', 'status','customer_id'));
+            return view('vehicle.edit', compact('vehicle', 'status', 'customer_id'));
         } else {
             return redirect()->back();
         }
@@ -150,7 +153,7 @@ class VehicleController extends Controller
             'customer' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('vehicles.edit', [$id,'customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+            return redirect()->route('vehicles.edit', [$id, 'customer' => $customer_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
         }
         $vehicle = Vehicle::find($id);
         $vehicle = $this->save_vehicle($vehicle, $request, null, 'edit');

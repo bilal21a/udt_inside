@@ -20,7 +20,7 @@ class FuelStation extends Model
 
     public function serviceProvider()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     //append

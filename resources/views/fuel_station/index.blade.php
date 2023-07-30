@@ -1,10 +1,12 @@
 @extends('layouts.app')
 @section('header')
     Fuel Satations Managment
-    <a href="{{ route('fuel_station.create', ['service_provider' => $service_provider]) }}"
-        class="btn btn-primary d-flex align-items-center justify-content-center mt-1">
-        <i class="ri-add-circle-line fs-16 align-middle me-1"></i>Add Fuel Satation
-    </a>
+    @if ($service_provider != null)
+        <a href="{{ route('fuel_station.create', ['service_provider' => $service_provider]) }}"
+            class="btn btn-primary d-flex align-items-center justify-content-center mt-1">
+            <i class="ri-add-circle-line fs-16 align-middle me-1"></i>Add Fuel Satation
+        </a>
+    @endif
 @endsection
 @section('content')
     @include('common.alert.alert')
@@ -12,6 +14,7 @@
         $table_name = 'Customers List';
         $table_id = 'datatable';
         $tableData = ['Fuel Station Image', 'Location Title', 'Address', 'Map', 'Fuel Type', 'Status', 'Address', 'Actions'];
+        $tableData = $service_provider != null ? ['Fuel Station Image', 'Location Title', 'Address', 'Map', 'Fuel Type', 'Status', 'Address', 'Actions'] : ['Fuel Station Image', 'Location Title', 'Address', 'Map', 'Service Provider', 'Fuel Type', 'Status', 'Address'];
     @endphp
     @include('common.table.table')
 
@@ -22,7 +25,12 @@
 @section('js_after')
     {{-- **Show Data** --}}
     <script>
-        var tabelDataArray = ['image', 'name', 'address', 'map', 'fuel_type', 'status', 'address', 'action'];
+        var tabelDataArray =
+            @if ($service_provider != null)
+                ['image', 'name', 'address', 'map', 'fuel_type', 'status', 'address', 'action']
+            @else
+                ['image', 'name', 'address', 'map','service_provider', 'fuel_type', 'status', 'address']
+            @endif
         var get_data_url = "{{ route('get_fuel_station', ['service_provider' => $service_provider]) }}"
     </script>
     @include('common.js.get_data')

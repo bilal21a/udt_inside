@@ -19,16 +19,14 @@ class FuelStationController extends Controller
     public function index(Request $request)
     {
         $service_provider = $request->service_provider;
-        if ($service_provider) {
-            return view('fuel_station.index', compact('service_provider'));
-        } else {
-            return redirect()->back();
-        }
+        return view('fuel_station.index', compact('service_provider'));
     }
     public function get_data(Request $request)
     {
         $service_provider = $request->service_provider;
-        $data = FuelStation::where('user_id', $service_provider)->get();
+        $data = FuelStation::when($service_provider != null, function ($query) use ($service_provider) {
+            return $query->with('serviceProvider')->where('user_id', $service_provider);
+        })->get();
         return DataTables::of($data)
             ->addColumn('image', function ($row) {
                 return '<img class="img-fluid" src="' . $row->fuel_station_image_url . '">';
@@ -38,26 +36,30 @@ class FuelStationController extends Controller
                 return '<p data-bs-toggle="modal" data-bs-target="#mapModal" onclick="showMap(' . $row->id . ')">Map</p>';
             })
             ->addColumn('fuel_type', function ($row) {
-                $check='<i class="bi-check-circle-fill text-success"></i></i>';
-                $cross='<i class="bi-x-circle-fill text-danger"></i></i>';
+                $check = '<i class="bi-check-circle-fill text-success"></i></i>';
+                $cross = '<i class="bi-x-circle-fill text-danger"></i></i>';
                 return '<div class="d-flex flex-driection-column"style="padding-left: 71px;flex-direction: column;
-                width: fit-content;"><span class="badge rounded-pill bg-outline-primary tex mb-1">Petrol '.($row->is_petrol?$check:$cross).'</span>
-               <span class="badge rounded-pill bg-outline-primary mb-1"> Diesel '.($row->is_diesel?$check:$cross).'</span>
-               <span class="badge rounded-pill bg-outline-primary mb-1"> Hi-Octane '.($row->is_hi_oct?$check:$cross).'</span>
+                width: fit-content;"><span class="badge rounded-pill bg-outline-primary tex mb-1">Petrol ' . ($row->is_petrol ? $check : $cross) . '</span>
+               <span class="badge rounded-pill bg-outline-primary mb-1"> Diesel ' . ($row->is_diesel ? $check : $cross) . '</span>
+               <span class="badge rounded-pill bg-outline-primary mb-1"> Hi-Octane ' . ($row->is_hi_oct ? $check : $cross) . '</span>
                </div>';
             })
             ->addColumn('status', function ($row) {
                 $status = $row->status == 1 ? "Active" : "Inactive";
                 return $status;
             })
+            ->addColumn('service_provider', function ($row) use($service_provider) {
+                return $service_provider == null ?  '<span class="text-info fw-semibold">' . $row->serviceProvider->full_name . '</span>' : '';
+            })
             ->addColumn('action', function ($row) use ($service_provider) {
                 $edit_btn_url = route('fuel_station.edit', [$row->id, 'service_provider' => $service_provider]);
                 return $this->get_buttons($edit_btn_url, $row->id);
             })
-            ->rawColumns(['image', 'map', 'fuel_type', 'action'])
+            ->rawColumns(['image', 'map', 'fuel_type', 'action','service_provider'])
             ->make(true);
     }
-    public function fuel_station_map($id){
+    public function fuel_station_map($id)
+    {
         $fuelpump = FuelStation::find($id);
         return view('fuel_station.modals.map');
     }
