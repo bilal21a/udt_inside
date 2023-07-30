@@ -36,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
     // home routes
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/get_count', 'HomeController@get_count')->name('get_count');
+    Route::get('/get_count_graph/{type?}/{table?}', 'HomeController@get_count_graph')->name('get_count_graph');
+    Route::get('/get_percentage/{type?}/{table?}', 'HomeController@get_percentage')->name('get_percentage');
 
     // Users Management
     Route::resource('users', 'UserController');
@@ -63,7 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('fuel_station', 'FuelStationController');
     Route::get('get_fuel_station', [FuelStationController::class, 'get_data'])->name('get_fuel_station');
     Route::get('show_fuel_station_map/{id}', [FuelStationController::class, 'fuel_station_map'])->name('show_fuel_station_map');
-  
+
     // tollgate
     Route::resource('toll_gate', 'TollGateController');
     Route::get('get_toll_gate', [TollGateController::class, 'get_data'])->name('get_toll_gate');
