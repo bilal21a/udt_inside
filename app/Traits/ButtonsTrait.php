@@ -8,17 +8,13 @@ trait ButtonsTrait
     public function get_buttons($edit_btn_url, $id)
     {
         return '
-        <a href="' . $edit_btn_url . '"
-                            class="btn btn-icon btn-sm btn-info-transparent rounded-pill"><i
-                                class="ri-edit-line"></i>
+        <a href="' . $edit_btn_url . '" class="btn btn-icon btn-sm btn-info-transparent rounded-pill">
+            <i class="ri-edit-line"></i>
         </a>
 
-        <a onclick="deleteData(' . $id . ')"
-        class="btn btn-icon btn-sm btn-danger-transparent rounded-pill"><i
-            class="ri-delete-bin-line"></i></a>';
-
-
-
+        <a onclick="deleteData(' . $id . ')" class="btn btn-icon btn-sm btn-danger-transparent rounded-pill">
+            <i class="ri-delete-bin-line"></i>
+        </a>';
     }
 
     public function viewButton($view_btn_url, $title = 'View')
@@ -76,10 +72,10 @@ trait ButtonsTrait
     public function get_buttons_modals($id)
     {
         return '
-        <button class="btn btn-icon btn-outline-success rounded-pill btn-wave" onclick="editFormShow(' . $id . ')" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
+        <button class="btn btn-icon btn-sm btn-info-transparent rounded-pill" onclick="editFormShow(' . $id . ')" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
             <i class="ri-edit-circle-line"></i>
         </button>
-        <button class="btn btn-icon btn-outline-danger rounded-pill btn-wave" onclick="deleteData(' . $id . ')" type="button">
+        <button class="btn btn-icon btn-sm btn-danger-transparent rounded-pill" onclick="deleteData(' . $id . ')" type="button">
             <i class="ri-delete-bin-line"></i>
         </button>';
     }

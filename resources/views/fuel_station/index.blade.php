@@ -11,7 +11,7 @@
 @section('content')
     @include('common.alert.alert')
     @php
-        $table_name = 'Customers List';
+        $table_name = 'Fuel Satations List';
         $table_id = 'datatable';
         $tableData = ['Fuel Station Image', 'Location Title', 'Address', 'Map', 'Fuel Type', 'Status', 'Address', 'Actions'];
         $tableData = $service_provider != null ? ['Fuel Station Image', 'Location Title', 'Address', 'Map', 'Fuel Type', 'Status', 'Address', 'Actions'] : ['Fuel Station Image', 'Location Title', 'Address', 'Map', 'Service Provider', 'Fuel Type', 'Status', 'Address'];
