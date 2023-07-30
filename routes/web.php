@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get_count', 'HomeController@get_count')->name('get_count');
     Route::get('/get_count_graph/{type?}/{table?}', 'HomeController@get_count_graph')->name('get_count_graph');
     Route::get('/get_percentage/{type?}/{table?}', 'HomeController@get_percentage')->name('get_percentage');
+    Route::get('/show_logs', 'HomeController@show_logs')->name('show_logs');
 
     // Users Management
     Route::resource('users', 'UserController');

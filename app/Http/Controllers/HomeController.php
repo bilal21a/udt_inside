@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Activity;
 use App\FuelStation;
 use App\TollGate;
 use App\User;
@@ -29,7 +30,8 @@ class HomeController extends Controller
     public function index()
     {
         $fuel_stations = FuelStation::latest()->take(5)->get();
-        return view('home', compact('fuel_stations'));
+        $customers = User::where('role', 'customer')->latest()->take(5)->get();
+        return view('home', compact('fuel_stations', 'customers'));
     }
     public function get_count()
     {
@@ -107,5 +109,12 @@ class HomeController extends Controller
             'status' => $status,
             'percentage_change' => $percentageChange,
         ]);
+    }
+
+    public function show_logs()
+    {
+        $activities= Activity::latest()->get();
+        $type = ['users' => 'primary', 'vehicles' => 'secondary', 'toll_gates' => 'success', 'fuel_stations' => 'danger'];
+        return view('common.activities.activities',compact('activities','type'));
     }
 }

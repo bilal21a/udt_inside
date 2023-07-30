@@ -42,7 +42,7 @@ trait userTrait
             $user->profile_image = $filename;
             $file->storeAs('public/user/', $filename);
         }
-        //for driver case(assign parent id) 
+        //for driver case(assign parent id)
         if ($role == 'driver' && $type == null) {
             $user->parent_id = $request->customer;
         }
@@ -51,6 +51,8 @@ trait userTrait
         $user->description = $request->description;
         $user->save();
 
+        $message='new '.$role.' <span class="text-primary fw-semibold">'.$user->full_name.'</span> added';
+        generate_activity('users', $message, $user->id, $type = 'add');
         return $user;
     }
 
