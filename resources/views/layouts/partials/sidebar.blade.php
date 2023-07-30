@@ -4,10 +4,10 @@
        <!-- Start::main-sidebar-header -->
        <div class="main-sidebar-header">
            <a href="#" class="header-logo">
-               <img src="{{ asset('assets/logo/logo_black.png') }}" alt="logo" class="desktop-logo">
-               <img src="{{ asset('assets/logo/logo_black.png') }}" alt="logo" class="toggle-logo">
-               <img src="{{ asset('assets/logo/logo_black.png') }}" alt="logo" class="desktop-dark">
-               <img src="{{ asset('assets/logo/logo_black.png') }}" alt="logo" class="toggle-dark">
+               <img src="{{ asset('assets/logo/logo_full_light.png') }}" alt="logo" class="desktop-logo">
+               <img src="{{ asset('assets/logo/logo_small_light.png') }}" alt="logo" class="toggle-logo">
+               <img src="{{ asset('assets/logo/logo_full_light.png') }}" alt="logo" class="desktop-dark">
+               <img src="{{ asset('assets/logo/logo_small_light.png') }}" alt="logo" class="toggle-dark">
            </a>
        </div>
        <!-- End::main-sidebar-header -->

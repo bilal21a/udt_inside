@@ -89,7 +89,7 @@ class FuelStationController extends Controller
         // dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'capacity' => 'required|max:255',
+            'capacity' => 'required|max:255|numeric',
             'phone' => 'required',
             'email' => 'required|email|unique:fuel_stations,email',
             'franchiser_name' => 'required|max:255',
@@ -153,7 +153,7 @@ class FuelStationController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'capacity' => 'required|max:255',
+            'capacity' => 'required|max:255|numeric',
             'phone' => 'required',
             'email' => 'required|email|unique:fuel_stations,email,' . $id,
             'franchiser_name' => 'required|max:255',

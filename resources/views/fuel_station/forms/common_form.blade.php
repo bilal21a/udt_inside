@@ -9,7 +9,7 @@
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">Fuel Station Capacity <span class="text-danger">*</span></p>
-    <input type="text" name="capacity" class="form-control" value="{{ isset($fuelpump) ? $fuelpump->capacity : old('capacity') }}">
+    <input type="text" name="capacity" class="form-control numeric" value="{{ isset($fuelpump) ? $fuelpump->capacity : old('capacity') }}">
 </div>
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">

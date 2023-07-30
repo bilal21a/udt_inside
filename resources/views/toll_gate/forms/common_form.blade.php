@@ -10,7 +10,7 @@
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">STV Fee <span class="text-danger">*</span></p>
-    <input type="text" name="stv_fee" class="form-control" value="{{ isset($tollGate) ? $tollGate->stv_fee : old('stv_fee') }}">
+    <input type="text" name="stv_fee" class="form-control numeric" value="{{ isset($tollGate) ? $tollGate->stv_fee : old('stv_fee') }}">
 </div>
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
@@ -20,7 +20,7 @@
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">LTV Fee <span class="text-danger">*</span></p>
-    <input type="text" name="ltv_fee" class="form-control" value="{{ isset($tollGate) ? $tollGate->ltv_fee : old('ltv_fee') }}">
+    <input type="text" name="ltv_fee" class="form-control numeric" value="{{ isset($tollGate) ? $tollGate->ltv_fee : old('ltv_fee') }}">
 </div>
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">

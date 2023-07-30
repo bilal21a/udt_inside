@@ -152,8 +152,13 @@
     {{-- google map --}}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqHMMnNBIKO-QfXVkrUEpEzxZ49aUt_z0&libraries=places">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
 
     @yield('js_after')
+    <script>
+        $('.numeric').mask('9999999999999');
+    </script>
 
 </body>
 
