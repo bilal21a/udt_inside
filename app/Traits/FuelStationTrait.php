@@ -30,7 +30,7 @@ trait FuelStationTrait
         $fuelpump->save();
 
         $message='new Fuel Station <span class="text-danger fw-semibold">'.$fuelpump->name.'</span> added';
-        generate_activity('fuel_stations', $message, $fuelpump->id, $type = 'add');
+        $this->generate_activity('fuel_stations', $message, $fuelpump->id, $type = 'add');
 
         return $fuelpump;
     }

@@ -52,7 +52,7 @@ trait userTrait
         $user->save();
 
         $message='new '.$role.' <span class="text-primary fw-semibold">'.$user->full_name.'</span> added';
-        generate_activity('users', $message, $user->id, $type = 'add');
+        $this->generate_activity('users', $message, $user->id, $type = 'add');
         return $user;
     }
 

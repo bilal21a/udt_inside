@@ -35,7 +35,7 @@ trait VehicleTrait
         $vehicle->save();
 
         $message='new vehicle <span class="text-secondary fw-semibold">'.$vehicle->make .'('. $vehicle->model.')</span> added';
-        generate_activity('vehicles', $message, $vehicle->id, $type = 'add');
+        $this->generate_activity('vehicles', $message, $vehicle->id, $type = 'add');
         return $vehicle;
     }
 
