@@ -17,7 +17,7 @@ trait TollGateTrait
         $tollGate->save();
 
         $message='new TollGate <span class="text-success fw-semibold">'.$tollGate->name.'</span> added';
-        $this->generate_activity('toll_gates', $message, $tollGate->id, $type = 'add');
+        generate_activity('toll_gates', $message, $tollGate->id, $type = 'add');
 
         return $tollGate;
     }
