@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    Service Provider Managment
+    Service Provider Management
     <a href="{{ route('serviceprovider.create') }}"
         class="btn btn-primary d-flex align-items-center justify-content-center mt-1">
         <i class="ri-add-circle-line fs-16 align-middle me-1"></i>Add Service Provider

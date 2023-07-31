@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    Fuel Satations Managment
+    Fuel Satations Management
     @if ($service_provider != null)
         <a href="{{ route('fuel_station.create', ['service_provider' => $service_provider]) }}"
             class="btn btn-primary d-flex align-items-center justify-content-center mt-1">

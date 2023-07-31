@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    Customers Managment
+    Customers Management
     <a href="{{ route('customers.create') }}" class="btn btn-primary d-flex align-items-center justify-content-center mt-1">
         <i class="ri-add-circle-line fs-16 align-middle me-1"></i>Add Customer
     </a>

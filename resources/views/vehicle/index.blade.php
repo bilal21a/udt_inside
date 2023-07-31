@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    Vehicles Managment
+    Vehicles Management
     @if ($customer_id != null)
         <a href="{{ route('vehicles.create', ['customer' => $customer_id]) }}"
             class="btn btn-primary d-flex align-items-center justify-content-center mt-1">

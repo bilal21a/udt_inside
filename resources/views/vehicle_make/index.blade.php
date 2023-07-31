@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    Vehicles Make Managment
+    Vehicles Make Management
     <a href="{{ route('vehicle_make.create') }}"
         class="btn btn-primary d-flex align-items-center justify-content-center mt-1">
         <i class="ri-add-circle-line fs-16 align-middle me-1"></i>Add Vehicles Make

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    Drivers Managment
+    Drivers Management
     @if ($customer_id != null)
         <a href="{{ route('drivers.create', ['customer' => $customer_id]) }}"
             class="btn btn-primary d-flex align-items-center justify-content-center mt-1">
