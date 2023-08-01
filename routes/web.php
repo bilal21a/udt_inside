@@ -12,6 +12,7 @@ use App\Http\Controllers\VehicleMakeController;
 use App\Http\Controllers\VehicleModalController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Twilio\Rest\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('test_sms', function () {
+    $recipients='+923014750383';
+    $message="hi";
+    $account_sid = getenv("TWILIO_SID");
+        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_number = getenv("TWILIO_NUMBER");
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create(
+            $recipients,
+            ['from' => $twilio_number, 'body' => $message]
+        );
+});
 Route::get('/', function () {
     return view('auth.login');
 });
