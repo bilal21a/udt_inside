@@ -5,9 +5,9 @@
        <div class="main-sidebar-header" style="height: unset !important; ">
            <a href="#" class="header-logo">
                <img src="{{ asset('assets/logo/logo_full_light.png') }}" alt="logo" class="desktop-logo " style="height:48px">
-               <img src="{{ asset('assets/logo/logo_small_light.png') }}" alt="logo" class="toggle-logo " style="height:48px">
+               <img src="{{ asset('assets/logo/logo_small_light.png') }}" alt="logo" class="toggle-logo ">
                <img src="{{ asset('assets/logo/logo_full_light.png') }}" alt="logo" class="desktop-dark " style="height:48px">
-               <img src="{{ asset('assets/logo/logo_small_light.png') }}" alt="logo" class="toggle-dark " style="height:48px">
+               <img src="{{ asset('assets/logo/logo_small_light.png') }}" alt="logo" class="toggle-dark ">
            </a>
        </div>
        <!-- End::main-sidebar-header -->
