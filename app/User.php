@@ -56,6 +56,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(FuelPumps::class);
     }
+    public function InsuranceCompany()
+    {
+        return $this->hasOne(FuelPumps::class);
+    }
     public function drivers()
     {
         return $this->hasMany(User::class, 'parent_id');

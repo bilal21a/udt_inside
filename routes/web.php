@@ -4,6 +4,7 @@ use App\Http\Controllers\AssignedDriverController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\FuelStationController;
+use App\Http\Controllers\InsuranceCompanyController;
 use App\Http\Controllers\ServiceProviderController;
 use App\Http\Controllers\TollGateController;
 use App\Http\Controllers\UserController;
@@ -89,6 +90,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('vehicle_modal', 'VehicleModalController');
     Route::get('get_vehicle_modal', [VehicleModalController::class, 'get_data'])->name('get_vehicle_modal');
+
+    Route::resource('insurance_company', 'InsuranceCompanyController');
+    Route::get('get_insurance_company', [InsuranceCompanyController::class, 'get_data'])->name('get_insurance_company');
+
 });
 
 
