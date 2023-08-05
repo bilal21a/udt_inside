@@ -145,7 +145,7 @@ class InsuranceCompanyController extends Controller
 
         $insurance_company = InsuranceCompany::find($id);
         $this->save_insurance_company($insurance_company, $request, $user_id, 'edit');
-        return redirect()->route('insurance_company.index', ['service_provider' => $user_id])->with('alert', ['type' => 'success', 'message' => 'Fuel Station Updated successfully']);
+        return redirect()->route('insurance_company.index', ['service_provider' => $user_id])->with('alert', ['type' => 'success', 'message' => 'Insurance Company Updated successfully']);
     }
 
     /**
