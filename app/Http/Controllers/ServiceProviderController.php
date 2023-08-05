@@ -41,7 +41,7 @@ class ServiceProviderController extends Controller
                     $type_btn=$this->omcButton($type_url, 'Fuel Stations');
                 }
                 if ($row->role=='insurance') {
-                    $type_url = route('fuel_station.index', ['service_provider'=>$row->id]);
+                    $type_url = route('insurance_company.index', ['service_provider'=>$row->id]);
                     $type_btn=$this->omcButton($type_url, 'Fuel Stations');
                 }
                 if ($row->role=='tollgate') {

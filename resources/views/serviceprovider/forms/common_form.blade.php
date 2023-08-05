@@ -44,9 +44,10 @@
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">Service Provider Type<span class="text-danger">*</span></p>
-    <select name="service_provider_type" class="form-select">
+    <select name="service_provider_type" {{ isset($user) ? 'disabled' : '' }} class="form-select">
         <option value="omc" {{ isset($user) && $user->role == 'omc' ? 'selected' : '' }}>OMC</option>
-        <option value="insurance" {{ isset($user) && $user->role == 'insurance' ? 'selected' : '' }}>Insurance Company</option>
+        <option value="insurance" {{ isset($user) && $user->role == 'insurance' ? 'selected' : '' }}>Insurance Company
+        </option>
         <option value="tollgate" {{ isset($user) && $user->role == 'tollgate' ? 'selected' : '' }}>Toll Gate</option>
     </select>
 </div>
@@ -70,7 +71,8 @@
     <input type="file" name="profile_image" class="form-control">
     @if (isset($user) && $user->profile_image != null)
         <div class="sh-15 me-1 mb-1 d-inline-block mt-2">
-            <img class="rounded float-start" width="200px" src="{{ asset($user->profile_url) }}" alt="Service Provider">
+            <img class="rounded float-start" width="200px" src="{{ asset($user->profile_url) }}"
+                alt="Service Provider">
         </div>
     @endif
 </div>

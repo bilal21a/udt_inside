@@ -1,6 +1,5 @@
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">Company Name <span class="text-danger">*</span></p>
-    @dd($insurance_company)
     <input type="text" name="organization_name" id="organization_name" class="form-control" required value="{{ isset($insurance_company) ? $insurance_company->name : old('organization_name') }}">
 </div>
 
@@ -61,4 +60,6 @@
     <p class="mb-2 text-muted">Upload Licence <span class="text-danger">*</span></p>
     <input type="file" name="upload_license" id="upload_license" class="form-control" required>
 </div>
+
+<input type="hidden" name="service_provider" value="{{ $service_provider }}">
 

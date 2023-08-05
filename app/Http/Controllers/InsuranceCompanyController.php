@@ -17,17 +17,19 @@ class InsuranceCompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('insurance_company.index');
+        $service_provider = $request->service_provider;
+        return view('insurance_company.index', compact('service_provider'));
     }
-    public function get_data()
+    public function get_data(Request $request)
     {
-        $data = InsuranceCompany::get();
-        // dd($data);
+        $service_provider = $request->service_provider;
+        $data = InsuranceCompany::when($service_provider != null, function ($query) use ($service_provider) {
+            return $query->with('serviceProvider')->where('user_id', $service_provider);
+        })->get();
         return DataTables::of($data)
             ->addColumn('profile_image', function ($row) {
-                // dd($row);
                 return '<img class="img-fluid" src="' . $row->lisence_url . '">';
             })
             ->addColumn('action', function ($row) {
@@ -43,9 +45,14 @@ class InsuranceCompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('insurance_company.add');
+        $service_provider = $request->service_provider;
+        if ($service_provider) {
+            return view('insurance_company.add', compact('service_provider'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -56,7 +63,6 @@ class InsuranceCompanyController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'organization_name' => 'required',
             'contact_person' => 'required',
@@ -69,15 +75,17 @@ class InsuranceCompanyController extends Controller
             'type_insurance_plan' => 'required',
             'company_description' => 'required',
             'upload_license' => 'required',
+            'service_provider' => 'required',
         ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
-        };
-        $insurance_company = new InsuranceCompany();
-        $insurance_company = $this->save_insurance_company($insurance_company, $request);
 
-        // dd($insurance_company);
-        return redirect()->route('insurance_company.index')->with('alert', ['type' => 'success', 'message' => 'Insurance Company saved successfully']);
+        $user_id = $request->service_provider;
+        if ($validator->fails()) {
+            return redirect()->route('insurance_company.create', ['service_provider' => $user_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+        }
+        $insurance_company = new InsuranceCompany();
+        $insurance_company = $this->save_insurance_company($insurance_company, $request, $user_id);
+
+        return redirect()->route('insurance_company.index', ['service_provider' => $user_id])->with('alert', ['type' => 'success', 'message' => 'Insurance Company saved successfully']);
     }
     /**
      * Display the specified resource.
@@ -98,8 +106,13 @@ class InsuranceCompanyController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $insurance_company = InsuranceCompany::find($id);
-        return view('insurance_company.edit', compact('id','insurance_company'));
+        $service_provider = $request->service_provider;
+        if ($service_provider) {
+            $insurance_company = InsuranceCompany::find($id);
+            return view('insurance_company.edit', compact('id', 'insurance_company', 'service_provider'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -122,15 +135,17 @@ class InsuranceCompanyController extends Controller
             'type_insurance_service' => 'required',
             'type_insurance_plan' => 'required',
             'company_description' => 'required',
+            'service_provider' => 'required',
         ]);
+
+        $user_id = $request->service_provider;
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
-        };
+            return redirect()->route('insurance_company.edit', [$id, 'service_provider' => $user_id])->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);
+        }
 
         $insurance_company = InsuranceCompany::find($id);
-        $this->save_insurance_company($insurance_company, $request, 'edit');
-        // dd($insurance_company);
-        return redirect()->route('insurance_company.index', ['service_provider' => 1])->with('alert', ['type' => 'success', 'message' => 'Fuel Station Updated successfully']);
+        $this->save_insurance_company($insurance_company, $request, $user_id, 'edit');
+        return redirect()->route('insurance_company.index', ['service_provider' => $user_id])->with('alert', ['type' => 'success', 'message' => 'Fuel Station Updated successfully']);
     }
 
     /**

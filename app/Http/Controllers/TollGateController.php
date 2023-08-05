@@ -56,7 +56,6 @@ class TollGateController extends Controller
             })
             ->addColumn('action', function ($row) use ($service_provider) {
                 $edit_btn_url = route('toll_gate.edit', [$row->id, 'service_provider' => $service_provider]);
-                // Modify the get_buttons function according to your requirements
                 return $this->get_buttons($edit_btn_url, $row->id);
             })
             ->rawColumns(['image', 'address', 'stv_fee', 'ltv_fee', 'note', 'action','service_provider'])

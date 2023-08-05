@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 
 trait InsuranceCompanyTrait
 {
-    public function save_insurance_company($insurance_company, $request,$type = null)
+    public function save_insurance_company($insurance_company, $request, $user_id, $type = null)
     {
         $insurance_company->organization_name = $request->organization_name;
         $insurance_company->contact_person = $request->contact_person;
@@ -18,15 +18,15 @@ trait InsuranceCompanyTrait
         $insurance_company->type_insurance_service = $request->type_insurance_service;
         $insurance_company->type_insurance_plan = $request->type_insurance_plan;
         $insurance_company->company_description = $request->company_description;
-        $this->save_insurance_image($request, $insurance_company, 'upload_license',$type);
-        $insurance_company->user_id=1;
+        $this->save_insurance_image($request, $insurance_company, 'upload_license', $type);
+        $insurance_company->user_id = $user_id;
         $insurance_company->save();
     }
 
     public function delete_image($path)
     {
-        if (Storage::exists('public/insurance_company/' .'' . $path)) {
-            Storage::delete('public/insurance_company/' .'' . $path);
+        if (Storage::exists('public/insurance_company/' . '' . $path)) {
+            Storage::delete('public/insurance_company/' . '' . $path);
         }
     }
     public function save_insurance_image($request, $insurance_company, $db_type, $type)
@@ -38,7 +38,7 @@ trait InsuranceCompanyTrait
             $file = $request->file($db_type);
             $filename = 'license_image_' . rand() . '.' . $file->getClientOriginalExtension();
             $insurance_company->$db_type = $filename;
-            $file->storeAs('public/insurance_company/' .'', $filename);
+            $file->storeAs('public/insurance_company/' . '', $filename);
         }
     }
 }
