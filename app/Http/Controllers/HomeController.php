@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Activity;
 use App\FuelStation;
+use App\InsuranceCompany;
 use App\TollGate;
 use App\User;
 use App\Vehicle;
@@ -40,6 +41,7 @@ class HomeController extends Controller
         $data['vehicles'] = Vehicle::where('status', 1)->count();
         $data['fuel_stations'] = FuelStation::count();
         $data['toll_gates'] = TollGate::count();
+        $data['insurance_companies'] = InsuranceCompany::count();
         return $data;
     }
     public function get_count_graph($type = null, $table = 'users')

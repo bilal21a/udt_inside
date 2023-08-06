@@ -87,7 +87,7 @@ const backendType = [
     "vehicles",
     "fuel_stations",
     "toll_gates",
-    "toll_gates"
+    "insurance_companies"
 ];
 
 const percentageIds = [

@@ -237,7 +237,7 @@
                                             <div class="d-flex align-items-center justify-content-between flex-wrap">
                                                 <div>
                                                     <p class="text-muted mb-0">Insurance Company</p>
-                                                    <h4 class="fw-semibold mt-1 toll_gates">
+                                                    <h4 class="fw-semibold mt-1 insurance_companies">
                                                         <div class="spinner-border" role="status">
                                                             <span class="sr-only">Loading...</span>
                                                         </div>
@@ -247,7 +247,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-1">
                                                 <div>
-                                                    <a class="text-warning" href="javascript:void(0);">View All<i
+                                                    <a class="text-warning" href="{{ route('insurance_company.index') }}">View All<i
                                                             class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                                 </div>
                                                 <div class="text-end">

@@ -1,10 +1,12 @@
 @extends('layouts.app')
 @section('header')
     Insurance Company
-    <a href="{{ route('insurance_company.create', ['service_provider' => $service_provider]) }}"
-        class="btn btn-primary d-flex align-items-center justify-content-center mt-1">
-        <i class="ri-add-circle-line fs-16 align-middle me-1"></i>Add Insurance Company
-    </a>
+    @if ($service_provider != null)
+        <a href="{{ route('insurance_company.create', ['service_provider' => $service_provider]) }}"
+            class="btn btn-primary d-flex align-items-center justify-content-center mt-1">
+            <i class="ri-add-circle-line fs-16 align-middle me-1"></i>Add Insurance Company
+        </a>
+    @endif
 @endsection
 @section('content')
     @include('common.alert.alert')
