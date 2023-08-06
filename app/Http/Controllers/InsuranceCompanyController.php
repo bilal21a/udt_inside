@@ -74,7 +74,7 @@ class InsuranceCompanyController extends Controller
             'type_insurance_service' => 'required',
             'type_insurance_plan' => 'required',
             'company_description' => 'required',
-            'upload_license' => 'required',
+            'upload_license' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
             'service_provider' => 'required',
         ]);
 
@@ -136,6 +136,7 @@ class InsuranceCompanyController extends Controller
             'type_insurance_plan' => 'required',
             'company_description' => 'required',
             'service_provider' => 'required',
+            'upload_license' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
 
         $user_id = $request->service_provider;

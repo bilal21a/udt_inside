@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\TollGate;
-use App\Traits\TollGateTrait;
+use App\InsuranceCompany;
+use App\Traits\InsuranceCompanyTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class TollGatesController extends Controller
+class InsuranceCompaniesController extends Controller
 {
-    use TollGateTrait;
+    use InsuranceCompanyTrait;
     /**
      * Display a listing of the resource.
      *
@@ -21,17 +21,20 @@ class TollGatesController extends Controller
         $perPage = $request->input('perPage', 10); // Number of records per page
         $search = $request->input('search');
         $user_id = auth('sanctum')->id();
-        $query = TollGate::where('user_id', $user_id);
+        $query = InsuranceCompany::where('user_id', $user_id);
 
         if ($search) {
             $query->where(function ($q) use ($search) {
-                $q->where('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('address', 'LIKE', '%' . $search . '%')
-                    ->orWhere('stv_fee', 'LIKE', '%' . $search . '%')
-                    ->orWhere('ltv_fee', 'LIKE', '%' . $search . '%')
-                    ->orWhere('note', 'LIKE', '%' . $search . '%');
-                // Add more columns as needed
+                $q->where('organization_name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('contact_person', 'LIKE', '%' . $search . '%')
+                    ->orWhere('contact_email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('contact_address', 'LIKE', '%' . $search . '%')
+                    ->orWhere('contact_website', 'LIKE', '%' . $search . '%')
+                    ->orWhere('phone', 'LIKE', '%' . $search . '%')
+                    ->orWhere('Lisence_no', 'LIKE', '%' . $search . '%')
+                    ->orWhere('type_insurance_service', 'LIKE', '%' . $search . '%')
+                    ->orWhere('type_insurance_plan', 'LIKE', '%' . $search . '%')
+                    ->orWhere('company_description', 'LIKE', '%' . $search . '%');
             });
         }
         $data = $query->paginate($perPage);
@@ -65,12 +68,17 @@ class TollGatesController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-            'address' => 'required',
-            'stv_fee' => 'required|numeric',
-            'ltv_fee' => 'required|numeric',
-            'image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
-            'note' => 'required',
+            'organization_name' => 'required',
+            'contact_person' => 'required',
+            'contact_email' => 'required|email',
+            'contact_address' => 'required',
+            'contact_website' => 'required|url',
+            'phone' => 'required',
+            'Lisence_no' => 'required',
+            'type_insurance_service' => 'required',
+            'type_insurance_plan' => 'required',
+            'company_description' => 'required',
+            'upload_license' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -78,9 +86,9 @@ class TollGatesController extends Controller
         }
 
         $user_id = auth('sanctum')->id();
-        $tollGate = new TollGate();
-        $tollGate = $this->save_toll_gate($tollGate, $request, $user_id);
-        return $this->sendResponse('Toll Gate Added successfully.', $tollGate);
+        $insurance_company = new InsuranceCompany();
+        $insurance_company = $this->save_insurance_company($insurance_company, $request, $user_id);
+        return $this->sendResponse('Insurance Company Added successfully.', $insurance_company);
     }
 
     /**
@@ -92,9 +100,9 @@ class TollGatesController extends Controller
     public function show($id)
     {
         try {
-            $tollGate = TollGate::find($id);
+            $tollGate = InsuranceCompany::find($id);
             if ($tollGate->user_id == auth('sanctum')->id()) {
-                return $this->sendResponse('Toll Gate Data.', $tollGate);
+                return $this->sendResponse('Insurance Company Data.', $tollGate);
             } else {
                 throw new \Exception("");
             }
@@ -124,12 +132,17 @@ class TollGatesController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-            'address' => 'required',
-            'stv_fee' => 'required|numeric',
-            'ltv_fee' => 'required|numeric',
-            'image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
-            'note' => 'required',
+            'organization_name' => 'required',
+            'contact_person' => 'required',
+            'contact_email' => 'required|email',
+            'contact_address' => 'required',
+            'contact_website' => 'required|url',
+            'phone' => 'required',
+            'Lisence_no' => 'required',
+            'type_insurance_service' => 'required',
+            'type_insurance_plan' => 'required',
+            'company_description' => 'required',
+            'upload_license' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
 
         if ($validator->fails()) {
@@ -137,9 +150,9 @@ class TollGatesController extends Controller
         }
 
         $user_id = auth('sanctum')->id();
-        $tollGate = TollGate::find($id);
-        $tollGate = $this->save_toll_gate($tollGate, $request, $user_id, 'edit');
-        return $this->sendResponse('Toll Gate Updated successfully.', $tollGate);
+        $insurance_company = InsuranceCompany::find($id);
+        $this->save_insurance_company($insurance_company, $request, $user_id, 'edit');
+        return $this->sendResponse('Insurance Company Updated successfully.', $insurance_company);
     }
 
     /**
@@ -151,11 +164,13 @@ class TollGatesController extends Controller
     public function destroy($id)
     {
         try {
-            $tollGate = TollGate::find($id);
-            if ($tollGate->user_id == auth('sanctum')->id()) {
-                $this->delete_image($tollGate->image);
-                $tollGate->delete();
-                return $this->sendResponse('Toll Gate Deleted successfully.', null);
+            $insurance_company = InsuranceCompany::find($id);
+            if ($insurance_company->user_id == auth('sanctum')->id()) {
+                if ($insurance_company->upload_license) {
+                    $this->delete_image($insurance_company->upload_license);
+                }
+                $insurance_company->delete();
+                return $this->sendResponse('Insurance Company Deleted successfully.', null);
             } else {
                 throw new \Exception("");
             }
