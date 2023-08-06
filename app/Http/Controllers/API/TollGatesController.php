@@ -70,7 +70,7 @@ class TollGatesController extends Controller
             'stv_fee' => 'required|numeric',
             'ltv_fee' => 'required|numeric',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
-            'note' => 'required',
+            'note' => 'nullable',
         ]);
 
         if ($validator->fails()) {
@@ -128,8 +128,8 @@ class TollGatesController extends Controller
             'address' => 'required',
             'stv_fee' => 'required|numeric',
             'ltv_fee' => 'required|numeric',
-            'image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
-            'note' => 'required',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
+            'note' => 'nullable',
         ]);
 
         if ($validator->fails()) {

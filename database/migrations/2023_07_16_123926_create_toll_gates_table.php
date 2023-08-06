@@ -15,12 +15,12 @@ class CreateTollGatesTable extends Migration
     {
         Schema::create('toll_gates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->decimal('stv_fee', 8, 2);
-            $table->decimal('ltv_fee', 8, 2);
+            $table->string('name')->nullable();
+            $table->string('address')->nullable();
+            $table->decimal('stv_fee', 8, 2)->nullable();
+            $table->decimal('ltv_fee', 8, 2)->nullable();
             $table->string('image')->nullable();
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

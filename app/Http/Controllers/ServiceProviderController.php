@@ -131,7 +131,6 @@ class ServiceProviderController extends Controller
             'cnic' => 'required',
             'profile_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
             'gender' => 'required',
-            'service_provider_type' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->with('alert', ['type' => 'danger', 'message' => $validator->errors()->first()]);

@@ -36,25 +36,28 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // update profile
     Route::post('customer_profile_update', [RegisterController::class, 'customer_profile_update']);
     Route::post('service_provider_profile_update', [RegisterController::class, 'service_provider_profile_update']);
-    
+
     // Fuel Station routes
     Route::resource('fuel_station', 'API\FuelStationsController');
-    
+
     // Toll gate routes
-    Route::resource('fuel_station', 'API\FuelStationsController');
+    Route::resource('toll_gate', 'API\TollGatesController');
+
+    // Insurance Company routes
+    Route::resource('insurance_company', 'API\InsuranceCompaniesController');
 
     // Vehicles routes
     Route::resource('vehicle', 'API\VehiclesController');
-    
+
     Route::get('get_vehicle_make', [VehicleMakeModalController::class, 'get_vehicle_make']);
     Route::get('get_vehicle_modal/{make_id}', [VehicleMakeModalController::class, 'get_vehicle_modal']);
-    
+
     // drivers routes
     Route::resource('driver', 'API\DriversController');
     Route::get('get_drivers', [DriversController::class, 'get_drivers']);
     Route::post('driver_change_password/{id}', [DriversController::class, 'change_password']);
     Route::post('driver_status_change/{id}', [DriversController::class, 'status_change']);
-    
+
     // Dashboard routes
     Route::get('vehicle_count', [VehiclesController::class, 'vehicle_count']);
     Route::get('driver_count', [DriversController::class, 'driver_count']);
