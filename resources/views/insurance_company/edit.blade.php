@@ -12,8 +12,8 @@
                         Edit Insurance Company </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('insurance_company.update',$id) }}" method="POST"
-                        enctype="multipart/form-data" class="row gy-4">
+                    <form action="{{ route('insurance_company.update', $id) }}" method="POST" enctype="multipart/form-data"
+                        class="row gy-4">
                         @csrf
                         @method('PUT')
                         @include('insurance_company.forms.common_form')
@@ -26,7 +26,17 @@
         </div>
     </div>
 @endsection
-
 @section('js_after')
-    <script></script>
+    <script src="{{ asset('assets/js/choices.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectElements = document.querySelectorAll('.choices-multiple-default');
+            console.log('selectElements: ', selectElements);
+            selectElements.forEach((element) => {
+                new Choices(element).setValue();
+            });
+        });
+    </script> --}}
 @endsection

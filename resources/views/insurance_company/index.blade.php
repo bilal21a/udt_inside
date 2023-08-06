@@ -25,11 +25,11 @@
     <script>
         var tabelDataArray =
             @if ($service_provider != null)
-                ['profile_image', 'organization_name', 'contact_person', 'contact_email', 'contact_address', 'Lisence_no',
+                ['profile_image', 'organization_name', 'contact_person', 'contact_email', 'contact_address', 'lisence_no',
                     'type_insurance_service', 'type_insurance_plan', 'phone', 'action'
                 ];
             @else
-                ['profile_image', 'organization_name', 'contact_person', 'contact_email', 'contact_address', 'Lisence_no',
+                ['profile_image', 'organization_name', 'contact_person', 'contact_email', 'contact_address', 'lisence_no',
                     'type_insurance_service', 'type_insurance_plan', 'phone'
                 ];
             @endif

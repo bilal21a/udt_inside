@@ -14,7 +14,7 @@ trait InsuranceCompanyTrait
         $insurance_company->contact_address = $request->contact_address;
         $insurance_company->contact_website = $request->contact_website;
         $insurance_company->phone = $request->phone;
-        $insurance_company->Lisence_no = $request->Lisence_no;
+        $insurance_company->lisence_no = $request->Lisence_no;
         $insurance_company->type_insurance_service = $request->type_insurance_service;
         $insurance_company->type_insurance_plan = $request->type_insurance_plan;
         $insurance_company->company_description = $request->company_description;

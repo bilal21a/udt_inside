@@ -13,7 +13,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('insurance_company.store') }}" method="POST" enctype="multipart/form-data" class="row gy-4">
+                    <form action="{{ route('insurance_company.store') }}" method="POST" enctype="multipart/form-data"
+                        class="row gy-4">
                         @csrf
                         @include('insurance_company.forms.common_form')
                         <div class="col-12">
@@ -25,7 +26,38 @@
         </div>
     </div>
 @endsection
-
 @section('js_after')
-    <script></script>
+    <!-- Popper JS -->
+    <script src="../assets/libs/@popperjs/core/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Defaultmenu JS -->
+    <script src="../assets/js/defaultmenu.min.js"></script>
+
+    <!-- Node Waves JS-->
+    <script src="../assets/libs/node-waves/waves.min.js"></script>
+
+    <!-- Sticky JS -->
+    <script src="../assets/js/sticky.js"></script>
+
+    <!-- Simplebar JS -->
+    <script src="../assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="../assets/js/simplebar.js"></script>
+
+    <!-- Color Picker JS -->
+    <script src="../assets/libs/@simonwep/pickr/pickr.es5.min.js"></script>
+    <!-- Custom-Switcher JS -->
+    <script src="../assets/js/custom-switcher.min.js"></script>
+
+    <!-- Prism JS -->
+    <script src="../assets/libs/prismjs/prism.js"></script>
+    <script src="../assets/js/prism-custom.js"></script>
+
+    <!-- Internal Choices JS -->
+    <script src="../assets/js/choices.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../assets/js/custom.js"></script>
 @endsection

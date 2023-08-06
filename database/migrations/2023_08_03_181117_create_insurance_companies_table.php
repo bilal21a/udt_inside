@@ -21,7 +21,7 @@ class CreateInsuranceCompaniesTable extends Migration
             $table->string('contact_address')->nullable();
             $table->string('contact_website')->nullable();
             $table->string('phone')->nullable();
-            $table->string('Lisence_no')->nullable();
+            $table->string('lisence_no')->nullable();
             $table->string('type_insurance_service')->nullable();
             $table->string('type_insurance_plan')->nullable();
             $table->string('upload_license')->nullable();

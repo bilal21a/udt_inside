@@ -32,8 +32,8 @@ class InsuranceCompanyController extends Controller
             ->addColumn('profile_image', function ($row) {
                 return '<img class="img-fluid" src="' . $row->lisence_url . '">';
             })
-            ->addColumn('action', function ($row) {
-                $edit_btn_url = route('insurance_company.edit', $row->id);
+            ->addColumn('action', function ($row) use($service_provider) {
+                $edit_btn_url = route('insurance_company.edit',[ $row->id,'service_provider' => $service_provider]);
                 return $this->get_buttons($edit_btn_url, $row->id);
             })
             ->rawColumns(['profile_image', 'action', 'type'])
