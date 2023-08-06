@@ -21,6 +21,8 @@ trait InsuranceCompanyTrait
         $this->save_insurance_image($request, $insurance_company, 'upload_license', $type);
         $insurance_company->user_id = $user_id;
         $insurance_company->save();
+
+        return $insurance_company;
     }
 
     public function delete_image($path)

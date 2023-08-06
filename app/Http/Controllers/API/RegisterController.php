@@ -70,6 +70,7 @@ class RegisterController extends BaseController
                 'confirm_password' => 'required|same:password',
                 'cnic' => 'required',
                 'profile_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
+                'type' => 'required|in:omc,insurance,tollgate'
             ]);
 
             if ($validator->fails()) {
@@ -77,7 +78,7 @@ class RegisterController extends BaseController
             }
 
             $user = new User();
-            $user = $this->save_user($user, $request, 'service_provider');
+            $user = $this->save_user($user, $request, $request->type);
 
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['user'] =  $user;
