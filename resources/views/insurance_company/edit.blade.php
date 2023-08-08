@@ -26,17 +26,24 @@
         </div>
     </div>
 @endsection
+{{-- @dd($insurance_company->type_insurance_service) --}}
 @section('js_after')
-    <script src="{{ asset('assets/js/choices.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script>
+        var type_insurance_plan = @json($insurance_company->type_insurance_plan);
+        var type_insurance_service = @json($insurance_company->type_insurance_service);
 
-    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const selectElements = document.querySelectorAll('.choices-multiple-default');
             console.log('selectElements: ', selectElements);
             selectElements.forEach((element) => {
-                new Choices(element).setValue();
+                new Choices(element).setValue(type_insurance_plan);
             });
         });
-    </script> --}}
+        const multipleCancelButton = new Choices(
+            '.choices-multiple-remove-button', {
+                allowHTML: true,
+                removeItemButton: false,
+            }
+        ).setValue(type_insurance_service);
+    </script>
 @endsection

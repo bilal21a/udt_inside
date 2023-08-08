@@ -27,37 +27,19 @@
     </div>
 @endsection
 @section('js_after')
-    <!-- Popper JS -->
-    <script src="../assets/libs/@popperjs/core/umd/popper.min.js"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Defaultmenu JS -->
-    <script src="../assets/js/defaultmenu.min.js"></script>
-
-    <!-- Node Waves JS-->
-    <script src="../assets/libs/node-waves/waves.min.js"></script>
-
-    <!-- Sticky JS -->
-    <script src="../assets/js/sticky.js"></script>
-
-    <!-- Simplebar JS -->
-    <script src="../assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="../assets/js/simplebar.js"></script>
-
-    <!-- Color Picker JS -->
-    <script src="../assets/libs/@simonwep/pickr/pickr.es5.min.js"></script>
-    <!-- Custom-Switcher JS -->
-    <script src="../assets/js/custom-switcher.min.js"></script>
-
-    <!-- Prism JS -->
-    <script src="../assets/libs/prismjs/prism.js"></script>
-    <script src="../assets/js/prism-custom.js"></script>
-
-    <!-- Internal Choices JS -->
-    <script src="../assets/js/choices.js"></script>
-
-    <!-- Custom JS -->
-    <script src="../assets/js/custom.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectElements = document.querySelectorAll('.choices-multiple-default');
+            console.log('selectElements: ', selectElements);
+            selectElements.forEach((element) => {
+                new Choices(element).setValue();
+            });
+        });
+        const multipleCancelButton = new Choices(
+            '.choices-multiple-remove-button', {
+                allowHTML: true,
+                removeItemButton: false,
+            }
+        );
+    </script>
 @endsection

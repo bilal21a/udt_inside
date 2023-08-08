@@ -1,14 +1,9 @@
 (function() {
+    "use strict";
 
     /* default multi select */
-    // const secondElement = new Choices('.choices-multiple-default', { allowSearch: false }).setValue();
-    document.addEventListener('DOMContentLoaded', function() {
-        const selectElements = document.querySelectorAll('.choices-multiple-default');
-        console.log('selectElements: ', selectElements);
-        selectElements.forEach((element) => {
-            new Choices(element).setValue();
-        });
-    });
+    const secondElement = new Choices('#choices-multiple-default', { allowSearch: false }).setValue(['Choice 2', 'Choice 3']);
+
     /* multi select with remove button */
     const multipleCancelButton = new Choices(
         '#choices-multiple-remove-button', {

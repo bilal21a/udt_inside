@@ -1,3 +1,7 @@
+@php
+    $insurance_plans = ['health' => 'Health', 'life' => 'Life', 'funeral' => 'funeral', 'injuries' => 'injuries'];
+    $insurance_services = ['individual_plan' => 'Individual Plan', 'family_plan' => 'Family Plan', 'group_plan' => 'Group Plan'];
+@endphp
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">Company Name <span class="text-danger">*</span></p>
     <input type="text" name="organization_name" id="organization_name" class="form-control" required
@@ -14,7 +18,6 @@
     <p class="mb-2 text-muted">Contact Email Address<span class="text-danger">*</span></p>
     <input type="email" name="contact_email" id="contact_email" class="form-control" required
         value="{{ isset($insurance_company) ? $insurance_company->contact_email : old('contact_email') }}">
-
 </div>
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
@@ -35,44 +38,26 @@
         value="{{ isset($insurance_company) ? $insurance_company->phone : old('phone') }}">
 </div>
 
-
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">Insurance Services Type<span class="text-danger">*</span></p>
     <select class="form-control choices-multiple-default" name="type_insurance_plan[]" multiple>
-        <option value="health"
-            {{ isset($insurance_company) && in_array('health', $insurance_company->type_insurance_service) ? 'selected' : '' }}>
-            Health</option>
-        <option value="life"
-            {{ isset($insurance_company) && in_array('life', $insurance_company->type_insurance_service) ? 'selected' : '' }}>
-            Life
-        </option>
-        <option value="funeral"
-            {{ isset($insurance_company) && in_array('funeral', $insurance_company->type_insurance_service) ? 'selected' : '' }}>
-            Funeral</option>
-        <option value="injuries"
-            {{ isset($insurance_company) && in_array('injuries', $insurance_company->type_insurance_service) ? 'selected' : '' }}>
-            injuries</option>
+        @foreach ($insurance_plans as $key => $plan)
+            @if (!in_array($key, $insurance_company->type_insurance_plan))
+                <option value="{{ $key }}">{{ $plan }}</option>
+            @endif
+        @endforeach
     </select>
 </div>
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">Insurance Services Type<span class="text-danger">*</span></p>
-    <select class="form-control choices-multiple-default" name="type_insurance_service[]" multiple>
-        <option value="individual_plan"
-            {{ isset($insurance_company) && in_array('individual_plan', $insurance_company->type_insurance_plan) ? 'selected' : '' }}>
-            Individual Plan
-        </option>
-        <option value="family_plan"
-            {{ isset($insurance_company) && in_array('family_plan', $insurance_company->type_insurance_plan) ? 'selected' : '' }}>
-            Family Plan
-        </option>
-        <option
-            value="group_plan"{{ isset($insurance_company) && in_array('group_plan', $insurance_company->type_insurance_plan) ? 'selected' : '' }}>
-            Group Plan</option>
+    <select class="form-control choices-multiple-remove-button" name="type_insurance_service[]" multiple>
+        @foreach ($insurance_services as $key => $service)
+            @if (!in_array($key, $insurance_company->type_insurance_service))
+                <option value="{{ $key }}">{{ $service }}</option>
+            @endif
+        @endforeach
     </select>
-
-
-
 </div>
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
@@ -80,7 +65,6 @@
     <input type="text" name="Lisence_no" id="Lisence_no" class="form-control" required
         value="{{ isset($insurance_company) ? $insurance_company->contact_person : old('contact_person') }}">
 </div>
-
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">Upload Licence <span class="text-danger">*</span></p>
@@ -93,6 +77,7 @@
         </div>
     @endif
 </div>
+
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">Company Description <span class="text-danger">*</span></p>
     <textarea name="company_description" id="company_description" class="form-control" rows="4" required>{{ isset($insurance_company) ? $insurance_company->company_description : old('company_description') }}</textarea>
