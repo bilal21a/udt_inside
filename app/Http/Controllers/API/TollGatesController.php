@@ -67,6 +67,8 @@ class TollGatesController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'address' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
             'stv_fee' => 'required|numeric',
             'ltv_fee' => 'required|numeric',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
@@ -126,6 +128,8 @@ class TollGatesController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'address' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
             'stv_fee' => 'required|numeric',
             'ltv_fee' => 'required|numeric',
             'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
@@ -140,6 +144,27 @@ class TollGatesController extends Controller
         $tollGate = TollGate::find($id);
         $tollGate = $this->save_toll_gate($tollGate, $request, $user_id, 'edit');
         return $this->sendResponse('Toll Gate Updated successfully.', $tollGate);
+    }
+    public function status_change(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|in:0,1',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->first());
+        }
+        try {
+            $tollgate = TollGate::find($id);
+            if ($tollgate->user_id == auth('sanctum')->id()) {
+                $tollgate->status = $request->status;
+                $tollgate->save();
+                return $this->sendResponse('Status Changed Successfully.', null);
+            } else {
+                throw new \Exception("");
+            }
+        } catch (\Throwable $th) {
+            return $this->sendError('Unknown Error Occured');
+        }
     }
 
     /**

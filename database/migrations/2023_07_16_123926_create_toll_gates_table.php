@@ -17,10 +17,13 @@ class CreateTollGatesTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('address')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
             $table->decimal('stv_fee', 8, 2)->nullable();
             $table->decimal('ltv_fee', 8, 2)->nullable();
             $table->string('image')->nullable();
             $table->text('note')->nullable();
+            $table->boolean('status')->default(1)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

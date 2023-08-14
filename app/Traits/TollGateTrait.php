@@ -9,6 +9,8 @@ trait TollGateTrait
     {
         $tollGate->name = $request->name;
         $tollGate->address = $request->address;
+        $tollGate->lat = $request->lat;
+        $tollGate->lng = $request->lng;
         $tollGate->stv_fee = $request->stv_fee;
         $tollGate->ltv_fee = $request->ltv_fee;
         $tollGate->note = $request->note;

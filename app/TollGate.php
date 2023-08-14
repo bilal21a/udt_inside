@@ -8,6 +8,9 @@ class TollGate extends Model
 {
     protected $appends = ['toll_gate_image_url'];
 
+    protected $casts = [
+        'status' => 'boolean',
+    ];
     public function serviceProvider()
     {
         return $this->belongsTo(User::class,'user_id');

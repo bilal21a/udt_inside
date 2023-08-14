@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     // Toll gate routes
     Route::resource('toll_gate', 'API\TollGatesController');
+    Route::post('toll_gate_status_change/{id}', [TollGatesController::class, 'status_change']);
 
     // Insurance Company routes
     Route::resource('insurance_company', 'API\InsuranceCompaniesController');
