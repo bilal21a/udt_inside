@@ -235,4 +235,7 @@ class RegisterController extends BaseController
             return $this->sendError($th->getMessage(), null);
         }
     }
+    public function me(){
+        return auth('sanctum')->user();
+    }
 }

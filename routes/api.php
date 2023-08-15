@@ -33,7 +33,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('generate_otp', [RegisterController::class, 'generate_otp']);
     Route::post('verify_otp', [RegisterController::class, 'verify_otp']);
 
-    // update profile
+    // profile
+    Route::get('me', [RegisterController::class, 'me']);
     Route::post('customer_profile_update', [RegisterController::class, 'customer_profile_update']);
     Route::post('service_provider_profile_update', [RegisterController::class, 'service_provider_profile_update']);
 
