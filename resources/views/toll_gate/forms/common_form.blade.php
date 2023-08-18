@@ -9,6 +9,16 @@
 </div>
 
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+    <p class="mb-2 text-muted">Latitude <span class="text-danger">*</span></p>
+    <input type="text" name="lat" class="form-control" value="{{ isset($tollGate) ? $tollGate->lat : old('lat') }}">
+</div>
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+    <p class="mb-2 text-muted">Longitude <span class="text-danger">*</span></p>
+    <input type="text" name="lng" class="form-control" value="{{ isset($tollGate) ? $tollGate->lng : old('lng') }}">
+</div>
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
     <p class="mb-2 text-muted">STV Fee <span class="text-danger">*</span></p>
     <input type="text" name="stv_fee" class="form-control numeric" value="{{ isset($tollGate) ? $tollGate->stv_fee : old('stv_fee') }}">
 </div>

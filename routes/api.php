@@ -4,6 +4,7 @@ use App\Http\Controllers\API\DriversController;
 use App\Http\Controllers\API\ForgetPasswordController;
 use App\Http\Controllers\API\FuelStationsController;
 use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\TollGatesController;
 use App\Http\Controllers\API\VehicleMakeModalController;
 use App\Http\Controllers\API\VehiclesController;
 use Illuminate\Support\Facades\Route;

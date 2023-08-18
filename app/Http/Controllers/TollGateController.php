@@ -87,6 +87,8 @@ class TollGateController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'address' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
             'stv_fee' => 'required|numeric',
             'ltv_fee' => 'required|numeric',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp',
