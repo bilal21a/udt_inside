@@ -3,7 +3,7 @@
 
        <!-- Start::main-sidebar-header -->
        <div class="main-sidebar-header" style="height: unset !important; ">
-           <a href="#" class="header-logo">
+           <a href="{{ route('home') }}" class="header-logo">
                <img src="{{ asset('assets/logo/logo_full_light.png') }}" alt="logo" class="desktop-logo " style="height:48px">
                <img src="{{ asset('assets/logo/logo_small_light.png') }}" alt="logo" class="toggle-logo ">
                <img src="{{ asset('assets/logo/logo_full_light.png') }}" alt="logo" class="desktop-dark " style="height:48px">
@@ -54,7 +54,7 @@
 
                    <li class="slide">
                        <a href="{{ route('serviceprovider.index') }}"
-                           class="side-menu__item {{ request()->is('serviceprovider*') ||  request()->is('fuel_station*') ? 'active' : '' }}">
+                           class="side-menu__item {{ request()->is('serviceprovider*') ||  request()->is('fuel_station*')||  request()->is('toll_gate*')||  request()->is('insurance*') ? 'active' : '' }}">
                            <i class="bx bxs-user side-menu__icon"></i>
                            <span class="side-menu__label">Service Providers</span>
                        </a>

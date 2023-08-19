@@ -1,7 +1,7 @@
    <!-- Footer Start -->
-   <footer class="footer mt-auto py-3 bg-white text-center">
+   <footer class=" mt-auto bg-white text-center">
     <div class="container">
-        <span class="text-muted"> Copyright © <span id="year"></span> <a href="javascript:void(0);"
+        <span class="text-muted">Copyright © <span id="year"></span> <a href="#"
                 class="text-dark fw-semibold">UDT All rights reserved
         </span>
     </div>
