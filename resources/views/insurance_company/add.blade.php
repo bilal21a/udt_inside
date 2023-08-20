@@ -28,6 +28,34 @@
 @endsection
 @section('js_after')
     <script>
+        $(document).ready(function() {
+            var map;
+            var marker;
+            var latInput = $('[name="lat"]');
+            var lngInput = $('[name="lng"]');
+
+            // Autocomplete functionality
+            var addressField = $('[name="contact_address"]')[0];
+            var autocomplete = new google.maps.places.Autocomplete(addressField);
+
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    // Handle invalid place selection
+                    return;
+                }
+
+                latInput.val(place.geometry.location.lat());
+                lngInput.val(place.geometry.location.lng());
+
+                var position = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location
+                    .lng());
+                map.setCenter(position);
+                marker.setPosition(position);
+            });
+        });
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const selectElements = document.querySelectorAll('.choices-multiple-default');
             console.log('selectElements: ', selectElements);

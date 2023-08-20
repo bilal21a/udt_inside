@@ -48,6 +48,25 @@ class InsuranceCompaniesController extends Controller
             ]
         ]);
     }
+    public function insurance_companies_count()
+    {
+        $companies = InsuranceCompany::get();
+        $planCounts = [];
+
+        foreach ($companies as $company) {
+            $serializedArray = $company->type_insurance_plan;
+            $plansArray = $serializedArray;
+
+            foreach ($plansArray as $plan) {
+                if (isset($planCounts[$plan])) {
+                    $planCounts[$plan]++;
+                } else {
+                    $planCounts[$plan] = 1;
+                }
+            }
+        }
+        return $this->sendResponse('Count of Insurance Companies in UDT platform', $planCounts);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -72,6 +91,8 @@ class InsuranceCompaniesController extends Controller
             'contact_person' => 'required',
             'contact_email' => 'required|email',
             'contact_address' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
             'contact_website' => 'required|url',
             'phone' => 'required',
             'Lisence_no' => 'required',
@@ -136,6 +157,8 @@ class InsuranceCompaniesController extends Controller
             'contact_person' => 'required',
             'contact_email' => 'required|email',
             'contact_address' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
             'contact_website' => 'required|url',
             'phone' => 'required',
             'Lisence_no' => 'required',

@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\DriversController;
 use App\Http\Controllers\API\ForgetPasswordController;
 use App\Http\Controllers\API\FuelStationsController;
+use App\Http\Controllers\API\InsuranceCompaniesController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\TollGatesController;
 use App\Http\Controllers\API\VehicleMakeModalController;
@@ -45,9 +46,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // Toll gate routes
     Route::resource('toll_gate', 'API\TollGatesController');
     Route::post('toll_gate_status_change/{id}', [TollGatesController::class, 'status_change']);
+    Route::get('toll_gate_count', [TollGatesController::class, 'toll_gate_count']);
 
     // Insurance Company routes
     Route::resource('insurance_company', 'API\InsuranceCompaniesController');
+    Route::get('insurance_companies_count', [InsuranceCompaniesController::class, 'insurance_companies_count']);
 
     // Vehicles routes
     Route::resource('vehicle', 'API\VehiclesController');

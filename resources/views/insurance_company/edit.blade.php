@@ -26,16 +26,54 @@
         </div>
     </div>
 @endsection
-{{-- @dd($insurance_company->type_insurance_service) --}}
+@php
+    $keys = $insurance_company->type_insurance_plan;
+    $values = $insurance_plans;
+    $result = array_intersect_key($values, array_flip($keys));
+    $plans = array_values($result);
+
+    $keys = $insurance_company->type_insurance_service;
+    $values = $insurance_services;
+    $result = array_intersect_key($values, array_flip($keys));
+    $services = array_values($result);
+@endphp
 @section('js_after')
     <script>
-        var type_insurance_plan = @json($insurance_company->type_insurance_plan);
-        var type_insurance_service = @json($insurance_company->type_insurance_service);
+        $(document).ready(function() {
+            var map;
+            var marker;
+            var latInput = $('[name="lat"]');
+            var lngInput = $('[name="lng"]');
 
+            // Autocomplete functionality
+            var addressField = $('[name="contact_address"]')[0];
+            var autocomplete = new google.maps.places.Autocomplete(addressField);
+
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    // Handle invalid place selection
+                    return;
+                }
+
+                latInput.val(place.geometry.location.lat());
+                lngInput.val(place.geometry.location.lng());
+
+                var position = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location
+                    .lng());
+                map.setCenter(position);
+                marker.setPosition(position);
+            });
+        });
+    </script>
+    <script>
+        var type_insurance_plan = @json($plans);
+        var type_insurance_service = @json($services);
         document.addEventListener('DOMContentLoaded', function() {
             const selectElements = document.querySelectorAll('.choices-multiple-default');
-            console.log('selectElements: ', selectElements);
             selectElements.forEach((element) => {
+                console.log('element: ', element);
+                console.log('type_insurance_plan: ', type_insurance_plan);
                 new Choices(element).setValue(type_insurance_plan);
             });
         });

@@ -49,7 +49,9 @@ class InsuranceCompanyController extends Controller
     {
         $service_provider = $request->service_provider;
         if ($service_provider) {
-            return view('insurance_company.add', compact('service_provider'));
+            $insurance_plans = ['health' => 'Health', 'life' => 'Life', 'funeral' => 'funeral', 'injuries' => 'injuries'];
+            $insurance_services = ['individual_plan' => 'Individual Plan', 'family_plan' => 'Family Plan', 'group_plan' => 'Group Plan'];
+            return view('insurance_company.add', compact('service_provider','insurance_plans','insurance_services'));
         } else {
             return redirect()->back();
         }
@@ -108,8 +110,10 @@ class InsuranceCompanyController extends Controller
     {
         $service_provider = $request->service_provider;
         if ($service_provider) {
+            $insurance_plans = ['health' => 'Health', 'life' => 'Life', 'funeral' => 'funeral', 'injuries' => 'injuries'];
+            $insurance_services = ['individual_plan' => 'Individual Plan', 'family_plan' => 'Family Plan', 'group_plan' => 'Group Plan'];
             $insurance_company = InsuranceCompany::find($id);
-            return view('insurance_company.edit', compact('id', 'insurance_company', 'service_provider'));
+            return view('insurance_company.edit', compact('id', 'insurance_company', 'service_provider','insurance_plans','insurance_services'));
         } else {
             return redirect()->back();
         }

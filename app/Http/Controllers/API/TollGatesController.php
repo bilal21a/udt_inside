@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\InsuranceCompany;
 use App\TollGate;
 use App\Traits\TollGateTrait;
 use Illuminate\Http\Request;
@@ -44,6 +45,13 @@ class TollGatesController extends Controller
                 'totalItems' => $data->total()
             ]
         ]);
+    }
+    public function toll_gate_count()
+    {
+        $user_id = auth('sanctum')->id();
+        $data['active'] = TollGate::where('user_id', $user_id)->where('status', 1)->count();
+        $data['in_active'] = TollGate::where('user_id', $user_id)->where('status', 0)->count();
+        return $this->sendResponse('Toll Gates Count', $data);
     }
 
     /**
