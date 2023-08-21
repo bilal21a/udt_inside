@@ -15,6 +15,7 @@ trait TollGateTrait
         $tollGate->ltv_fee = $request->ltv_fee;
         $tollGate->note = $request->note;
         $tollGate->user_id = $user_id;
+        $tollGate->status = 1;
         $this->save_gate_image($request, $tollGate, 'image', 'toll_gate_images', $type);
         $tollGate->save();
 
