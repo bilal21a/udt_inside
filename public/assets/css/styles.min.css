@@ -665,7 +665,7 @@
 
 [data-menu-styles=dark][data-theme-mode=light] {
     --menu-bg: #936C07;
-    --menu-prime-color: #a3aed1
+    --menu-prime-color: white;
 }
 
 [data-menu-styles=color] {
