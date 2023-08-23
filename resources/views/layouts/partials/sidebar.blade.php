@@ -25,13 +25,13 @@
                </div>
                <ul class="main-menu">
                    <!-- Start::slide__category -->
-                   <li class="slide__category"><span class="category-name">Main</span></li>
+                   <li class="slide__category"><span class="category-name color_white">Main</span></li>
                    <!-- End::slide__category -->
 
                    <!-- Start::slide -->
                    <li class="slide">
                        <a href="{{ route('home') }}"
-                           class="side-menu__item {{ request()->is('home*') ? 'active' : '' }}">
+                           class="side-menu__item color_white {{ request()->is('home*') ? 'active' : '' }}">
                            <i class="bx bxs-dashboard side-menu__icon"></i>
                            <span class="side-menu__label">Dashboard</span>
                        </a>
@@ -39,14 +39,14 @@
                    <!-- End::slide -->
 
                    <!-- Start::slide__category -->
-                   <li class="slide__category"><span class="category-name">Users</span></li>
+                   <li class="slide__category"><span class="category-name color_white">Users</span></li>
                    <!-- End::slide__category -->
 
                    <!-- Start::slide -->
                    <li class="slide">
                        <a href="{{ route('customers.index') }}"
 
-                           class="side-menu__item {{ request()->is('customers*')|| request()->is('vehicles*') || request()->is('drivers*')  ? 'active' : '' }}">
+                           class="side-menu__item color_white {{ request()->is('customers*')|| request()->is('vehicles*') || request()->is('drivers*')  ? 'active' : '' }}">
                            <i class="bx bxs-user side-menu__icon"></i>
                            <span class="side-menu__label">Customers</span>
                        </a>
@@ -54,21 +54,21 @@
 
                    <li class="slide">
                        <a href="{{ route('serviceprovider.index') }}"
-                           class="side-menu__item {{ request()->is('serviceprovider*') ||  request()->is('fuel_station*')||  request()->is('toll_gate*')||  request()->is('insurance*') ? 'active' : '' }}">
+                           class="side-menu__item color_white {{ request()->is('serviceprovider*') ||  request()->is('fuel_station*')||  request()->is('toll_gate*')||  request()->is('insurance*') ? 'active' : '' }}">
                            <i class="bx bxs-user side-menu__icon"></i>
                            <span class="side-menu__label">Service Providers</span>
                        </a>
                    </li>
 
                    <!-- Start::slide__category -->
-                   <li class="slide__category"><span class="category-name">Vehicles</span></li>
+                   <li class="slide__category"><span class="category-name color_white">Vehicles</span></li>
                    <!-- End::slide__category -->
 
                    <!-- Start::slide -->
 
                    <li class="slide">
                        <a href="{{ route('vehicle_make.index') }}"
-                           class="side-menu__item {{ request()->is('vehicle_make*') ? 'active' : '' }}">
+                           class="side-menu__item color_white {{ request()->is('vehicle_make*') ? 'active' : '' }}">
                            <i class="bx bxs-car side-menu__icon"></i>
                            <span class="side-menu__label">Vehicle Make</span>
                        </a>
@@ -76,17 +76,17 @@
 
                    <li class="slide">
                        <a href="{{ route('vehicle_modal.index') }}"
-                           class="side-menu__item {{ request()->is('vehicle_modal*') ? 'active' : '' }}">
+                           class="side-menu__item color_white {{ request()->is('vehicle_modal*') ? 'active' : '' }}">
                            <i class="bx bxs-car side-menu__icon"></i>
                            <span class="side-menu__label">Vehicle Models</span>
                        </a>
                    </li>
 
                     <!-- Start::slide__category -->
-                    <li class="slide__category"><span class="category-name">Setting</span></li>
+                    <li class="slide__category"><span class="category-name color_white">Setting</span></li>
                     <li class="slide">
                         <a href="{{ route('logout') }}"
-                            class="side-menu__item">
+                            class="side-menu__item color_white">
                             <i class="bx bxs-exit side-menu__icon"></i>
                             <span class="side-menu__label">Logout</span>
                         </a>
