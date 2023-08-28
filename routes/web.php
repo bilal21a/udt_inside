@@ -27,11 +27,12 @@ use Twilio\Rest\Client;
 */
 
 Route::get('test_sms', function () {
-    $recipients='+923014750383';
-    $message="hi";
-    $account_sid = getenv("TWILIO_SID");
-        $auth_token = getenv("TWILIO_AUTH_TOKEN");
-        $twilio_number = getenv("TWILIO_NUMBER");
+    $recipients='+260967154324';
+    $message="hi test message from udt twillio inform hasseb ASAP as you recived this";
+    $account_sid = env("TWILIO_SID");
+    // dd($account_sid);
+        $auth_token = env("TWILIO_AUTH_TOKEN");
+        $twilio_number = env("TWILIO_NUMBER");
         $client = new Client($account_sid, $auth_token);
         $client->messages->create(
             $recipients,

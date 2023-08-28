@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Mail\OtpMail;
-use App\Traits\CustomerTrait;
+use Twilio\Rest\Client;
 use App\Traits\userTrait;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -124,7 +124,19 @@ class RegisterController extends BaseController
         $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
         $user->otp = $otp;
         $user->save();
-        Mail::to($user->email)->send(new OtpMail($user));
+
+        $recipients = $user->mobile;
+        // $recipients='+260967154324';
+        $message = $otp . " is youre OTP for UNITED DRIVERS TRUST";
+        $account_sid = env("TWILIO_SID");
+        $auth_token = env("TWILIO_AUTH_TOKEN");
+        $twilio_number = env("TWILIO_NUMBER");
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create(
+            $recipients,
+            ['from' => $twilio_number, 'body' => $message]
+        );
+        // Mail::to($user->email)->send(new OtpMail($user));
         return $this->sendResponse("Otp Sent Successfully", null);
     }
     public function verify_otp(Request $request)
@@ -235,7 +247,8 @@ class RegisterController extends BaseController
             return $this->sendError($th->getMessage(), null);
         }
     }
-    public function me(){
+    public function me()
+    {
         return auth('sanctum')->user();
     }
 }
