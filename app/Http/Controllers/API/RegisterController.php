@@ -135,7 +135,7 @@ class RegisterController extends BaseController
             ['from' => $twilio_number, 'body' => $message]
         );
         // Mail::to($user->email)->send(new OtpMail($user));
-        return $this->sendResponse("Otp Sent Successfully", null);
+        return $this->sendResponse("Otp Sent Successfully", $otp);
     }
     public function verify_otp(Request $request)
     {
