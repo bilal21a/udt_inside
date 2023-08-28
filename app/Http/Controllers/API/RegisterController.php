@@ -4,12 +4,10 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
-use App\Mail\OtpMail;
 use Twilio\Rest\Client;
 use App\Traits\userTrait;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends BaseController
@@ -125,7 +123,7 @@ class RegisterController extends BaseController
         $user->otp = $otp;
         $user->save();
 
-        $recipients = $user->mobile;
+        $recipients = $user->phone;
         // $recipients='+260967154324';
         $message = $otp . " is youre OTP for UNITED DRIVERS TRUST";
         $account_sid = env("TWILIO_SID");
